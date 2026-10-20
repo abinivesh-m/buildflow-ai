@@ -181,3 +181,10 @@ textarea::placeholder, input::placeholder { color: #94a1b5; }
   .main { padding: 20px 16px 96px; } .stats { grid-template-columns: 1fr 1fr; }
   .trow { grid-template-columns: 24px 1fr; } .trow select, .trow .hrs, .trow .btn { grid-column: 2; } .stack-row { grid-template-columns: 1fr; }
 }
+
+/* Dictation-first intake */
+.intake { display: grid; gap: 12px; padding: 20px; background: var(--accent-soft); border-radius: var(--radius); }
+.review-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.review-box p { margin: 0 0 8px; } .review-box ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 15px; }
+.ok, .no { display: inline-block; margin-right: 6px; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+.ok { background: #e3f6ea; color: #1b6b3a; } .no { background: #fff1d6; color: #8a5a00; }
