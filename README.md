@@ -47,6 +47,14 @@ It guides you through the complete software delivery lifecycle:
 
 ---
 
+## Live Production Deployment
+- **Production URL:** [https://buildflow-ai-livid.vercel.app/](https://buildflow-ai-livid.vercel.app/)
+- **Git Branch Deployment:** [https://buildflow-ai-git-main-abinivesh-m.vercel.app/](https://buildflow-ai-git-main-abinivesh-m.vercel.app/)
+- **GitHub Repository:** [https://github.com/abinivesh-m/buildflow-ai](https://github.com/abinivesh-m/buildflow-ai)
+- **Deployment Status:** HTTP 200 OK (Verified live in production)
+
+---
+
 ## Getting Started Locally
 
 ### Prerequisites
