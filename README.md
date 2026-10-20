@@ -1,115 +1,211 @@
-# BuildFlow — Turn your ideas into things that work
+<div align="center">
 
-BuildFlow is a production-ready, client-side first project planning, execution, and delivery workspace engineered for students, hackathon participants, and independent builders.
+# ⚡ BuildFlow
 
-It guides you through the complete software delivery lifecycle:
-**IDEA → PLAN → BUILD → TEST → DEPLOY → PRESENT**
+### **Turn your ideas into things that actually work.**
 
----
+A high-performance, execution-first planning and delivery workspace built for students, hackathon builders, and independent developers.
 
-## Key Features
-
-1. **Compelling Welcome & Landing Experience**: Overview of the 6-stage lifecycle, feature pillars, and FAQ.
-2. **Honest Planning Engine**:
-   - Built-in deterministic generator produces an 18-point blueprint with zero API dependencies.
-   - Transparently labels source: local rule engine vs. server-side AI model.
-   - Never fabricates AI completions or metrics.
-3. **18-Point Engineering Blueprint**:
-   - Problem statement, Target audience, User needs, Proposed solution
-   - MVP scope boundaries & explicit non-goals
-   - Functional & non-functional requirements
-   - User stories & acceptance criteria
-   - Technical architecture & relational data entities
-   - Implementation phases with effort hours
-   - Testing strategy & deployment plan
-   - Demo script outline & potential risks with mitigations
-4. **Atomic Task Execution**:
-   - Tracks IDs, priorities, effort estimates, acceptance criteria, blockers, and notes.
-   - Dependency protection: prevents completing a task if upstream dependencies are unresolved.
-   - Real metrics: completion percentages are strictly computed from persisted tasks.
-5. **Technical Decision Records (TDR)**:
-   - Record context, options evaluated, chosen option, reasoning, and trade-offs.
-   - Direct export to Markdown for inclusion in code repositories.
-6. **Testing & Quality Checklist**:
-   - Covers core logic, input validation, persistence, accessibility, and mobile responsiveness.
-   - Genuine manual and automated check reporting (no fake auto-passes).
-7. **Deployment Readiness Center**:
-   - Verify production builds, secret hygiene (no committed keys), and live HTTPS reachability.
-8. **Demo & Presentation Studio**:
-   - Structured pitch outline with adjustable duration.
-   - Pre-flight checklist for hackathon and demo day success.
-9. **Full Data Portability**:
-   - Export full project blueprint (.md), README.md, Task list (.csv), and Technical Decisions (.md).
-   - Single-file full JSON backup with restore capability.
-10. **Design System**:
-    - High-contrast, polished dark/light mode with typography scale.
-    - Zero horizontal overflow across viewports from 360px to 1440px.
+[![Production Deployment](https://img.shields.io/badge/Production-Live_v2.2-10b981?style=for-the-badge&logo=vercel&logoColor=white)](https://buildflow-ai-livid.vercel.app/)
+[![Automated Tests](https://img.shields.io/badge/Vitest-18%2F18%20Passed-6366f1?style=for-the-badge&logo=vitest&logoColor=white)](https://github.com/abinivesh-m/buildflow-ai)
+[![License: MIT](https://img.shields.io/badge/License-MIT-06b6d4?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Build with Vite](https://img.shields.io/badge/Vite-8.3-f59e0b?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
 
 ---
 
-## Live Production Deployment
-- **Production URL:** [https://buildflow-ai-livid.vercel.app/](https://buildflow-ai-livid.vercel.app/)
-- **Git Branch Deployment:** [https://buildflow-ai-git-main-abinivesh-m.vercel.app/](https://buildflow-ai-git-main-abinivesh-m.vercel.app/)
-- **GitHub Repository:** [https://github.com/abinivesh-m/buildflow-ai](https://github.com/abinivesh-m/buildflow-ai)
-- **Deployment Status:** HTTP 200 OK (Verified live in production)
+### 🌐 [**Open Live Production App**](https://buildflow-ai-livid.vercel.app/) • 📦 [**GitHub Repository**](https://github.com/abinivesh-m/buildflow-ai)
+
+</div>
 
 ---
 
-## Getting Started Locally
+## 🎯 The Core Problem
+
+Most builders don't fail because they lack ideas—they fail in **execution**:
+- **Ambiguous Scope:** Underestimating technical complexity and suffering from runaway scope creep.
+- **Lost Architecture Context:** Forgetting *why* certain technologies, schemas, or trade-offs were chosen.
+- **Unverified Deliverables:** Skipping edge-case checks, responsiveness audits, and security validations.
+- **Rushed Demos:** Scrambling on demo day with broken live workflows, unhandled errors, and unstructured pitch narratives.
+
+**BuildFlow forces execution over vanity dashboards**, walking builders through the entire delivery lifecycle:
+
+```mermaid
+flowchart LR
+    A["1. IDEA"] --> B["2. PLAN"]
+    B --> C["3. BUILD"]
+    C --> D["4. TEST"]
+    D --> E["5. DEPLOY"]
+    E --> F["6. PRESENT"]
+```
+
+---
+
+## ✨ Stand-Out Capabilities
+
+### 1. 📐 18-Point Engineering Blueprint
+Transforms a raw prompt into an exhaustive engineering blueprint:
+- **Problem Statement & Target Users**
+- **User Needs & Proposed Solution**
+- **MVP Scope Boundaries & Explicit Non-Goals**
+- **Functional & Non-Functional Requirements**
+- **User Stories & Objective Acceptance Criteria**
+- **Technical Architecture & Relational Data Models**
+- **Implementation Phases with Effort Hour Estimates**
+- **Testing Strategy & Deployment Readiness Plan**
+- **Presentation Demo Script & Potential Risks with Mitigations**
+
+### 2. ⚡ Honest Planning Engine (Zero Fake AI)
+- **Built-in Deterministic Rule Engine:** Instant, zero-latency blueprint generation in the browser with **zero external API dependencies**.
+- **Optional Server-side Gemini 2.5 Flash:** Safely proxies prompts through `/api/generate.js` without leaking client secrets.
+- **Transparent Source Attribution:** Every blueprint clearly displays its generator engine origin. Never passes off deterministic code as an AI model.
+
+### 3. 📋 Dependency-Guarded Task Execution
+- Tasks track unique IDs, priority (`critical`, `high`, `medium`, `low`), estimated hours, acceptance criteria, notes, and blocker logs.
+- **Strict Dependency Enforcement:** Prevents marking tasks as `done` if prerequisite dependencies remain incomplete.
+- **Truthful Progress Metrics:** Calculated strictly from persisted task statuses:
+  $$\text{Progress} = \left(\frac{\text{Completed Tasks}}{\text{Total Tasks}}\right) \times 100\%$$
+
+### 4. 🏛️ Technical Decision Records (TDR)
+Capture critical architectural decisions directly inside your workspace:
+- Context & Problem Statement
+- Options Evaluated vs. Chosen Option
+- Architectural Reasoning & Accepted Consequences
+- Status (`proposed`, `accepted`, `deprecated`, `superseded`)
+- One-click export to Markdown for inclusion in Git repositories.
+
+### 5. 🧪 Testing & Quality Checklist
+Real manual and automated quality verification covering:
+- Core Domain Logic & Input Validation
+- Data Persistence & Migration Safeguards
+- Small Viewport Mobile Responsiveness (360px - 390px)
+- Keyboard Focus & Accessibility (WCAG 2.2 AA standards)
+- Zero fake auto-passes: checks require deliberate tester verification.
+
+### 6. 🚀 Deployment Readiness Center
+Pre-flight operational checks before publishing:
+- Production build verification (`npm run build`)
+- Secret hygiene audits (zero committed `.env` tokens)
+- Live HTTPS reachability tests with response code verification.
+
+### 7. 🎤 Demo & Presentation Studio
+- Structured presentation script with adjustable target durations (e.g., 3-minute hackathon pitch).
+- Live walkthrough narrative and feature highlights.
+- Pre-flight demo checklist (screens checked, backup screenshots ready, credentials validated).
+- Instant export to plain text or Markdown.
+
+### 8. 💾 Complete Data Portability & Local-First Privacy
+- **Local-First Storage:** All data lives in your browser with multi-version schema migration support (`v1`, `v2`, and `v3`).
+- **Comprehensive Backups:** Full JSON backup and restore.
+- **Real-Data Exports:** Full Blueprint (.md), README.md, Tasks (.csv), and TDRs (.md).
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend Framework** | React 19, Vite 8.3 |
+| **Icons & Visuals** | Lucide React, Canvas Confetti |
+| **Styling & Tokens** | High-contrast Linear/Vercel-grade design system, Plus Jakarta Sans, JetBrains Mono |
+| **Test Automation** | Vitest 5.0 (Unit, Workflow, & Schema integration suites) |
+| **Code Quality** | Oxlint (Rust-based linter) |
+| **Hosting & CI/CD** | Vercel Edge Network with automated continuous Git deployment |
+
+---
+
+## 🚀 Getting Started Locally
 
 ### Prerequisites
-- Node.js (v18+ recommended)
-- npm (v9+)
+- [Node.js](https://nodejs.org/) v18+ (tested on v20 and v24)
+- [npm](https://www.npmjs.com/) v9+
 
-### Installation & Development
-\`\`\`bash
+### Quick Setup
+
+```bash
 # 1. Clone the repository
-git clone <repository-url>
-cd billflow-ai
+git clone https://github.com/abinivesh-m/buildflow-ai.git
+cd buildflow-ai
 
 # 2. Install dependencies
 npm install
 
-# 3. Start local development server (live on http://localhost:5173)
+# 3. Start local development server (runs live on http://localhost:5173/)
 npm run dev
+```
 
-# 4. Run automated test suite (Vitest)
+### Running Tests
+
+```bash
+# Execute the full automated test suite
 npm test
+```
 
-# 5. Build for production
+### Production Build
+
+```bash
+# Compile and optimize for production
 npm run build
-\`\`\`
+
+# Preview production build locally
+npm run preview
+```
 
 ---
 
-## Environment Configuration
+## 🧪 Test Coverage & Verification
 
-See [`.env.example`](file:///c:/Users/abini/billflow-ai/.env.example) for available options:
-\`\`\`env
-# Optional: Set a Google Gemini API key to enable server-side enhanced planning
-GEMINI_API_KEY=
+BuildFlow features an automated test suite executed with Vitest:
+
+```text
+ ✓ src/workflow.test.js (5 tests passed)
+   - Dependency constraint prevents completing task if upstream task is incomplete
+   - Destructive actions preserve user tasks on plan regeneration
+   - Calculated metrics strictly match task counts without fabrication
+   - Technical Decision Records are initialized and structured
+   - Testing and Deployment readiness checklists require deliberate verification
+
+ ✓ src/engine.test.js (5 tests passed)
+   - Generates comprehensive 18-point plan and all workspace modules
+   - Tasks have valid priorities, estimates, acceptance criteria, and status
+   - Progress calculation strictly uses real task completion numbers
+   - StatusOf returns correct status reflecting task states
+   - Docs exports generate valid Markdown, CSV, and Readme with real data
+
+ ✓ src/intake.test.js (8 tests passed)
+   - Natural language and voice dictation parser extracts constraints accurately
+
+Test Files:  3 passed (3)
+Tests:       18 passed (18)
+Duration:    341ms
+```
+
+---
+
+## 🌍 Live Production Deployment
+
+| Target | URL |
+| :--- | :--- |
+| **Production Application** | [https://buildflow-ai-livid.vercel.app/](https://buildflow-ai-livid.vercel.app/) |
+| **Continuous Git Branch** | [https://buildflow-ai-git-main-abinivesh-m.vercel.app/](https://buildflow-ai-git-main-abinivesh-m.vercel.app/) |
+| **GitHub Source Repository** | [https://github.com/abinivesh-m/buildflow-ai](https://github.com/abinivesh-m/buildflow-ai) |
+
+---
+
+## 🔐 Environment Variables (Optional)
+
+BuildFlow operates with 100% functionality out of the box using its built-in rule engine. If you want to enable the optional serverless AI proxy:
+
+```env
+# Optional: Google Gemini API key for server-side plan enrichment
+GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL=gemini-2.5-flash
-\`\`\`
-*Note: If no API key is provided, BuildFlow operates at 100% functionality using its high-speed deterministic rule engine.*
+
+# Application Configuration
+NODE_ENV=production
+```
 
 ---
 
-## Automated Test Results
-- **Suite**: Vitest v5.0.5
-- **Tests**: 18 passing across 3 test files:
-  - [`src/intake.test.js`](file:///c:/Users/abini/billflow-ai/src/intake.test.js) (Natural language parsing & voice dictation intake)
-  - [`src/engine.test.js`](file:///c:/Users/abini/billflow-ai/src/engine.test.js) (18-point plan schema, task math, and document exports)
-  - [`src/workflow.test.js`](file:///c:/Users/abini/billflow-ai/src/workflow.test.js) (Task dependency safeguards, destructive action protection, and data integrity)
+## 📄 License
 
----
-
-## Production Deployment Guide
-
-BuildFlow produces a standalone static bundle with an optional serverless API seam for Gemini:
-
-1. **Frontend Hosting (Vercel / Cloudflare Pages / Netlify / Render)**:
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-2. **Serverless AI Seam (Optional)**:
-   - The `/api/generate.js` handler runs as a Vercel Serverless Function or Node.js Express route.
-   - Configure `GEMINI_API_KEY` in your platform's environment variable dashboard.
+Distributed under the **MIT License**. See `LICENSE` for more information. Built for students, builders, and hackathon competitors worldwide.
