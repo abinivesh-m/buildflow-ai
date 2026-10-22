@@ -40,7 +40,7 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
         <h1 className="hero-title">Turn your ideas into things that actually work.</h1>
         <p className="hero-desc">
           Stop getting stuck between having a concept and shipping working software.
-          Dictate your project vision hands-free at 160+ WPM with Wispr Flow—BuildFlow instantly transforms spoken ideas into
+          Dictate your project vision hands-free at 251 WPM with Wispr Flow (Top 0.1%)—BuildFlow instantly transforms spoken ideas into
           traceable requirements, architecture topologies, dependency-guarded tasks, and release verification checklists.
         </p>
 
@@ -143,7 +143,7 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
             </div>
             <h3>Voice-to-Spec (Wispr Flow Native)</h3>
             <p>
-              Speak your ideas at 160+ WPM. Local deterministic NLP extracts project scope,
+              Speak your ideas at 251 WPM (Top 0.1% globally). Local deterministic NLP extracts project scope,
               tech stack, and timelines without sending private text to external servers.
             </p>
           </div>

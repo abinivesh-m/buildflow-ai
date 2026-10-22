@@ -106,6 +106,72 @@ Live Production URL: ${project.productionUrl || "https://buildflow-ai-livid.verc
         </div>
       </div>
 
+      {/* Submission Pack Card */}
+      <div
+        className="card"
+        style={{
+          marginBottom: "20px",
+          background: "rgba(16, 185, 129, 0.05)",
+          border: "1px solid rgba(16, 185, 129, 0.3)",
+          padding: "20px 24px",
+        }}
+      >
+        <h3 style={{ fontSize: "1.05rem", color: "var(--accent-emerald)", marginBottom: "12px" }}>
+          📦 Submission Pack — Wispr Challenge
+        </h3>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+          <div>
+            <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+              Submission Checklist
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {[
+                "Live URL: https://buildflow-ai-livid.vercel.app/",
+                "2-min demo video recorded with Wispr screen capture",
+                "GitHub repo: github.com/abinivesh-m/buildflow-ai (public)",
+                "Submission blurb (right) — copy-paste to form",
+              ].map((item, i) => (
+                <div key={i} style={{ fontSize: "0.83rem", color: "var(--text-secondary)", display: "flex", gap: "8px", alignItems: "flex-start" }}>
+                  <span style={{ color: "var(--accent-emerald)", flexShrink: 0 }}>✓</span>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+              Copy-Paste Submission Blurb
+            </div>
+            <div
+              style={{
+                background: "var(--bg-input)",
+                border: "1px solid var(--border)",
+                borderRadius: "var(--radius-sm)",
+                padding: "12px",
+                fontSize: "0.8rem",
+                color: "var(--text-secondary)",
+                lineHeight: "1.55",
+                fontFamily: "var(--font-mono)",
+                maxHeight: "130px",
+                overflowY: "auto",
+              }}
+            >
+              Problem: Developers lose hours bridging the gap between rough ideas and structured execution plans — manually writing requirements, architecture diagrams, and risk registers across 5 disconnected apps. Audience: Indie developers, student teams, and solo engineers who need structure without overhead. Wispr Flow Usage: I dictated every requirement, architectural decision, and risk record at 251 WPM (Top 0.1% globally, 209,000+ words total) — BuildFlow parses spoken project briefs into 18-point engineering blueprints with full traceability matrix, 5×5 risk heatmap, and Mermaid topology. Voice replaced typing for the entire development workflow.
+            </div>
+            <button
+              className="btn btn-secondary btn-sm"
+              style={{ marginTop: "8px", width: "100%" }}
+              onClick={() => {
+                navigator.clipboard.writeText("Problem: Developers lose hours bridging the gap between rough ideas and structured execution plans — manually writing requirements, architecture diagrams, and risk registers across 5 disconnected apps. Audience: Indie developers, student teams, and solo engineers who need structure without overhead. Wispr Flow Usage: I dictated every requirement, architectural decision, and risk record at 251 WPM (Top 0.1% globally, 209,000+ words total) — BuildFlow parses spoken project briefs into 18-point engineering blueprints with full traceability matrix, 5×5 risk heatmap, and Mermaid topology. Voice replaced typing for the entire development workflow.");
+                onNotify("Submission blurb copied to clipboard!");
+              }}
+            >
+              📋 Copy Submission Blurb
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Executive Pitch Banner Card */}
       <div
         className="card"

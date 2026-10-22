@@ -392,6 +392,37 @@ function OverviewSection({ project, onPatch, onNotify }) {
                 {project.constraints || "None specified"}
               </div>
             </div>
+            <div>
+              <span className="form-hint">Requirements Coverage</span>
+              <div style={{ fontWeight: 600, color: "var(--text-main)" }}>
+                {(project.requirements || []).length > 0
+                  ? `${(project.requirements || []).filter((r) => r.linkedTaskIds?.length > 0).length} / ${(project.requirements || []).length} linked`
+                  : "—"}
+              </div>
+            </div>
+            <div>
+              <span className="form-hint">Open Risks</span>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "2px" }}>
+                {(() => {
+                  const openCount = (project.risks || []).filter((r) => r.status === "open").length;
+                  return openCount > 0 ? (
+                    <span className="badge badge-rose">{openCount} active risk{openCount > 1 ? "s" : ""}</span>
+                  ) : (
+                    <span className="badge badge-green">0 open risks</span>
+                  );
+                })()}
+              </div>
+            </div>
+            <div>
+              <span className="form-hint">Traceability Health</span>
+              <div style={{ marginTop: "2px" }}>
+                {(project.requirements || []).length > 0 ? (
+                  <span className="badge badge-green">✓ Matrix Active</span>
+                ) : (
+                  <span className="badge badge-amber">Set up Requirements</span>
+                )}
+              </div>
+            </div>
           </div>
         </div>
 

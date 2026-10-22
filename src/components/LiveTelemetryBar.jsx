@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Mic, Activity, Radio, Sparkles } from "lucide-react";
+import { Mic, Activity, Radio, Sparkles, Zap } from "lucide-react";
 
 export default function LiveTelemetryBar({ activeProject, onNotify }) {
   const [timeStr, setTimeStr] = useState("");
@@ -27,11 +27,11 @@ export default function LiveTelemetryBar({ activeProject, onNotify }) {
         .filter(Boolean).length
     : 350;
 
-  const minutesSaved = Math.max(1, Math.round((totalWords / 40) - (totalWords / 160)));
+  const minutesSaved = Math.max(1, Math.round((totalWords / 40) - (totalWords / 251)));
 
   const events = [
     activeProject ? `Project: "${activeProject.title.slice(0, 30)}..." · 100% Persisted` : "BuildFlow Engine: Standby · Ready for Voice Intake",
-    `Wispr Flow Telemetry: ${totalWords.toLocaleString()} words captured · ~${minutesSaved}m saved (4x typing speed)`,
+    `Wispr Flow: 251 WPM · Top 0.1% · 209,822+ words dictated · ~${minutesSaved}m saved`,
     "Traceability Matrix: Requirements ↔ Tasks ↔ Tests ↔ TDRs ↔ Risks locked",
     "LocalStorage v3: Dual-tier normalizer active · Zero data loss",
     "Mermaid Topology: System architecture compiled",
@@ -110,11 +110,15 @@ export default function LiveTelemetryBar({ activeProject, onNotify }) {
 
       {/* Right: Technical Stats Badges */}
       <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+        <div className="telemetry-stat" title="Wispr Flow Peak Tested Speed (Top 0.1% Globally)" style={{ borderColor: "rgba(6, 182, 212, 0.4)" }}>
+          <Zap size={11} style={{ color: "var(--accent-cyan)" }} />
+          <span>251 WPM · TOP 0.1%</span>
+        </div>
         <div className="telemetry-stat" title="Words dictated in this workspace" style={{ borderColor: "rgba(139, 92, 246, 0.4)" }}>
           <Sparkles size={11} style={{ color: "var(--accent-purple)" }} />
           <span>{totalWords.toLocaleString()} WORDS</span>
         </div>
-        <div className="telemetry-stat" title="Estimated time saved at 160 WPM voice vs 40 WPM typing">
+        <div className="telemetry-stat" title="Estimated time saved at 251 WPM voice vs 40 WPM avg typing">
           <Activity size={11} style={{ color: "var(--accent-emerald)" }} />
           <span>~{minutesSaved}m SAVED</span>
         </div>
