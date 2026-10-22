@@ -1,13 +1,15 @@
 <div align="center">
 
-# ⚡ BuildFlow
+# ⚡ BuildFlow AI
 
 ### **Turn your ideas into things that actually work.**
+#### *Built for "No Hands: The Wispr Challenge" | WeMakeDevs × Wispr Flow (Track 1: Builders)*
 
-A high-performance, execution-first planning and delivery workspace built for students, hackathon builders, and independent developers.
+A high-performance, execution-first engineering workspace with **speech-to-spec intake**, **end-to-end requirement traceability**, **Mermaid system topology**, and **verifiable deployment readiness**.
 
 [![Production Deployment](https://img.shields.io/badge/Production-Live_v2.2-10b981?style=for-the-badge&logo=vercel&logoColor=white)](https://buildflow-ai-livid.vercel.app/)
-[![Automated Tests](https://img.shields.io/badge/Vitest-18%2F18%20Passed-6366f1?style=for-the-badge&logo=vitest&logoColor=white)](https://github.com/abinivesh-m/buildflow-ai)
+[![Automated Tests](https://img.shields.io/badge/Vitest-22%2F22%20Passed-6366f1?style=for-the-badge&logo=vitest&logoColor=white)](https://github.com/abinivesh-m/buildflow-ai)
+[![No Hands Challenge](https://img.shields.io/badge/Wispr_Flow-Track_1_Builders-8b5cf6?style=for-the-badge)](https://www.wemakedevs.org/wispr)
 [![License: MIT](https://img.shields.io/badge/License-MIT-06b6d4?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Build with Vite](https://img.shields.io/badge/Vite-8.3-f59e0b?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
 
@@ -19,61 +21,77 @@ A high-performance, execution-first planning and delivery workspace built for st
 
 ---
 
+## 🎙️ Built for "No Hands: The Wispr Challenge"
+
+> **"Build it, write it, ship it. Just don’t type it."** — WeMakeDevs & Wispr Flow
+
+| Judging Dimension (Weight) | BuildFlow AI Implementation |
+| :--- | :--- |
+| **30% — Real Problem in Work** | Solves the #1 cause of developer burnout: the friction between an idea and an actionable, traceable engineering plan. |
+| **30% — Meaningful Wispr Use** | Fast dictation intake at 160+ WPM directly translates spoken thoughts into structured 18-point specs, requirements, and TDR records. |
+| **25% — Does It Work?** | Verified live production URL deployed on Vercel with zero mocked buttons and strict offline schema persistence. |
+| **15% — Clear Demo** | Integrated Demo Studio with pre-flight checklist and an explicit 2-minute pitch tailored for hackathon judges. |
+
+---
+
 ## 🎯 The Core Problem
 
 Most builders don't fail because they lack ideas—they fail in **execution**:
 - **Ambiguous Scope:** Underestimating technical complexity and suffering from runaway scope creep.
+- **Traceability Black Holes:** Requirements that have no corresponding code tasks or verification tests.
 - **Lost Architecture Context:** Forgetting *why* certain technologies, schemas, or trade-offs were chosen.
-- **Unverified Deliverables:** Skipping edge-case checks, responsiveness audits, and security validations.
 - **Rushed Demos:** Scrambling on demo day with broken live workflows, unhandled errors, and unstructured pitch narratives.
 
-**BuildFlow forces execution over vanity dashboards**, walking builders through the entire delivery lifecycle:
+**BuildFlow forces execution over vanity dashboards**, walking builders through the six delivery stages:
 
 ```mermaid
 flowchart LR
     A["1. IDEA"] --> B["2. PLAN"]
-    B --> C["3. BUILD"]
-    C --> D["4. TEST"]
-    D --> E["5. DEPLOY"]
-    E --> F["6. PRESENT"]
+    B --> C["3. ARCHITECT"]
+    C --> D["4. BUILD"]
+    D --> E["5. TEST"]
+    E --> F["6. SHIP & PRESENT"]
 ```
 
 ---
 
 ## ✨ Stand-Out Capabilities
 
-### 1. 📐 18-Point Engineering Blueprint
-Transforms a raw prompt into an exhaustive engineering blueprint:
-- **Problem Statement & Target Users**
-- **User Needs & Proposed Solution**
-- **MVP Scope Boundaries & Explicit Non-Goals**
-- **Functional & Non-Functional Requirements**
-- **User Stories & Objective Acceptance Criteria**
-- **Technical Architecture & Relational Data Models**
-- **Implementation Phases with Effort Hour Estimates**
-- **Testing Strategy & Deployment Readiness Plan**
-- **Presentation Demo Script & Potential Risks with Mitigations**
+### 1. 🎙️ Voice-to-Spec Intake (Wispr Flow Native)
+- Dictate project ideas naturally at full conversational speed (160+ WPM).
+- Local deterministic Natural Language Parser extracts project title, technology stack, timeframe, and level without sending private data to cloud services.
+- One-click sample dictations for rapid demonstration.
 
-### 2. ⚡ Honest Planning Engine (Zero Fake AI)
-- **Built-in Deterministic Rule Engine:** Instant, zero-latency blueprint generation in the browser with **zero external API dependencies**.
-- **Optional Server-side Gemini 2.5 Flash:** Safely proxies prompts through `/api/generate.js` without leaking client secrets.
-- **Transparent Source Attribution:** Every blueprint clearly displays its generator engine origin. Never passes off deterministic code as an AI model.
+### 2. 🔗 End-to-End Traceability Matrix (Core Differentiator)
+- Maps every approved requirement to its **implementing tasks**, **verification tests**, **technical decisions**, and **mitigated risks**.
+- **Real-time Gap Analysis:** Flags untracked requirements (missing tasks) and unverified deliverables (missing tests).
+- **Smart Auto-Linker:** Semantic keyword heuristic that automatically discovers and establishes bidirectional traceability links.
 
-### 3. 📋 Dependency-Guarded Task Execution
-- Tasks track unique IDs, priority (`critical`, `high`, `medium`, `low`), estimated hours, acceptance criteria, notes, and blocker logs.
-- **Strict Dependency Enforcement:** Prevents marking tasks as `done` if prerequisite dependencies remain incomplete.
+### 3. 📐 System Architecture & Mermaid Diagrams
+- Generates editable **Mermaid flowcharts** visualizing client SPAs, API gateways, database persistence, and AI inference engines.
+- Component Topology Registry for defining system boundaries and data flow contracts.
+- Domain Entity Schema viewer directly derived from project specifications.
+
+### 4. 📋 Interactive Kanban Board & Task Execution
+- Dual view toggle: **📌 Kanban Board** (Backlog, Todo, In Progress, Blocked, Done) & **📋 Phase List**.
+- **Strict Dependency Enforcement:** Prevents marking tasks done if prerequisite dependencies remain incomplete.
 - **Truthful Progress Metrics:** Calculated strictly from persisted task statuses:
   $$\text{Progress} = \left(\frac{\text{Completed Tasks}}{\text{Total Tasks}}\right) \times 100\%$$
 
-### 4. 🏛️ Technical Decision Records (TDR)
+### 5. 🛡️ 5×5 Risk Register & Heatmap
+- Explainable risk calculation: $\text{Severity} = \text{Likelihood} (1\text{–}5) \times \text{Impact} (1\text{–}5)$.
+- Color-coded 5×5 interactive heatmap matrix.
+- Direct links between identified risks and the requirements they threaten.
+
+### 6. 🏛️ Technical Decision Records (TDR)
 Capture critical architectural decisions directly inside your workspace:
 - Context & Problem Statement
 - Options Evaluated vs. Chosen Option
 - Architectural Reasoning & Accepted Consequences
 - Status (`proposed`, `accepted`, `deprecated`, `superseded`)
-- One-click export to Markdown for inclusion in Git repositories.
+- One-click export to Markdown for Git version control.
 
-### 5. 🧪 Testing & Quality Checklist
+### 7. 🧪 Testing & Quality Checklist
 Real manual and automated quality verification covering:
 - Core Domain Logic & Input Validation
 - Data Persistence & Migration Safeguards
@@ -81,45 +99,55 @@ Real manual and automated quality verification covering:
 - Keyboard Focus & Accessibility (WCAG 2.2 AA standards)
 - Zero fake auto-passes: checks require deliberate tester verification.
 
-### 6. 🚀 Deployment Readiness Center
-Pre-flight operational checks before publishing:
-- Production build verification (`npm run build`)
-- Secret hygiene audits (zero committed `.env` tokens)
-- Live HTTPS reachability tests with response code verification.
-
-### 7. 🎤 Demo & Presentation Studio
-- Structured presentation script with adjustable target durations (e.g., 3-minute hackathon pitch).
-- Live walkthrough narrative and feature highlights.
-- Pre-flight demo checklist (screens checked, backup screenshots ready, credentials validated).
+### 8. 🎤 Demo Studio & 2-Minute Pitch
+- Dedicated **2-minute video pitch script** tailored for Wispr Flow judges.
+- Pre-flight checklist (screens checked, backup screenshots ready, credentials validated).
 - Instant export to plain text or Markdown.
-
-### 8. 💾 Complete Data Portability & Local-First Privacy
-- **Local-First Storage:** All data lives in your browser with multi-version schema migration support (`v1`, `v2`, and `v3`).
-- **Comprehensive Backups:** Full JSON backup and restore.
-- **Real-Data Exports:** Full Blueprint (.md), README.md, Tasks (.csv), and TDRs (.md).
 
 ---
 
-## 🛠️ Technology Stack
+## 🏗️ Architecture Topology
 
-| Layer | Technologies |
-| :--- | :--- |
-| **Frontend Framework** | React 19, Vite 8.3 |
-| **Icons & Visuals** | Lucide React, Canvas Confetti |
-| **Styling & Tokens** | High-contrast Linear/Vercel-grade design system, Plus Jakarta Sans, JetBrains Mono |
-| **Test Automation** | Vitest 5.0 (Unit, Workflow, & Schema integration suites) |
-| **Code Quality** | Oxlint (Rust-based linter) |
-| **Hosting & CI/CD** | Vercel Edge Network with automated continuous Git deployment |
+```mermaid
+flowchart TD
+  User["👤 Clinician / Developer"] --> UI["🖥️ React 19 SPA (Vite 8.3)"]
+  UI --> Router["App Navigation & State Store"]
+  Router --> Storage["💾 Local Storage (Schema v3 Normalizer)"]
+  Router --> APISync["🌐 API Gateway / Serverless (/api/generate)"]
+  APISync --> CloudModel["🤖 Inference Provider (Gemini 2.5 Flash / Meta AI)"]
+  Router --> Fallback["⚙️ Deterministic Fallback Rule Engine"]
+
+  classDef clientStyle fill:#1e1b4b,stroke:#6366f1,stroke-width:2px,color:#fff
+  classDef apiStyle fill:#312e81,stroke:#818cf8,stroke-width:2px,color:#fff
+  classDef dbStyle fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#fff
+  classDef aiStyle fill:#581c87,stroke:#c084fc,stroke-width:2px,color:#fff
+
+  class UI,Router clientStyle
+  class APISync apiStyle
+  class Storage dbStyle
+  class CloudModel,Fallback aiStyle
+```
+
+---
+
+## 🧪 Automated Testing Breakdown
+
+```
+ RUN  v5.0.5 C:/Users/abini/billflow-ai
+
+ ✓ src/intake.test.js (8 tests)        # NLP voice dictation parsing
+ ✓ src/traceability.test.js (4 tests)  # Requirements, risks, architecture links
+ ✓ src/workflow.test.js (5 tests)      # Dependency guards, metric math
+ ✓ src/engine.test.js (5 tests)        # 18-point blueprint generator
+
+ Test Files  4 passed (4)
+      Tests  22 passed (22)
+   Duration  222ms (100% green)
+```
 
 ---
 
 ## 🚀 Getting Started Locally
-
-### Prerequisites
-- [Node.js](https://nodejs.org/) v18+ (tested on v20 and v24)
-- [npm](https://www.npmjs.com/) v9+
-
-### Quick Setup
 
 ```bash
 # 1. Clone the repository
@@ -129,83 +157,17 @@ cd buildflow-ai
 # 2. Install dependencies
 npm install
 
-# 3. Start local development server (runs live on http://localhost:5173/)
-npm run dev
-```
-
-### Running Tests
-
-```bash
-# Execute the full automated test suite
+# 3. Run automated tests
 npm test
-```
 
-### Production Build
+# 4. Start local development server
+npm run dev
 
-```bash
-# Compile and optimize for production
+# 5. Build for production
 npm run build
-
-# Preview production build locally
-npm run preview
-```
-
----
-
-## 🧪 Test Coverage & Verification
-
-BuildFlow features an automated test suite executed with Vitest:
-
-```text
- ✓ src/workflow.test.js (5 tests passed)
-   - Dependency constraint prevents completing task if upstream task is incomplete
-   - Destructive actions preserve user tasks on plan regeneration
-   - Calculated metrics strictly match task counts without fabrication
-   - Technical Decision Records are initialized and structured
-   - Testing and Deployment readiness checklists require deliberate verification
-
- ✓ src/engine.test.js (5 tests passed)
-   - Generates comprehensive 18-point plan and all workspace modules
-   - Tasks have valid priorities, estimates, acceptance criteria, and status
-   - Progress calculation strictly uses real task completion numbers
-   - StatusOf returns correct status reflecting task states
-   - Docs exports generate valid Markdown, CSV, and Readme with real data
-
- ✓ src/intake.test.js (8 tests passed)
-   - Natural language and voice dictation parser extracts constraints accurately
-
-Test Files:  3 passed (3)
-Tests:       18 passed (18)
-Duration:    341ms
-```
-
----
-
-## 🌍 Live Production Deployment
-
-| Target | URL |
-| :--- | :--- |
-| **Production Application** | [https://buildflow-ai-livid.vercel.app/](https://buildflow-ai-livid.vercel.app/) |
-| **Continuous Git Branch** | [https://buildflow-ai-git-main-abinivesh-m.vercel.app/](https://buildflow-ai-git-main-abinivesh-m.vercel.app/) |
-| **GitHub Source Repository** | [https://github.com/abinivesh-m/buildflow-ai](https://github.com/abinivesh-m/buildflow-ai) |
-
----
-
-## 🔐 Environment Variables (Optional)
-
-BuildFlow operates with 100% functionality out of the box using its built-in rule engine. If you want to enable the optional serverless AI proxy:
-
-```env
-# Optional: Google Gemini API key for server-side plan enrichment
-GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-2.5-flash
-
-# Application Configuration
-NODE_ENV=production
 ```
 
 ---
 
 ## 📄 License
-
-Distributed under the **MIT License**. See `LICENSE` for more information. Built for students, builders, and hackathon competitors worldwide.
+MIT © 2026 Abinivesh M · Built for **No Hands: The Wispr Challenge**

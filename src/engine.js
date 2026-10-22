@@ -769,6 +769,159 @@ export function generatePlan(i) {
     ],
   };
 
+  // Structured Traceable Requirements
+  const requirements = [
+    {
+      id: uid(),
+      title: "Core Workflow Execution & User State Persistence",
+      description: "Users must be able to create, edit, and retain project states and lifecycle items without data loss across reloads.",
+      type: "functional",
+      priority: "critical",
+      status: "approved",
+      acceptanceCriteria: [
+        "State changes persist to local storage instantly.",
+        "Browser refresh restores active project state without corruption.",
+        "Input forms reject empty or invalid payloads.",
+      ],
+      linkedTaskIds: tasks.slice(0, 2).map((t) => t.id),
+      linkedTestIds: testChecklist.slice(0, 2).map((tc) => tc.id),
+      linkedDecisionIds: decisions.slice(1, 2).map((d) => d.id),
+      linkedRiskIds: [],
+      source: "engine",
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    },
+    {
+      id: uid(),
+      title: "Responsive User Experience & Accessibility",
+      description: "The application must maintain sub-second response times, zero horizontal overflow on mobile viewports (down to 360px), and full keyboard navigation.",
+      type: "non-functional",
+      priority: "high",
+      status: "approved",
+      acceptanceCriteria: [
+        "All interactive elements reachable via Tab and activatable with Enter/Space.",
+        "Viewport widths from 360px to 1440px render cleanly.",
+      ],
+      linkedTaskIds: tasks.slice(2, 4).map((t) => t.id),
+      linkedTestIds: testChecklist.slice(3, 5).map((tc) => tc.id),
+      linkedDecisionIds: decisions.slice(0, 1).map((d) => d.id),
+      linkedRiskIds: [],
+      source: "engine",
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    },
+    {
+      id: uid(),
+      title: "Multi-Format Real Data Export (CSV, JSON, Markdown)",
+      description: "Allow users to extract their real plan data into portable standard formats suitable for GitHub README, spreadsheet tracking, or team handoff.",
+      type: "functional",
+      priority: "medium",
+      status: "approved",
+      acceptanceCriteria: [
+        "Exports produce valid Markdown and RFC-4180 compliant CSV.",
+        "No mocked placeholders or fabricated timestamps in output.",
+      ],
+      linkedTaskIds: tasks.slice(-2).map((t) => t.id),
+      linkedTestIds: testChecklist.slice(5, 6).map((tc) => tc.id),
+      linkedDecisionIds: [],
+      linkedRiskIds: [],
+      source: "engine",
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    },
+  ];
+
+  // Structured Risk Register with Likelihood, Impact, and Severity Matrix
+  const risks = [
+    {
+      id: uid(),
+      title: "Scope creep exceeding available execution timeframe",
+      description: "Unplanned features or excessive polish on non-critical paths could derail core milestone delivery before target deadline.",
+      category: "scope",
+      likelihood: 4,
+      impact: 4,
+      severity: 16,
+      status: "mitigating",
+      mitigation: "Strictly adhere to the MVP boundary; isolate optional items into Future Improvement phase.",
+      owner: "Lead Engineer",
+      linkedRequirementIds: [requirements[0].id],
+      linkedTaskIds: [tasks[0].id],
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    },
+    {
+      id: uid(),
+      title: "Third-party AI API rate limiting or intermittent downtime",
+      description: "Upstream LLM endpoints may throttle requests or encounter high latency during live evaluation or demonstrations.",
+      category: "technical",
+      likelihood: 3,
+      impact: 4,
+      severity: 12,
+      status: "mitigated",
+      mitigation: "Deploy deterministic local fallback engine that transparently activates whenever remote API call fails.",
+      owner: "Full Stack Architect",
+      linkedRequirementIds: [requirements[0].id],
+      linkedTaskIds: tasks.slice(1, 2).map((t) => t.id),
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    },
+    {
+      id: uid(),
+      title: "Local browser storage quota exhaustion or private browsing restrictions",
+      description: "Browsers in strict private mode or with restricted cookies may block localStorage mutations, preventing persistence.",
+      category: "technical",
+      likelihood: 2,
+      impact: 3,
+      severity: 6,
+      status: "mitigated",
+      mitigation: "Display active safeguard warning banner when localStorage access throws SecurityError or quota limits.",
+      owner: "Frontend Dev",
+      linkedRequirementIds: [requirements[0].id],
+      linkedTaskIds: [],
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    },
+  ];
+
+  // Assign risk link back to first requirement
+  requirements[0].linkedRiskIds = [risks[0].id, risks[1].id, risks[2].id];
+
+  // Structured Architecture Workspace with Mermaid Flowchart
+  const architecture = {
+    description: `${fe} client interface communicating with ${be} and persisting data to ${db}. Deployed via ${p.host}.`,
+    mermaidDiagram: `flowchart TD\n  User["👤 User / Client"] --> UI["🖥️ ${fe} SPA"]\n  UI --> Router["App Navigation & State Store"]\n  Router --> Storage["💾 Local Storage (Schema v3)"]\n  Router --> APISync["🌐 API Gateway / Serverless (${be})"]\n  APISync --> CloudModel["🤖 AI Engine (Meta / Gemini)"]\n  APISync --> DB["🗄️ Database (${db})"]\n  style UI fill:#1e1b4b,stroke:#6366f1,stroke-width:2px\n  style Storage fill:#064e3b,stroke:#10b981,stroke-width:2px\n  style CloudModel fill:#4c1d95,stroke:#8b5cf6,stroke-width:2px`,
+    components: [
+      {
+        id: uid(),
+        name: "Client UI Layer",
+        technology: fe,
+        description: "Responsive Single Page Application providing real-time state manipulation and reactive feedback.",
+        connections: ["App State Store", "API Gateway"],
+      },
+      {
+        id: uid(),
+        name: "App State & Storage Engine",
+        technology: "Browser LocalStorage v3 with Schema Normalizer",
+        description: "Zero-latency offline persistence with multi-version schema migration and JSON backup import/export.",
+        connections: ["Client UI Layer"],
+      },
+      {
+        id: uid(),
+        name: "Serverless Integration Seam",
+        technology: be,
+        description: "Secure server-side proxy managing API credentials and routing inference requests.",
+        connections: ["AI Inference Engine", "Database"],
+      },
+      {
+        id: uid(),
+        name: "AI Inference & Fallback Engine",
+        technology: "Gemini 2.5 Flash / Meta AI with Deterministic Rule Fallback",
+        description: "Multi-tier generation system guaranteeing reliable plan delivery even under network timeouts.",
+        connections: ["Serverless Integration Seam"],
+      },
+    ],
+  };
+
   return {
     plan,
     tasks,
@@ -776,6 +929,9 @@ export function generatePlan(i) {
     testChecklist,
     deploymentReadiness,
     demoScript,
+    requirements,
+    risks,
+    architecture,
   };
 }
 

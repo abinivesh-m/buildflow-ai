@@ -178,24 +178,81 @@ export default function ProjectWizard({ onCreate, onCancel }) {
             <div
               style={{
                 backgroundColor: "var(--bg-subtle)",
-                border: "1px solid var(--border)",
+                border: "1px solid var(--accent-purple)",
                 borderRadius: "var(--radius-md)",
                 padding: "20px",
                 marginBottom: "24px",
+                background: "linear-gradient(180deg, rgba(99, 102, 241, 0.08) 0%, var(--bg-subtle) 100%)",
               }}
             >
-              <div className="form-label" style={{ marginBottom: "6px" }}>
-                <span>✨ Fast Dictation & Intake</span>
-                <span className="badge badge-blue">Local Parsing</span>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px", flexWrap: "wrap", gap: "8px" }}>
+                <div className="form-label" style={{ margin: 0, display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span>🎙️ Voice Dictation & Wispr Flow Intake</span>
+                  <span className="badge badge-purple">No Hands Mode</span>
+                  <span className="badge badge-blue">Local NLP Parser</span>
+                </div>
+                <div style={{ display: "flex", gap: "6px" }}>
+                  <button
+                    type="button"
+                    className="btn btn-ghost btn-sm"
+                    style={{ fontSize: "0.72rem", padding: "2px 8px" }}
+                    onClick={() => {
+                      const sample = "I want to build HealthTrack AI for resident doctors and medical students. It parses vitals, triggers critical threshold alerts, and exports handover summaries. We are 2 developers using TypeScript, React, and FastAPI over 7 days.";
+                      setNaturalText(sample);
+                      const res = parseIntake(sample);
+                      setIntakeResult(res);
+                      setForm((prev) => ({
+                        ...prev,
+                        idea: sample,
+                        title: "HealthTrack AI",
+                        category: "AI and machine learning",
+                        time: "7",
+                        unit: "days",
+                        teamSize: "2",
+                        level: "intermediate",
+                        languages: "TypeScript, React, FastAPI",
+                        skills: "TypeScript, React, FastAPI",
+                      }));
+                    }}
+                  >
+                    Sample Speech 1 (HealthTrack)
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-ghost btn-sm"
+                    style={{ fontSize: "0.72rem", padding: "2px 8px" }}
+                    onClick={() => {
+                      const sample = "I want to build an AI study planner for engineering students using Next.js and Python. We need automated task breakdown and exam deadline tracking. We are an intermediate team of 2 building this in 10 days.";
+                      setNaturalText(sample);
+                      const res = parseIntake(sample);
+                      setIntakeResult(res);
+                      setForm((prev) => ({
+                        ...prev,
+                        idea: sample,
+                        title: "StudyPlanner AI",
+                        category: "Productivity",
+                        time: "10",
+                        unit: "days",
+                        teamSize: "2",
+                        level: "intermediate",
+                        languages: "Next.js, Python",
+                        skills: "Next.js, Python",
+                      }));
+                    }}
+                  >
+                    Sample Speech 2 (StudyPlanner)
+                  </button>
+                </div>
               </div>
+
               <p className="form-hint" style={{ marginBottom: "12px" }}>
-                Type naturally or dictate (using Wispr Flow or OS speech recognition).
-                Our local parser will extract fields without sending your text anywhere.
+                Hold your Wispr Flow hotkey and dictate your idea naturally at 160+ WPM.
+                Our deterministic parser extracts project title, technology, timeline, and domain category instantly without cloud roundtrips.
               </p>
               <textarea
                 className="textarea"
                 rows={3}
-                placeholder="e.g. I want to build a mobile fitness habit tracker with React Native. I am an intermediate developer and have two weeks."
+                placeholder="e.g. Hold Wispr Flow hotkey: 'I want to build a real-time sensor telemetry dashboard with React and MQTT. I am an advanced developer with 5 days.'"
                 value={naturalText}
                 onChange={(e) => {
                   setNaturalText(e.target.value);
@@ -206,12 +263,14 @@ export default function ProjectWizard({ onCreate, onCancel }) {
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "12px", flexWrap: "wrap", gap: "8px" }}>
                 <button
                   type="button"
-                  className="btn btn-secondary btn-sm"
+                  className="btn btn-primary btn-sm"
                   onClick={handleExtractIntake}
                 >
-                  ⚡ Auto-Extract Details
+                  ⚡ Auto-Extract Spoken Fields
                 </button>
-                <span className="form-hint">Wispr Flow & OS dictation supported</span>
+                <span className="form-hint" style={{ color: "var(--accent-purple)", fontWeight: 600 }}>
+                  ✓ Wispr Flow Desktop & Speech-to-Text Optimized
+                </span>
               </div>
 
               {intakeResult && (

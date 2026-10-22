@@ -3,7 +3,41 @@ import { docs } from "../engine.js";
 
 export default function DemoStudio({ project, onPatch, onNotify }) {
   const [copied, setCopied] = useState(false);
+  const [copiedWisprPitch, setCopiedWisprPitch] = useState(false);
   const script = project.demoScript || {};
+
+  const wisprPitch = `# 🎙️ 2-Minute Video Pitch: No Hands Wispr Challenge
+Project: ${project.title}
+Target Track: Track 1 (Builders - Developers)
+Live Production URL: ${project.productionUrl || "https://buildflow-ai-livid.vercel.app/"}
+
+---
+
+## [0:00 - 0:30] 1. The Real Problem in My Work (30% Weight)
+"Hi judges! As a developer, the hardest part of building software isn't just writing code — it's the massive friction between having an idea and turning it into an execution plan. I used to spend hours manually typing out functional requirements, user stories, architecture diagrams, and TDR records across 5 different apps. Context switching killed my velocity, and requirements constantly fell out of sync with tasks and tests."
+
+## [0:30 - 1:00] 2. Meaningful Wispr Flow Integration (30% Weight)
+"With Wispr Flow, I built BuildFlow AI to eliminate typing from project delivery. By holding a hotkey, I speak my raw software idea at 160 words per minute. BuildFlow uses local natural language intake and AI pipelines to immediately parse my speech into an 18-point execution blueprint. I dictate new requirements, change impact requests, and architecture decisions completely hands-free — 4x faster than typing."
+
+## [1:00 - 1:30] 3. Real Product Walkthrough & Traceability (25% Weight)
+"Let me show you the live product:
+- First, the Requirements Hub with Acceptance Criteria.
+- Next, our core differentiator: the End-to-End Traceability Matrix. Notice every requirement links directly to its implementing tasks, verifying tests, and architectural decisions. If a requirement lacks a test, it's flagged as an untracked gap.
+- We have an interactive Kanban board where tasks advance with dependency guards.
+- A 5x5 Likelihood x Impact Risk Register with automated severity scoring.
+- And automated Mermaid system architecture diagrams."
+
+## [1:30 - 2:00] 4. Proven Execution & Conclusion (15% Weight)
+"Everything runs on our verified Vercel production deployment with complete offline-first schema v3 persistence. Zero mocked cards, zero fake buttons. BuildFlow AI turns spoken thoughts into traceable, working software. Thank you to WeMakeDevs and Wispr Flow for the No Hands Challenge!"
+`;
+
+  const handleCopyWisprPitch = () => {
+    navigator.clipboard.writeText(wisprPitch).then(() => {
+      setCopiedWisprPitch(true);
+      onNotify("Wispr Challenge 2-min pitch copied!");
+      setTimeout(() => setCopiedWisprPitch(false), 3000);
+    });
+  };
 
   const handleUpdateScript = (key, val) => {
     onPatch(
@@ -59,12 +93,45 @@ export default function DemoStudio({ project, onPatch, onNotify }) {
             Craft a persuasive presentation, live walkthrough narrative, and pre-flight checklist.
           </p>
         </div>
-        <div style={{ display: "flex", gap: "10px" }}>
-          <button className="btn btn-secondary" onClick={handleCopyMarkdown}>
-            {copied ? "✓ Copied!" : "Copy Script (Markdown)"}
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          <button className="btn btn-secondary btn-sm" onClick={handleCopyWisprPitch}>
+            {copiedWisprPitch ? "✓ Copied Wispr Pitch!" : "🎙️ Copy 2-Min Wispr Challenge Pitch"}
           </button>
-          <button className="btn btn-primary" onClick={handleDownload}>
+          <button className="btn btn-secondary btn-sm" onClick={handleCopyMarkdown}>
+            {copied ? "✓ Copied!" : "Copy Script (.md)"}
+          </button>
+          <button className="btn btn-primary btn-sm" onClick={handleDownload}>
             Download .md
+          </button>
+        </div>
+      </div>
+
+      {/* Wispr Challenge Banner Card */}
+      <div
+        className="card"
+        style={{
+          marginBottom: "20px",
+          background: "linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.12) 100%)",
+          border: "1px solid var(--accent-purple)",
+          padding: "16px 20px",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <span className="badge badge-purple">No Hands: The Wispr Challenge</span>
+              <span className="badge badge-blue">Track 1: Builders</span>
+              <span className="badge badge-green">Submission Ready</span>
+            </div>
+            <h3 style={{ fontSize: "1.05rem", margin: "6px 0 2px" }}>
+              Judges Scoring Optimization: 30% Real Problem · 30% Wispr Meaningful Use · 25% Working Link · 15% Clear Demo
+            </h3>
+            <p className="form-hint" style={{ margin: 0, fontSize: "0.8rem" }}>
+              Tailored specifically for WeMakeDevs and Wispr Flow judges (Kunal Kushwaha, Rohan Kochhar, Aayush Sharma, Sachin Sharma).
+            </p>
+          </div>
+          <button className="btn btn-primary btn-sm" onClick={handleCopyWisprPitch}>
+            📋 Copy 2-Min Script
           </button>
         </div>
       </div>

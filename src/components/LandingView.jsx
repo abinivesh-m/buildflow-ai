@@ -32,16 +32,17 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
     <div className="landing-container">
       {/* Hero Section */}
       <section className="landing-hero" style={{ padding: "40px 0 32px" }}>
-        <div className="hero-pill" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+        <div className="hero-pill" style={{ display: "inline-flex", alignItems: "center", gap: "8px", flexWrap: "wrap", justifyContent: "center" }}>
           <Sparkles size={14} style={{ color: "var(--accent-cyan)" }} />
-          <span>Engineering Workspace for Modern Builders</span>
+          <span>Built for No Hands: The Wispr Challenge · WeMakeDevs × Wispr Flow</span>
+          <span className="badge badge-purple" style={{ fontSize: "0.68rem" }}>Track 1: Builders</span>
         </div>
 
-        <h1 className="hero-title">Turn your ideas into things that actually work.</h1>
+        <h1 className="hero-title">Turn spoken ideas into software that actually works.</h1>
         <p className="hero-desc">
-          Stop getting stuck between having a concept and shipping working software.
-          BuildFlow gives you an editable engineering blueprint, atomic task tracker,
-          technical decision records, testing checklists, and demo preparation.
+          Build it, write it, ship it. Just don’t type it. Speak your project concept hands-free with Wispr Flow at 160+ WPM.
+          BuildFlow instantly transforms your speech into structured requirements, architecture flowcharts, atomic task graphs,
+          and a verified release checklist.
         </p>
 
         <div className="hero-cta-group">

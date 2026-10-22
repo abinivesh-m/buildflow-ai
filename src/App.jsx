@@ -142,6 +142,43 @@ function sanitizeProject(p) {
         { text: "Backup screenshots ready", checked: false },
       ],
     },
+    requirements: arr(p.requirements).map((r) => ({
+      id: r.id || uid(),
+      title: r.title || "Functional Requirement",
+      description: r.description || "",
+      type: r.type || "functional",
+      priority: r.priority || "medium",
+      status: r.status || "approved",
+      acceptanceCriteria: arr(r.acceptanceCriteria),
+      linkedTaskIds: arr(r.linkedTaskIds),
+      linkedTestIds: arr(r.linkedTestIds),
+      linkedDecisionIds: arr(r.linkedDecisionIds),
+      linkedRiskIds: arr(r.linkedRiskIds),
+      source: r.source || "user",
+      createdAt: r.createdAt || Date.now(),
+      updatedAt: r.updatedAt || Date.now(),
+    })),
+    risks: arr(p.risks).map((rk) => ({
+      id: rk.id || uid(),
+      title: rk.title || "Project Risk",
+      description: rk.description || "",
+      category: rk.category || "technical",
+      likelihood: Number(rk.likelihood) || 3,
+      impact: Number(rk.impact) || 3,
+      severity: (Number(rk.likelihood) || 3) * (Number(rk.impact) || 3),
+      status: rk.status || "open",
+      mitigation: rk.mitigation || "",
+      owner: rk.owner || "",
+      linkedRequirementIds: arr(rk.linkedRequirementIds),
+      linkedTaskIds: arr(rk.linkedTaskIds),
+      createdAt: rk.createdAt || Date.now(),
+      updatedAt: rk.updatedAt || Date.now(),
+    })),
+    architecture: p.architecture || {
+      description: p.plan?.architecture || "A modern responsive single-page client interfacing with structured REST endpoints.",
+      mermaidDiagram: `flowchart TD\n  Client["Client SPA"] --> Gateway["API Gateway"]\n  Gateway --> DB["Database"]`,
+      components: [],
+    },
   };
 }
 
@@ -398,6 +435,9 @@ export default function App() {
       decisions: (p.decisions || []).map((d) => ({ ...d, id: uid() })),
       testChecklist: (p.testChecklist || []).map((tc) => ({ ...tc, id: uid() })),
       deploymentReadiness: (p.deploymentReadiness || []).map((dr) => ({ ...dr, id: uid() })),
+      requirements: (p.requirements || []).map((r) => ({ ...r, id: uid() })),
+      risks: (p.risks || []).map((rk) => ({ ...rk, id: uid() })),
+      architecture: p.architecture ? JSON.parse(JSON.stringify(p.architecture)) : undefined,
     });
 
     commitStore((ps) => [copy, ...ps], `Duplicated "${p.title}"`);

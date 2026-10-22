@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { uid, PRIORITIES, STATUSES } from "../engine.js";
 
 export default function TasksManager({ project, onPatch, onAskConfirm, onNotify }) {
+  const [viewMode, setViewMode] = useState("kanban"); // "kanban" | "list"
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
   const [filterPriority, setFilterPriority] = useState("");
@@ -181,15 +182,33 @@ export default function TasksManager({ project, onPatch, onAskConfirm, onNotify 
         </div>
       </form>
 
-      {/* Filtering Bar */}
+      {/* Filtering Bar & View Mode Toggle */}
       <div
         style={{
           display: "flex",
           gap: "10px",
           marginBottom: "20px",
           flexWrap: "wrap",
+          alignItems: "center",
         }}
       >
+        <div style={{ display: "flex", background: "var(--bg-subtle)", padding: "2px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border)" }}>
+          <button
+            className={`btn btn-sm ${viewMode === "kanban" ? "btn-primary" : "btn-ghost"}`}
+            style={{ fontSize: "0.8rem", padding: "4px 10px" }}
+            onClick={() => setViewMode("kanban")}
+          >
+            📌 Kanban Board
+          </button>
+          <button
+            className={`btn btn-sm ${viewMode === "list" ? "btn-primary" : "btn-ghost"}`}
+            style={{ fontSize: "0.8rem", padding: "4px 10px" }}
+            onClick={() => setViewMode("list")}
+          >
+            📋 Phase List
+          </button>
+        </div>
+
         <input
           className="input"
           style={{ flex: 1, minWidth: "180px" }}
@@ -225,8 +244,158 @@ export default function TasksManager({ project, onPatch, onAskConfirm, onNotify 
         </select>
       </div>
 
-      {/* Phase-Grouped Task Lists */}
-      {phases.map((ph) => {
+      {/* Kanban Board View */}
+      {viewMode === "kanban" && (
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "14px",
+            alignItems: "start",
+            marginBottom: "30px",
+          }}
+        >
+          {STATUSES.map((statusKey) => {
+            const colTasks = filteredTasks.filter((t) => t.status === statusKey);
+            const statusLabels = {
+              backlog: "Backlog",
+              todo: "To Do",
+              doing: "In Progress",
+              blocked: "Blocked ⚠️",
+              done: "Completed ✓",
+            };
+
+            const statusColors = {
+              backlog: "var(--text-muted)",
+              todo: "var(--accent-blue)",
+              doing: "var(--accent-cyan)",
+              blocked: "var(--accent-rose)",
+              done: "var(--accent-emerald)",
+            };
+
+            return (
+              <div
+                key={statusKey}
+                style={{
+                  background: "var(--bg-subtle)",
+                  borderRadius: "var(--radius-md)",
+                  border: "1px solid var(--border)",
+                  padding: "14px",
+                  minHeight: "380px",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                {/* Column Header */}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "12px",
+                    paddingBottom: "8px",
+                    borderBottom: `2px solid ${statusColors[statusKey]}`,
+                  }}
+                >
+                  <span style={{ fontWeight: 700, fontSize: "0.88rem", color: "var(--text-main)" }}>
+                    {statusLabels[statusKey]}
+                  </span>
+                  <span className="badge badge-slate" style={{ fontSize: "0.72rem" }}>
+                    {colTasks.length}
+                  </span>
+                </div>
+
+                {/* Column Cards */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px", flex: 1 }}>
+                  {colTasks.length === 0 ? (
+                    <div
+                      style={{
+                        padding: "24px 10px",
+                        textAlign: "center",
+                        color: "var(--text-muted)",
+                        fontSize: "0.8rem",
+                        border: "1px dashed var(--border)",
+                        borderRadius: "var(--radius-sm)",
+                      }}
+                    >
+                      No tasks
+                    </div>
+                  ) : (
+                    colTasks.map((t) => (
+                      <div
+                        key={t.id}
+                        className="card"
+                        style={{
+                          padding: "12px",
+                          marginBottom: "0",
+                          borderLeft: `3px solid ${
+                            t.priority === "critical"
+                              ? "var(--accent-rose)"
+                              : t.priority === "high"
+                              ? "var(--accent-amber)"
+                              : "var(--accent-purple)"
+                          }`,
+                        }}
+                      >
+                        <div style={{ display: "flex", justifyContent: "space-between", gap: "6px" }}>
+                          <span style={{ fontWeight: 600, fontSize: "0.85rem", color: "var(--text-main)", lineHeight: "1.3" }}>
+                            {t.title}
+                          </span>
+                        </div>
+
+                        {t.acceptanceCriteria && (
+                          <p style={{ fontSize: "0.75rem", color: "var(--text-secondary)", marginTop: "6px", lineHeight: "1.3" }}>
+                            {t.acceptanceCriteria}
+                          </p>
+                        )}
+
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "10px", paddingTop: "8px", borderTop: "1px solid var(--border)" }}>
+                          <span className="form-hint" style={{ fontSize: "0.7rem" }}>
+                            {t.hours}h · P{t.phase + 1}
+                          </span>
+
+                          {/* Quick Advance / Revert buttons */}
+                          <div style={{ display: "flex", gap: "4px" }}>
+                            {statusKey !== "backlog" && (
+                              <button
+                                className="btn btn-ghost btn-sm"
+                                style={{ padding: "2px 6px", fontSize: "0.68rem" }}
+                                title="Move backward"
+                                onClick={() => {
+                                  const idx = STATUSES.indexOf(statusKey);
+                                  if (idx > 0) handleUpdateTask(t.id, { status: STATUSES[idx - 1] });
+                                }}
+                              >
+                                ←
+                              </button>
+                            )}
+                            {statusKey !== "done" && (
+                              <button
+                                className="btn btn-secondary btn-sm"
+                                style={{ padding: "2px 6px", fontSize: "0.68rem" }}
+                                title="Advance forward"
+                                onClick={() => {
+                                  const idx = STATUSES.indexOf(statusKey);
+                                  if (idx < STATUSES.length - 1) handleUpdateTask(t.id, { status: STATUSES[idx + 1] });
+                                }}
+                              >
+                                →
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Phase-Grouped Task Lists (List View) */}
+      {viewMode === "list" && phases.map((ph) => {
         const phaseTasks = filteredTasks.filter((t) => t.phase === ph.id);
         const totalPhaseTasks = tasks.filter((t) => t.phase === ph.id);
         const phaseDone = totalPhaseTasks.filter((t) => t.status === "done").length;

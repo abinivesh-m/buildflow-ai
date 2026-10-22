@@ -6,15 +6,23 @@ import TestingChecklist from "./TestingChecklist.jsx";
 import DeploymentCenter from "./DeploymentCenter.jsx";
 import DemoStudio from "./DemoStudio.jsx";
 import PlanBlueprint from "./PlanBlueprint.jsx";
+import RequirementsManager from "./RequirementsManager.jsx";
+import TraceabilityMatrix from "./TraceabilityMatrix.jsx";
+import ArchitectureView from "./ArchitectureView.jsx";
+import RiskRegister from "./RiskRegister.jsx";
 
 const TABS = [
-  { id: "overview", label: "Overview", icon: "📊" },
-  { id: "plan", label: "Plan Blueprint", icon: "📐" },
-  { id: "tasks", label: "Tasks Tracker", icon: "📋" },
+  { id: "overview", label: "Control Center", icon: "📊" },
+  { id: "requirements", label: "Requirements", icon: "🎯" },
+  { id: "traceability", label: "Traceability Matrix", icon: "🔗" },
+  { id: "architecture", label: "Architecture & Mermaid", icon: "📐" },
+  { id: "tasks", label: "Tasks (Kanban & List)", icon: "📋" },
   { id: "decisions", label: "Decisions (TDR)", icon: "🏛️" },
   { id: "testing", label: "Testing Checklist", icon: "🧪" },
-  { id: "deployment", label: "Deployment Readiness", icon: "🚀" },
-  { id: "demo", label: "Demo Studio", icon: "🎤" },
+  { id: "risks", label: "Risk Register", icon: "🛡️" },
+  { id: "deployment", label: "Release Readiness", icon: "🚀" },
+  { id: "demo", label: "Demo Studio (Wispr Pitch)", icon: "🎤" },
+  { id: "plan", label: "Plan Blueprint", icon: "📄" },
   { id: "settings", label: "Settings & Exports", icon: "⚙️" },
 ];
 
@@ -174,8 +182,27 @@ export default function WorkspaceView({
       {tab === "overview" && (
         <OverviewSection project={project} onPatch={onPatch} onNotify={onNotify} />
       )}
-      {tab === "plan" && (
-        <PlanBlueprint project={project} onPatch={onPatch} onNotify={onNotify} />
+      {tab === "requirements" && (
+        <RequirementsManager
+          project={project}
+          onPatch={onPatch}
+          onAskConfirm={onAskConfirm}
+          onNotify={onNotify}
+        />
+      )}
+      {tab === "traceability" && (
+        <TraceabilityMatrix
+          project={project}
+          onPatch={onPatch}
+          onNotify={onNotify}
+        />
+      )}
+      {tab === "architecture" && (
+        <ArchitectureView
+          project={project}
+          onPatch={onPatch}
+          onNotify={onNotify}
+        />
       )}
       {tab === "tasks" && (
         <TasksManager
@@ -196,11 +223,22 @@ export default function WorkspaceView({
       {tab === "testing" && (
         <TestingChecklist project={project} onPatch={onPatch} onNotify={onNotify} />
       )}
+      {tab === "risks" && (
+        <RiskRegister
+          project={project}
+          onPatch={onPatch}
+          onAskConfirm={onAskConfirm}
+          onNotify={onNotify}
+        />
+      )}
       {tab === "deployment" && (
         <DeploymentCenter project={project} onPatch={onPatch} onNotify={onNotify} />
       )}
       {tab === "demo" && (
         <DemoStudio project={project} onPatch={onPatch} onNotify={onNotify} />
+      )}
+      {tab === "plan" && (
+        <PlanBlueprint project={project} onPatch={onPatch} onNotify={onNotify} />
       )}
       {tab === "settings" && (
         <SettingsSection
