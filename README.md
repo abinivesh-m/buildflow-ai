@@ -25,7 +25,7 @@ BuildFlow AI is architected from the ground up to eliminate typing friction from
 
 | Engineering Need | Conventional Approach | BuildFlow + Wispr Flow Solution |
 | :--- | :--- | :--- |
-| **Project Intake** | Typing out multi-page docs in Notion/Docs (40 WPM). | Dictate natural vision hands-free at 160+ WPM; local NLP extracts structured blueprint. |
+| **Project Intake** | Typing out multi-page docs in Notion/Docs (40 WPM). | Dictate natural vision hands-free at 251 WPM (Top 0.1% globally); local NLP extracts structured blueprint. |
 | **Traceability** | Broken links across Jira, GitHub, and spreadsheets. | Single unified matrix linking Requirements ↔ Tasks ↔ Tests ↔ Decisions ↔ Risks. |
 | **Architecture Context** | Undocumented verbal decisions lost over time. | Structured Technical Decision Records (TDR) and live auto-generated Mermaid flowcharts. |
 | **Delivery Verification** | Trusting checkboxes without evidence or dependency checks. | Strict dependency guards, 5×5 risk matrix, and pre-flight verification checklists. |
@@ -56,7 +56,7 @@ flowchart LR
 ## ✨ Stand-Out Capabilities
 
 ### 1. 🎙️ Voice-to-Spec Intake (Wispr Flow Native)
-- Dictate project ideas naturally at full conversational speed (160+ WPM).
+- Dictate project ideas naturally at full conversational speed (251 WPM · Top 0.1% Globally · 209,000+ words dictated).
 - Local deterministic Natural Language Parser extracts project title, technology stack, timeframe, and level without sending private data to cloud services.
 - One-click sample dictations for rapid demonstration.
 
