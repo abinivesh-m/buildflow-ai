@@ -17,7 +17,7 @@ Live Production URL: ${project.productionUrl || "https://buildflow-ai-livid.verc
 "Hi judges! As a developer, the hardest part of building software isn't just writing code — it's the massive friction between having an idea and turning it into an execution plan. I used to spend hours manually typing out functional requirements, user stories, architecture diagrams, and TDR records across 5 different apps. Context switching killed my velocity, and requirements constantly fell out of sync with tasks and tests."
 
 ## [0:30 - 1:00] 2. Meaningful Wispr Flow Integration (30% Weight)
-"With Wispr Flow, I built BuildFlow AI to eliminate typing from project delivery. By holding a hotkey, I speak my raw software idea at 160 words per minute. BuildFlow uses local natural language intake and AI pipelines to immediately parse my speech into an 18-point execution blueprint. I dictate new requirements, change impact requests, and architecture decisions completely hands-free — 4x faster than typing."
+"With Wispr Flow, I built BuildFlow AI to eliminate typing from project delivery. By holding my hotkey, I dictate at 251 words per minute—placing in the Top 0.1% of all Wispr Flow users, with over 209,000+ words dictated across our engineering documents and AI prompts. BuildFlow takes that speech and immediately parses it into an 18-point execution blueprint. I dictate new requirements, change impact requests, and architecture decisions completely hands-free — over 6x faster than average typing."
 
 ## [1:00 - 1:30] 3. Real Product Walkthrough & Traceability (25% Weight)
 "Let me show you the live product:

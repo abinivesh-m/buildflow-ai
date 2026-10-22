@@ -112,8 +112,8 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
             >
               <Layers size={22} />
             </div>
-            <h3 style={{ fontSize: "1.1rem" }}>18-Point Planning Blueprint</h3>
-            <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: "1.6" }}>
+            <h3>18-Point Planning Blueprint</h3>
+            <p>
               Receive an exhaustive breakdown covering problem statements, MVP scope,
               explicitly excluded features, non-functional requirements, data models,
               and implementation phases.
@@ -123,28 +123,14 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
           <div className="landing-feature-card">
             <div
               className="feature-icon-wrapper"
-              style={{ background: "rgba(16, 185, 129, 0.15)", color: "#34d399" }}
+              style={{ background: "rgba(6, 182, 212, 0.15)", color: "#22d3ee" }}
             >
               <Sparkles size={22} />
             </div>
-            <h3 style={{ fontSize: "1.1rem" }}>Honest Planning Engine</h3>
-            <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: "1.6" }}>
-              Deterministic local rules generate immediate plans with zero API dependencies.
-              If an AI provider is configured, it enriches the plan with transparent source labeling.
-            </p>
-          </div>
-
-          <div className="landing-feature-card">
-            <div
-              className="feature-icon-wrapper"
-              style={{ background: "rgba(245, 158, 11, 0.15)", color: "#fbbf24" }}
-            >
-              <CheckCircle2 size={22} />
-            </div>
-            <h3 style={{ fontSize: "1.1rem" }}>Atomic Task Execution</h3>
-            <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: "1.6" }}>
-              Every task comes equipped with unique IDs, priorities, effort estimates,
-              acceptance criteria, and blocker logs. Real progress is derived from completed tasks.
+            <h3>End-to-End Traceability Matrix</h3>
+            <p>
+              Our core differentiator: bidirectional links connecting Requirements ↔ Tasks ↔ Tests ↔ TDRs ↔ Risks.
+              Instantly discover unverified gaps and orphan tasks.
             </p>
           </div>
 
@@ -153,26 +139,40 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
               className="feature-icon-wrapper"
               style={{ background: "rgba(139, 92, 246, 0.15)", color: "#a78bfa" }}
             >
-              <FileCode2 size={22} />
+              <Terminal size={22} />
             </div>
-            <h3 style={{ fontSize: "1.1rem" }}>Technical Decision Records (TDR)</h3>
-            <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: "1.6" }}>
-              Capture the context, options considered, chosen option, reasoning, and
-              consequences for critical architecture choices. Exportable directly to your repository.
+            <h3>Voice-to-Spec (Wispr Flow Native)</h3>
+            <p>
+              Speak your ideas at 160+ WPM. Local deterministic NLP extracts project scope,
+              tech stack, and timelines without sending private text to external servers.
             </p>
           </div>
 
           <div className="landing-feature-card">
             <div
               className="feature-icon-wrapper"
-              style={{ background: "rgba(6, 182, 212, 0.15)", color: "#22d3ee" }}
+              style={{ background: "rgba(16, 185, 129, 0.15)", color: "#34d399" }}
             >
-              <Shield size={22} />
+              <CheckCircle2 size={22} />
             </div>
-            <h3 style={{ fontSize: "1.1rem" }}>Testing & Deployment Readiness</h3>
-            <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: "1.6" }}>
-              Structured verification checklists for validation, security, responsiveness,
-              accessibility, and production URL verification. Real checkmarks, never auto-fabricated.
+            <h3>Interactive Kanban & Task Execution</h3>
+            <p>
+              Dual view: Kanban Board and Phase Lists. Real progress is strictly derived
+              from completed tasks with dependency-guarded completion controls.
+            </p>
+          </div>
+
+          <div className="landing-feature-card">
+            <div
+              className="feature-icon-wrapper"
+              style={{ background: "rgba(245, 158, 11, 0.15)", color: "#fbbf24" }}
+            >
+              <FileCode2 size={22} />
+            </div>
+            <h3>Technical Decision Records (TDR)</h3>
+            <p>
+              Capture the context, options considered, chosen option, reasoning, and
+              consequences for critical architecture choices. Exportable directly to Git Markdown.
             </p>
           </div>
 
@@ -181,53 +181,58 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
               className="feature-icon-wrapper"
               style={{ background: "rgba(244, 63, 94, 0.15)", color: "#fb7185" }}
             >
-              <Terminal size={22} />
+              <Shield size={22} />
             </div>
-            <h3 style={{ fontSize: "1.1rem" }}>Demo & Presentation Studio</h3>
-            <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: "1.6" }}>
-              Prepare an airtight presentation with customizable timing, problem hooks, live
-              walkthrough scripts, and pre-flight demo day verification checklists.
+            <h3>5×5 Risk Heatmap & Mermaid Topology</h3>
+            <p>
+              Explainable severity scoring with an interactive coordinate heatmap matrix,
+              paired with auto-generated Mermaid system architecture diagrams.
             </p>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="faq-section" style={{ maxWidth: "800px", margin: "0 auto 64px" }}>
-        <h2 style={{ textAlign: "center", marginBottom: "28px", fontSize: "1.6rem" }}>
-          Frequently Asked Questions
-        </h2>
-        {faqs.map((f, i) => (
-          <div
-            key={i}
-            className="faq-item"
-            style={{ cursor: "pointer", transition: "border-color 0.2s ease" }}
-            onClick={() => toggleFaq(i)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                toggleFaq(i);
-              }
-            }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <div className="faq-q">{f.q}</div>
-              <span style={{ color: "var(--text-muted)" }}>
-                {openFaq === i ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-              </span>
+      <section className="faq-section">
+        <div style={{ textAlign: "center", marginBottom: "36px" }}>
+          <h2 style={{ fontSize: "1.75rem", fontWeight: 800 }}>Frequently Asked Questions</h2>
+          <p className="form-hint" style={{ marginTop: "6px" }}>
+            Clear answers to architectural, persistence, and execution questions.
+          </p>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          {faqs.map((f, i) => (
+            <div
+              key={i}
+              className="faq-item"
+              onClick={() => toggleFaq(i)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  toggleFaq(i);
+                }
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px" }}>
+                <div className="faq-q">{f.q}</div>
+                <span style={{ color: "var(--text-muted)", flexShrink: 0 }}>
+                  {openFaq === i ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                </span>
+              </div>
+              {openFaq === i && <p className="faq-a">{f.a}</p>}
             </div>
-            {openFaq === i && <p className="faq-a" style={{ marginTop: "10px" }}>{f.a}</p>}
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
 
       {/* Footer */}
       <footer
         style={{
           borderTop: "1px solid var(--border)",
-          padding: "36px 0 24px",
+          padding: "40px 0 32px",
+          marginTop: "60px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -238,7 +243,7 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
         }}
       >
         <div>
-          <strong>BuildFlow</strong> — Turn your ideas into things that work.
+          <strong>BuildFlow</strong> — Turn your ideas into things that actually work.
         </div>
         <div style={{ display: "flex", gap: "20px" }}>
           <span>Privacy: Local First (Zero telemetry tracking)</span>
