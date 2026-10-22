@@ -21,7 +21,7 @@ const TABS = [
   { id: "testing", label: "Testing Checklist", icon: "🧪" },
   { id: "risks", label: "Risk Register", icon: "🛡️" },
   { id: "deployment", label: "Release Readiness", icon: "🚀" },
-  { id: "demo", label: "Demo Studio (Wispr Pitch)", icon: "🎤" },
+  { id: "demo", label: "Demo Studio", icon: "🎤" },
   { id: "plan", label: "Plan Blueprint", icon: "📄" },
   { id: "settings", label: "Settings & Exports", icon: "⚙️" },
 ];

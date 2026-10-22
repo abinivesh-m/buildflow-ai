@@ -187,9 +187,9 @@ export default function ProjectWizard({ onCreate, onCancel }) {
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px", flexWrap: "wrap", gap: "8px" }}>
                 <div className="form-label" style={{ margin: 0, display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span>🎙️ Voice Dictation & Wispr Flow Intake</span>
-                  <span className="badge badge-purple">No Hands Mode</span>
-                  <span className="badge badge-blue">Local NLP Parser</span>
+                  <span>🎙️ Voice Dictation · Wispr Flow Optimized</span>
+                  <span className="badge badge-purple">Speech-to-Spec</span>
+                  <span className="badge badge-blue">Deterministic NLP</span>
                 </div>
                 <div style={{ display: "flex", gap: "6px" }}>
                   <button

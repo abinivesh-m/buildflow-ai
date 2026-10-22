@@ -106,12 +106,12 @@ Live Production URL: ${project.productionUrl || "https://buildflow-ai-livid.verc
         </div>
       </div>
 
-      {/* Wispr Challenge Banner Card */}
+      {/* Executive Pitch Banner Card */}
       <div
         className="card"
         style={{
           marginBottom: "20px",
-          background: "linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.12) 100%)",
+          background: "linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%)",
           border: "1px solid var(--accent-purple)",
           padding: "16px 20px",
         }}
@@ -119,15 +119,15 @@ Live Production URL: ${project.productionUrl || "https://buildflow-ai-livid.verc
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <span className="badge badge-purple">No Hands: The Wispr Challenge</span>
-              <span className="badge badge-blue">Track 1: Builders</span>
-              <span className="badge badge-green">Submission Ready</span>
+              <span className="badge badge-purple">Executive Walkthrough</span>
+              <span className="badge badge-blue">Wispr Flow Workflow</span>
+              <span className="badge badge-green">Production Verified</span>
             </div>
             <h3 style={{ fontSize: "1.05rem", margin: "6px 0 2px" }}>
-              Judges Scoring Optimization: 30% Real Problem · 30% Wispr Meaningful Use · 25% Working Link · 15% Clear Demo
+              Structured 2-Minute Presentation Pitch: Problem · Voice Flow · Traceable Execution · Verified Delivery
             </h3>
             <p className="form-hint" style={{ margin: 0, fontSize: "0.8rem" }}>
-              Tailored specifically for WeMakeDevs and Wispr Flow judges (Kunal Kushwaha, Rohan Kochhar, Aayush Sharma, Sachin Sharma).
+              Engineered for high-impact presentations and technical review. Demonstrates meaningful hands-free execution.
             </p>
           </div>
           <button className="btn btn-primary btn-sm" onClick={handleCopyWisprPitch}>

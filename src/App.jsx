@@ -17,6 +17,7 @@ import DashboardView from "./components/DashboardView.jsx";
 import ProjectWizard from "./components/ProjectWizard.jsx";
 import WorkspaceView from "./components/WorkspaceView.jsx";
 import GlobalSettingsView from "./components/GlobalSettingsView.jsx";
+import LiveTelemetryBar from "./components/LiveTelemetryBar.jsx";
 
 const STORAGE_KEY = "buildflow:v3";
 const LEGACY_V2 = "billflow:v2";
@@ -572,6 +573,8 @@ export default function App() {
 
       {/* Main View Area */}
       <main className="main-content">
+        <LiveTelemetryBar activeProject={currentProject || projects[0]} onNotify={notify} />
+
         {!storageAvailable && (
           <div
             className="card"

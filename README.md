@@ -3,13 +3,11 @@
 # ⚡ BuildFlow AI
 
 ### **Turn your ideas into things that actually work.**
-#### *Built for "No Hands: The Wispr Challenge" | WeMakeDevs × Wispr Flow (Track 1: Builders)*
-
-A high-performance, execution-first engineering workspace with **speech-to-spec intake**, **end-to-end requirement traceability**, **Mermaid system topology**, and **verifiable deployment readiness**.
+*A high-performance, execution-first engineering workspace with voice-first intake, end-to-end requirement traceability, Mermaid system topologies, and verifiable release readiness.*
 
 [![Production Deployment](https://img.shields.io/badge/Production-Live_v2.2-10b981?style=for-the-badge&logo=vercel&logoColor=white)](https://buildflow-ai-livid.vercel.app/)
 [![Automated Tests](https://img.shields.io/badge/Vitest-22%2F22%20Passed-6366f1?style=for-the-badge&logo=vitest&logoColor=white)](https://github.com/abinivesh-m/buildflow-ai)
-[![No Hands Challenge](https://img.shields.io/badge/Wispr_Flow-Track_1_Builders-8b5cf6?style=for-the-badge)](https://www.wemakedevs.org/wispr)
+[![Voice Powered](https://img.shields.io/badge/Voice_First-Wispr_Flow-8b5cf6?style=for-the-badge)](https://buildflow-ai-livid.vercel.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-06b6d4?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Build with Vite](https://img.shields.io/badge/Vite-8.3-f59e0b?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
 
@@ -21,16 +19,16 @@ A high-performance, execution-first engineering workspace with **speech-to-spec 
 
 ---
 
-## 🎙️ Built for "No Hands: The Wispr Challenge"
+## 🎙️ Voice-First Engineering Workflow (Wispr Flow Native)
 
-> **"Build it, write it, ship it. Just don’t type it."** — WeMakeDevs & Wispr Flow
+BuildFlow AI is architected from the ground up to eliminate typing friction from software engineering delivery:
 
-| Judging Dimension (Weight) | BuildFlow AI Implementation |
-| :--- | :--- |
-| **30% — Real Problem in Work** | Solves the #1 cause of developer burnout: the friction between an idea and an actionable, traceable engineering plan. |
-| **30% — Meaningful Wispr Use** | Fast dictation intake at 160+ WPM directly translates spoken thoughts into structured 18-point specs, requirements, and TDR records. |
-| **25% — Does It Work?** | Verified live production URL deployed on Vercel with zero mocked buttons and strict offline schema persistence. |
-| **15% — Clear Demo** | Integrated Demo Studio with pre-flight checklist and an explicit 2-minute pitch tailored for hackathon judges. |
+| Engineering Need | Conventional Approach | BuildFlow + Wispr Flow Solution |
+| :--- | :--- | :--- |
+| **Project Intake** | Typing out multi-page docs in Notion/Docs (40 WPM). | Dictate natural vision hands-free at 160+ WPM; local NLP extracts structured blueprint. |
+| **Traceability** | Broken links across Jira, GitHub, and spreadsheets. | Single unified matrix linking Requirements ↔ Tasks ↔ Tests ↔ Decisions ↔ Risks. |
+| **Architecture Context** | Undocumented verbal decisions lost over time. | Structured Technical Decision Records (TDR) and live auto-generated Mermaid flowcharts. |
+| **Delivery Verification** | Trusting checkboxes without evidence or dependency checks. | Strict dependency guards, 5×5 risk matrix, and pre-flight verification checklists. |
 
 ---
 
