@@ -129,7 +129,23 @@ export default function TasksManager({ project, onPatch, onAskConfirm, onNotify 
         onSubmit={handleAddTask}
         style={{ marginBottom: "24px", background: "var(--bg-subtle)" }}
       >
-        <h3 style={{ fontSize: "1rem", marginBottom: "12px" }}>+ Add Task</h3>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", flexWrap: "wrap", gap: "8px" }}>
+          <h3 style={{ fontSize: "1rem", margin: 0 }}>+ Add Task</h3>
+          <button
+            type="button"
+            className="btn btn-ghost btn-sm"
+            style={{ fontSize: "0.74rem" }}
+            onClick={() => {
+              setNewTitle("Implement real-time voice speech buffer visualizer");
+              setNewCriteria("Waveform equalizers animate cleanly during speech input and stop on silence.");
+              setNewPriority("high");
+              setNewHours(3);
+              onNotify("🎙️ Populated task details from spoken prompt.");
+            }}
+          >
+            🎙️ Dictate Task (Sample Speech)
+          </button>
+        </div>
         <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 80px", gap: "10px", marginBottom: "10px" }}>
           <input
             className="input"

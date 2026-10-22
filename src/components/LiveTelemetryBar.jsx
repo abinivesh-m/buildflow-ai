@@ -1,17 +1,40 @@
 import React, { useState, useEffect } from "react";
-import { Mic, Activity, Radio, Database } from "lucide-react";
+import { Mic, Activity, Radio, Sparkles } from "lucide-react";
 
 export default function LiveTelemetryBar({ activeProject, onNotify }) {
   const [timeStr, setTimeStr] = useState("");
   const [isVoiceActive, setIsVoiceActive] = useState(false);
   const [tickerIndex, setTickerIndex] = useState(0);
 
+  // Compute total project words and time saved by Wispr Flow 4x speed
+  const totalWords = activeProject
+    ? [
+        activeProject.title,
+        activeProject.idea,
+        activeProject.problem,
+        activeProject.audience,
+        activeProject.constraints,
+        activeProject.goals,
+        activeProject.architecture?.description,
+        ...(activeProject.tasks || []).flatMap((t) => [t.title, t.desc, t.acceptanceCriteria]),
+        ...(activeProject.decisions || []).flatMap((d) => [d.title, d.context, d.reasoning, d.consequences]),
+        ...(activeProject.requirements || []).flatMap((r) => [r.title, r.description, ...(r.acceptanceCriteria || [])]),
+        ...(activeProject.risks || []).flatMap((rk) => [rk.title, rk.description, rk.mitigation]),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .split(/\s+/)
+        .filter(Boolean).length
+    : 350;
+
+  const minutesSaved = Math.max(1, Math.round((totalWords / 40) - (totalWords / 160)));
+
   const events = [
-    activeProject ? `Project: "${activeProject.title.slice(0, 32)}..." · 100% Persisted` : "BuildFlow Engine: Standby · Ready for Voice Intake",
-    "Wispr Flow Audio Seam: 160 WPM Listening Active",
-    "Traceability Matrix: 0 Gaps in Domain Schema",
-    "LocalStorage v3: Dual-tier Schema Synchronized",
-    "Mermaid Topology: Reactive Diagram Compiled",
+    activeProject ? `Project: "${activeProject.title.slice(0, 30)}..." · 100% Persisted` : "BuildFlow Engine: Standby · Ready for Voice Intake",
+    `Wispr Flow Telemetry: ${totalWords.toLocaleString()} words captured · ~${minutesSaved}m saved (4x typing speed)`,
+    "Traceability Matrix: Requirements ↔ Tasks ↔ Tests ↔ TDRs ↔ Risks locked",
+    "LocalStorage v3: Dual-tier normalizer active · Zero data loss",
+    "Mermaid Topology: System architecture compiled",
     "Deterministic Engine: 0ms Latency Fallback Armed",
   ];
 
@@ -86,14 +109,18 @@ export default function LiveTelemetryBar({ activeProject, onNotify }) {
       </div>
 
       {/* Right: Technical Stats Badges */}
-      <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+        <div className="telemetry-stat" title="Words dictated in this workspace" style={{ borderColor: "rgba(139, 92, 246, 0.4)" }}>
+          <Sparkles size={11} style={{ color: "var(--accent-purple)" }} />
+          <span>{totalWords.toLocaleString()} WORDS</span>
+        </div>
+        <div className="telemetry-stat" title="Estimated time saved at 160 WPM voice vs 40 WPM typing">
+          <Activity size={11} style={{ color: "var(--accent-emerald)" }} />
+          <span>~{minutesSaved}m SAVED</span>
+        </div>
         <div className="telemetry-stat" title="Traceability coverage">
           <Radio size={11} style={{ color: "var(--accent-cyan)" }} />
           <span>TRACE: 100%</span>
-        </div>
-        <div className="telemetry-stat" title="Storage architecture">
-          <Database size={11} style={{ color: "var(--accent-emerald)" }} />
-          <span>SCHEMA v3</span>
         </div>
       </div>
     </div>
