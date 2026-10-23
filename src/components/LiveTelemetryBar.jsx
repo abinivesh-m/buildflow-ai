@@ -85,7 +85,7 @@ export default function LiveTelemetryBar({ activeProject, onNotify }) {
         }}
         title="Click to toggle voice stream test"
       >
-        <Mic size={13} style={{ color: isVoiceActive ? "var(--accent-emerald)" : "var(--accent-purple)" }} />
+        <Mic size={13} style={{ color: isVoiceActive ? "var(--primary)" : "var(--primary)" }} />
         <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--text-main)" }}>
           {isVoiceActive ? "WISPR STREAMING" : "WISPR VOICE READY"}
         </span>

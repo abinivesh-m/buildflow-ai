@@ -4,42 +4,44 @@
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* Editorial Dark Theme Tokens */
-  --bg-canvas: #0c0d14;
-  --bg-subtle: #11131c;
-  --bg-card: #161824;
-  --bg-card-hover: #1d2030;
-  --bg-input: #0e1018;
-  --bg-glass: rgba(22, 24, 36, 0.8);
+  /* Official Wispr Flow Challenge Dark Theme Tokens */
+  --bg-canvas: #09090d;
+  --bg-subtle: #0f1017;
+  --bg-card: #12131b;
+  --bg-card-hover: #191b26;
+  --bg-input: #0b0c11;
+  --bg-glass: rgba(18, 19, 27, 0.9);
 
-  --border: #24283b;
-  --border-focus: #8b5cf6;
-  --border-subtle: #1a1d2c;
-  --border-glow: rgba(139, 92, 246, 0.35);
+  --border: #212433;
+  --border-focus: #ff5733;
+  --border-subtle: #181a25;
+  --border-glow: rgba(255, 87, 51, 0.4);
 
-  --text-main: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-main: #fcfcfd;
+  --text-secondary: #9ea3b0;
+  --text-muted: #676c7a;
 
-  --primary: #7c3aed;
-  --primary-hover: #6d28d9;
-  --primary-glow: rgba(124, 58, 237, 0.35);
+  /* Official Wispr Flow Signature Coral-Orange Accent */
+  --primary: #ff5733;
+  --primary-hover: #f04420;
+  --primary-glow: rgba(255, 87, 51, 0.45);
 
+  --accent-coral: #ff5733;
   --accent-cyan: #06b6d4;
   --accent-emerald: #10b981;
   --accent-amber: #f59e0b;
   --accent-rose: #f43f5e;
-  --accent-purple: #8b5cf6;
+  --accent-purple: #a855f7;
 
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
   --radius-xl: 20px;
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 35px rgba(124, 58, 237, 0.25);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 35px rgba(255, 87, 51, 0.3);
 }
 
 [data-theme="light"] {
@@ -92,16 +94,36 @@ body {
   overflow-x: hidden;
 }
 
-/* Background Animated Gradient Mesh */
+/* Background Animated Gradient Mesh with Official Wispr Pinstripes */
 .bg-mesh {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: 
-    radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.06) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 50%);
+  background-image: 
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 23px,
+      rgba(255, 255, 255, 0.015) 23px,
+      rgba(255, 255, 255, 0.015) 24px
+    ),
+    radial-gradient(circle at 15% 15%, rgba(255, 87, 51, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(168, 85, 247, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(255, 87, 51, 0.03) 0%, transparent 50%);
+}
+
+[data-theme="light"] .bg-mesh {
+  background-image: 
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 23px,
+      rgba(124, 58, 237, 0.018) 23px,
+      rgba(124, 58, 237, 0.018) 24px
+    ),
+    radial-gradient(circle at 15% 15%, rgba(217, 119, 6, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(124, 58, 237, 0.04) 0%, transparent 45%);
 }
 
 .app-shell {
@@ -275,6 +297,7 @@ body {
   box-shadow: var(--shadow-sm);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  z-index: 2;
 }
 
 .card:hover {
@@ -309,16 +332,16 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary), #6366f1);
+  background: linear-gradient(135deg, var(--primary), #e63900);
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 4px 14px var(--primary-glow);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, var(--primary-hover), #4f46e5);
+  background: linear-gradient(135deg, var(--primary-hover), #d93800);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
+  box-shadow: 0 6px 20px rgba(255, 87, 51, 0.45);
 }
 
 .btn-secondary {
@@ -644,7 +667,8 @@ body {
 }
 
 .audio-bars .bar.active {
-  background: var(--accent-emerald);
+  background: var(--primary);
+  box-shadow: 0 0 6px var(--primary-glow);
   animation-duration: 0.6s;
 }
 
@@ -858,6 +882,7 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
+  z-index: 2;
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
@@ -923,6 +948,8 @@ body {
   border-radius: var(--radius-md);
   padding: 20px 24px;
   margin-bottom: 14px;
+  position: relative;
+  z-index: 2;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
@@ -1077,15 +1104,15 @@ body {
 }
 
 .floating-voice-dock.dock-active {
-  border-color: var(--accent-purple);
-  box-shadow: 0 8px 36px rgba(124, 58, 237, 0.35), 0 0 0 2px rgba(124, 58, 237, 0.2);
+  border-color: var(--primary);
+  box-shadow: 0 8px 36px rgba(255, 87, 51, 0.4), 0 0 0 2px rgba(255, 87, 51, 0.25);
 }
 
 .voice-dock-mic {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary), #8b5cf6);
+  background: linear-gradient(135deg, var(--primary), #e63900);
   border: none;
   color: #fff;
   display: flex;
@@ -1325,13 +1352,18 @@ body {
   font-weight: 800;
 }
 
-/* Active Stage Slow Illumination (Living Blueprint Signature) */
+/* Active Stage Slow Illumination (Official Wispr Coral / Light Purple) */
 .stage-pipeline-step.stage-illuminating {
-  background: linear-gradient(135deg, var(--primary), #8b5cf6);
+  background: linear-gradient(135deg, var(--primary), #e63900);
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.35);
   box-shadow: 0 0 20px var(--primary-glow);
   animation: stageBreatheGlow 3.6s infinite ease-in-out;
+}
+
+[data-theme="light"] .stage-pipeline-step.stage-illuminating {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  animation: stageBreatheGlowLight 3.6s infinite ease-in-out;
 }
 
 .stage-pipeline-step.stage-illuminating .step-num {
@@ -1343,7 +1375,7 @@ body {
   position: absolute;
   inset: -3px;
   border-radius: 999px;
-  border: 1px solid var(--accent-purple);
+  border: 1px solid var(--primary);
   opacity: 0.5;
   animation: haloPulse 2.8s infinite ease-in-out;
   pointer-events: none;
@@ -1351,11 +1383,22 @@ body {
 
 @keyframes stageBreatheGlow {
   0%, 100% {
-    box-shadow: 0 0 14px rgba(124, 58, 237, 0.35), 0 2px 8px rgba(124, 58, 237, 0.2);
+    box-shadow: 0 0 14px rgba(255, 87, 51, 0.4), 0 2px 8px rgba(255, 87, 51, 0.25);
+    border-color: rgba(255, 87, 51, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(255, 87, 51, 0.7), 0 4px 16px rgba(255, 120, 80, 0.5);
+    border-color: rgba(255, 160, 130, 0.9);
+  }
+}
+
+@keyframes stageBreatheGlowLight {
+  0%, 100% {
+    box-shadow: 0 0 14px rgba(124, 58, 237, 0.3), 0 2px 8px rgba(124, 58, 237, 0.2);
     border-color: rgba(168, 85, 247, 0.5);
   }
   50% {
-    box-shadow: 0 0 28px rgba(124, 58, 237, 0.6), 0 4px 16px rgba(168, 85, 247, 0.4);
+    box-shadow: 0 0 28px rgba(124, 58, 237, 0.55), 0 4px 16px rgba(168, 85, 247, 0.35);
     border-color: rgba(216, 180, 254, 0.9);
   }
 }

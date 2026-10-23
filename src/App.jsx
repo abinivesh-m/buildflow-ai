@@ -488,9 +488,9 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      {/* Background Subtle Ambient Engineering Grid */}
+      {/* Background Living Engineering Blueprint & Connected Architecture */}
       <div className="bg-mesh" />
-      <LivingBlueprintCanvas theme={theme} variant="ambient" />
+      <LivingBlueprintCanvas theme={theme} />
 
       {/* Mobile Top Bar */}
       <div className="mobile-topbar">
