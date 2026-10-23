@@ -3,12 +3,31 @@ import React, { useEffect, useRef } from "react";
 /**
  * LivingBlueprintCanvas
  *
- * Signature Visual Identity: Living Engineering Blueprint
- * Continuous, 60fps lightweight HTML5 canvas rendering an architectural
- * blueprint of interconnected software engineering nodes with travelling
- * purple/lavender light pulses, gentle illumination, and subtle mouse parallax.
+ * Implements BuildFlow AI's signature dual-personality Living Canvas:
+ * 1. LIGHT MODE (Reference 1): Architectural Blueprint
+ *    - Warm cream canvas, fine lavender & warm champagne wireframes
+ *    - Isometric floor plans, technical dimension markers, vertical coordinate rays
+ *    - Glowing copper/warm champagne beacon beads and traveling pulses
+ *
+ * 2. DARK MODE (Reference 2): Purple Technology Network
+ *    - Deep charcoal canvas, futuristic isometric component blocks
+ *    - Glowing purple circuit paths, elevated server nodes with illuminated top caps
+ *    - Glowing purple and cyan light pulses traveling along isometric buses
+ *
+ * Runs continuously at 60 FPS, loops seamlessly, adapts to resize and theme toggle,
+ * supports smooth crossfade between themes, and respects prefers-reduced-motion.
  */
-export default function LivingBlueprintCanvas({ theme = "dark", density = "normal", height = "100%" }) {
+
+const COS30 = 0.8660254; // Math.cos(Math.PI / 6)
+const SIN30 = 0.5;       // Math.sin(Math.PI / 6)
+
+function toIso(x, y, z, originX, originY, scale = 1) {
+  const sx = originX + (x - y) * COS30 * scale;
+  const sy = originY + (x + y) * SIN30 * scale - z * scale;
+  return { x: sx, y: sy };
+}
+
+export default function LivingBlueprintCanvas({ theme = "dark", height = "100%" }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -20,72 +39,115 @@ export default function LivingBlueprintCanvas({ theme = "dark", density = "norma
     let animId = null;
     let width = 0;
     let heightPx = 0;
-    let mouseX = 0;
-    let mouseY = 0;
     let targetParallaxX = 0;
     let targetParallaxY = 0;
     let currentParallaxX = 0;
     let currentParallaxY = 0;
 
-    // Check prefers-reduced-motion
+    // Theme crossfade tracking
+    let currentMode = document.documentElement.getAttribute("data-theme") || theme || "dark";
+    let transitionVal = currentMode === "light" ? 1 : 0; // 0 = dark, 1 = light
+
     const prefersReducedMotion =
       typeof window !== "undefined" &&
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Architectural Blueprint System Nodes
-    const BLUEPRINT_NODES = [
-      { id: "brief", label: "01 BRIEF", rx: 0.12, ry: 0.24, size: 4.5, pulsePhase: 0 },
-      { id: "reqs", label: "02 REQUIREMENTS", rx: 0.28, ry: 0.18, size: 5, pulsePhase: 1.2 },
-      { id: "matrix", label: "TRACEABILITY", rx: 0.45, ry: 0.32, size: 6, pulsePhase: 2.5 },
-      { id: "arch", label: "03 ARCHITECTURE", rx: 0.62, ry: 0.16, size: 5.5, pulsePhase: 3.8 },
-      { id: "sprint", label: "04 SPRINT", rx: 0.78, ry: 0.34, size: 5, pulsePhase: 4.7 },
-      { id: "tests", label: "05 VERIFY", rx: 0.84, ry: 0.62, size: 5, pulsePhase: 0.9 },
-      { id: "deploy", label: "06 DELIVER", rx: 0.66, ry: 0.76, size: 6, pulsePhase: 2.1 },
-      { id: "tdr", label: "TDR LOG", rx: 0.42, ry: 0.74, size: 4.5, pulsePhase: 3.4 },
-      { id: "risk", label: "5×5 RISK", rx: 0.22, ry: 0.65, size: 4.5, pulsePhase: 5.0 },
-      { id: "hud", label: "VOICE HUD", rx: 0.50, ry: 0.52, size: 5, pulsePhase: 1.8 },
-      // Micro-satellites for density
-      { id: "m1", label: "NLP", rx: 0.18, ry: 0.40, size: 3, pulsePhase: 0.5 },
-      { id: "m2", label: "GRAPH", rx: 0.36, ry: 0.46, size: 3.5, pulsePhase: 2.8 },
-      { id: "m3", label: "MERMAID", rx: 0.68, ry: 0.42, size: 3.5, pulsePhase: 4.1 },
-      { id: "m4", label: "API GATE", rx: 0.74, ry: 0.82, size: 3, pulsePhase: 1.5 },
-      { id: "m5", label: "CI/CD", rx: 0.52, ry: 0.88, size: 3, pulsePhase: 3.1 },
+    // -------------------------------------------------------------
+    // DATA STRUCTURES FOR ARCHITECTURAL BLUEPRINT (LIGHT MODE)
+    // -------------------------------------------------------------
+    // Architectural building rooms/modules in isometric coordinates (x, y, z, w, d, h)
+    const ARCH_MODULES = [
+      // Central engineering wing
+      { x: -140, y: -60, z: 0, w: 120, d: 70, h: 22, label: "01 BRIEF INTAKE", elev: "+0.00" },
+      { x: 0, y: -60, z: 0, w: 140, d: 80, h: 36, label: "02 REQUIREMENTS CORE", elev: "+3.20" },
+      { x: 160, y: -40, z: 0, w: 100, d: 90, h: 28, label: "03 ARCHITECTURE TOPOLOGY", elev: "+2.40" },
+      // Secondary wings
+      { x: -100, y: 30, z: 0, w: 90, d: 80, h: 18, label: "04 SPRINT EXECUTION", elev: "+1.20" },
+      { x: 10, y: 40, z: 0, w: 120, d: 70, h: 26, label: "05 VERIFICATION LAB", elev: "+2.80" },
+      { x: 150, y: 70, z: 0, w: 90, d: 60, h: 20, label: "06 DELIVER & SHIP", elev: "+1.80" },
+      // Traceability bridge
+      { x: -30, y: -130, z: 0, w: 180, d: 50, h: 14, label: "TRACEABILITY MATRIX", elev: "+0.80" },
     ];
 
-    // Blueprint Connections (Edges)
-    const CONNECTIONS = [
-      ["brief", "reqs"],
-      ["reqs", "matrix"],
-      ["matrix", "arch"],
-      ["arch", "sprint"],
-      ["sprint", "tests"],
-      ["tests", "deploy"],
-      ["deploy", "tdr"],
-      ["tdr", "risk"],
-      ["risk", "brief"],
-      ["matrix", "hud"],
-      ["hud", "sprint"],
-      ["brief", "m1"],
-      ["m1", "risk"],
-      ["matrix", "m2"],
-      ["m2", "tdr"],
-      ["arch", "m3"],
-      ["m3", "sprint"],
-      ["deploy", "m4"],
-      ["m4", "m5"],
-      ["m5", "tdr"],
+    // Vertical beacon poles rising from junctions (as in Reference Image 1)
+    const ARCH_BEACONS = [
+      { x: -140, y: -60, height: 75, phase: 0 },
+      { x: -20, y: -60, height: 95, phase: 1.2 },
+      { x: 140, y: -60, height: 110, phase: 2.5 },
+      { x: 260, y: -40, height: 85, phase: 3.8 },
+      { x: -10, y: 40, height: 90, phase: 4.7 },
+      { x: 130, y: 40, height: 105, phase: 1.8 },
+      { x: 240, y: 70, height: 80, phase: 3.1 },
+      { x: 50, y: -130, height: 65, phase: 0.9 },
     ];
 
-    // Moving Data Pulses
-    const PULSES = CONNECTIONS.map(([fromId, toId], index) => ({
-      fromId,
-      toId,
-      progress: (index * 0.17) % 1,
-      speed: 0.0028 + (index % 5) * 0.0006,
-      size: 2.5 + (index % 3) * 0.8,
+    // Blueprint pathway edges for traveling light pulses
+    const ARCH_PATHS = [
+      { from: { x: -140, y: -60, z: 22 }, to: { x: -20, y: -60, z: 22 } },
+      { from: { x: 0, y: -60, z: 36 }, to: { x: 140, y: -60, z: 36 } },
+      { from: { x: 140, y: -60, z: 28 }, to: { x: 260, y: -40, z: 28 } },
+      { from: { x: -10, y: 40, z: 26 }, to: { x: 130, y: 40, z: 26 } },
+      { from: { x: 130, y: 40, z: 20 }, to: { x: 240, y: 70, z: 20 } },
+      { from: { x: 0, y: -60, z: 36 }, to: { x: 10, y: 40, z: 26 } },
+      { from: { x: -20, y: -60, z: 22 }, to: { x: -100, y: 30, z: 18 } },
+    ];
+
+    const ARCH_PULSES = ARCH_PATHS.map((p, i) => ({
+      ...p,
+      progress: (i * 0.22) % 1,
+      speed: 0.003 + (i % 3) * 0.0008,
     }));
 
+    // -------------------------------------------------------------
+    // DATA STRUCTURES FOR PURPLE TECHNOLOGY NETWORK (DARK MODE)
+    // -------------------------------------------------------------
+    // Futuristic server blocks and processing cubes (Reference Image 2)
+    const TECH_BLOCKS = [
+      { x: -160, y: -70, z: 0, w: 45, d: 45, h: 42, color: "#8b5cf6", active: true },
+      { x: -90, y: -80, z: 0, w: 50, d: 50, h: 60, color: "#a855f7", active: true },
+      { x: -20, y: -65, z: 0, w: 40, d: 40, h: 32, color: "#6366f1", active: false },
+      { x: 50, y: -80, z: 0, w: 55, d: 55, h: 75, color: "#c084fc", active: true },
+      { x: 130, y: -70, z: 0, w: 45, d: 45, h: 48, color: "#a855f7", active: true },
+      { x: 200, y: -60, z: 0, w: 40, d: 40, h: 35, color: "#8b5cf6", active: false },
+
+      // Middle row
+      { x: -130, y: 0, z: 0, w: 40, d: 40, h: 36, color: "#8b5cf6", active: false },
+      { x: -60, y: 10, z: 0, w: 60, d: 60, h: 80, color: "#e879f9", active: true }, // Main CPU block
+      { x: 20, y: 0, z: 0, w: 50, d: 50, h: 52, color: "#a855f7", active: true },
+      { x: 90, y: 15, z: 0, w: 45, d: 45, h: 40, color: "#06b6d4", active: true },
+      { x: 160, y: 5, z: 0, w: 45, d: 45, h: 44, color: "#8b5cf6", active: false },
+
+      // Lower row
+      { x: -100, y: 80, z: 0, w: 45, d: 45, h: 38, color: "#8b5cf6", active: false },
+      { x: -30, y: 90, z: 0, w: 50, d: 50, h: 58, color: "#a855f7", active: true },
+      { x: 40, y: 80, z: 0, w: 45, d: 45, h: 42, color: "#c084fc", active: true },
+      { x: 120, y: 90, z: 0, w: 55, d: 55, h: 68, color: "#a855f7", active: true },
+    ];
+
+    // Orthogonal circuit bus connections with right-angle bends
+    const TECH_CIRCUITS = [
+      { from: { x: -160, y: -50 }, to: { x: -90, y: -50 }, branch: { x: -90, y: 10 } },
+      { from: { x: -90, y: -50 }, to: { x: 50, y: -50 }, branch: { x: 50, y: 0 } },
+      { from: { x: 50, y: -50 }, to: { x: 130, y: -50 }, branch: { x: 130, y: 10 } },
+      { from: { x: -60, y: 40 }, to: { x: 20, y: 40 }, branch: { x: 20, y: 90 } },
+      { from: { x: 20, y: 40 }, to: { x: 90, y: 40 }, branch: { x: 90, y: 90 } },
+      { from: { x: 90, y: 40 }, to: { x: 160, y: 40 }, branch: null },
+      { from: { x: -30, y: 110 }, to: { x: 40, y: 110 }, branch: { x: 40, y: 80 } },
+      { from: { x: 40, y: 110 }, to: { x: 120, y: 110 }, branch: null },
+      // Vertical cross links
+      { from: { x: -60, y: -80 }, to: { x: -60, y: 10 }, branch: null },
+      { from: { x: 50, y: -80 }, to: { x: 50, y: 80 }, branch: null },
+    ];
+
+    const TECH_PULSES = TECH_CIRCUITS.map((c, i) => ({
+      ...c,
+      progress: (i * 0.19) % 1,
+      speed: 0.0035 + (i % 4) * 0.0007,
+      color: i % 3 === 2 ? "#06b6d4" : "#c084fc",
+    }));
+
+    // Handle canvas dimensions with Retina DPR
     const resize = () => {
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
@@ -102,203 +164,388 @@ export default function LivingBlueprintCanvas({ theme = "dark", density = "norma
     resize();
     window.addEventListener("resize", resize);
 
-    // Mouse parallax tracking
+    // Subtle mouse parallax
     const handleMouseMove = (e) => {
       const cx = window.innerWidth / 2;
       const cy = window.innerHeight / 2;
-      targetParallaxX = ((e.clientX - cx) / cx) * 16;
-      targetParallaxY = ((e.clientY - cy) / cy) * 16;
+      targetParallaxX = ((e.clientX - cx) / cx) * 14;
+      targetParallaxY = ((e.clientY - cy) / cy) * 10;
     };
-
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
+    // Mutation observer for theme changes
+    const observer = new MutationObserver(() => {
+      currentMode = document.documentElement.getAttribute("data-theme") || "dark";
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
     let lastTime = performance.now();
 
+    // -------------------------------------------------------------
+    // RENDERER 1: ARCHITECTURAL BLUEPRINT (LIGHT MODE)
+    // Inspired by Reference Image 1 (Warm Cream, Lavender, Warm Champagne)
+    // -------------------------------------------------------------
+    const renderArchitecturalBlueprint = (now, originX, originY, scale, alpha) => {
+      if (alpha <= 0.001) return;
+
+      ctx.save();
+      ctx.globalAlpha = alpha;
+
+      // 1. Isometric Blueprint Technical Grid
+      const gridSize = 32;
+      const gridExtent = 10;
+      ctx.strokeStyle = "rgba(124, 58, 237, 0.045)";
+      ctx.lineWidth = 0.8;
+
+      for (let i = -gridExtent; i <= gridExtent; i++) {
+        // Grid lines along X
+        const pStart = toIso(i * gridSize, -gridExtent * gridSize, 0, originX, originY, scale);
+        const pEnd = toIso(i * gridSize, gridExtent * gridSize, 0, originX, originY, scale);
+        ctx.beginPath();
+        ctx.moveTo(pStart.x, pStart.y);
+        ctx.lineTo(pEnd.x, pEnd.y);
+        ctx.stroke();
+
+        // Grid lines along Y
+        const pStart2 = toIso(-gridExtent * gridSize, i * gridSize, 0, originX, originY, scale);
+        const pEnd2 = toIso(gridExtent * gridSize, i * gridSize, 0, originX, originY, scale);
+        ctx.beginPath();
+        ctx.moveTo(pStart2.x, pStart2.y);
+        ctx.lineTo(pEnd2.x, pEnd2.y);
+        ctx.stroke();
+
+        // Technical crosshair tick marks at major intersections
+        if (i % 3 === 0) {
+          const pt = toIso(i * gridSize, 0, 0, originX, originY, scale);
+          ctx.strokeStyle = "rgba(180, 83, 9, 0.18)"; // Warm champagne tick
+          ctx.beginPath();
+          ctx.moveTo(pt.x - 3, pt.y);
+          ctx.lineTo(pt.x + 3, pt.y);
+          ctx.moveTo(pt.x, pt.y - 3);
+          ctx.lineTo(pt.x, pt.y + 3);
+          ctx.stroke();
+          ctx.strokeStyle = "rgba(124, 58, 237, 0.045)";
+        }
+      }
+
+      // 2. Architectural Isometric Wireframe Modules
+      ARCH_MODULES.forEach((mod) => {
+        // Wireframe box with translucent lavender fills and champagne borders
+        const p0 = toIso(mod.x, mod.y, mod.z, originX, originY, scale);
+        const p1 = toIso(mod.x + mod.w, mod.y, mod.z, originX, originY, scale);
+        const p2 = toIso(mod.x + mod.w, mod.y + mod.d, mod.z, originX, originY, scale);
+        const p3 = toIso(mod.x, mod.y + mod.d, mod.z, originX, originY, scale);
+
+        const t0 = toIso(mod.x, mod.y, mod.z + mod.h, originX, originY, scale);
+        const t1 = toIso(mod.x + mod.w, mod.y, mod.z + mod.h, originX, originY, scale);
+        const t2 = toIso(mod.x + mod.w, mod.y + mod.d, mod.z + mod.h, originX, originY, scale);
+        const t3 = toIso(mod.x, mod.y + mod.d, mod.z + mod.h, originX, originY, scale);
+
+        // Ground footprint
+        ctx.beginPath();
+        ctx.moveTo(p0.x, p0.y);
+        ctx.lineTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.lineTo(p3.x, p3.y);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(245, 242, 235, 0.7)";
+        ctx.fill();
+        ctx.strokeStyle = "rgba(180, 83, 9, 0.16)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Top wireframe plane
+        ctx.beginPath();
+        ctx.moveTo(t0.x, t0.y);
+        ctx.lineTo(t1.x, t1.y);
+        ctx.lineTo(t2.x, t2.y);
+        ctx.lineTo(t3.x, t3.y);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
+        ctx.fill();
+        ctx.strokeStyle = "rgba(124, 58, 237, 0.28)"; // Delicate lavender wireframe
+        ctx.stroke();
+
+        // Vertical pillar edges
+        ctx.strokeStyle = "rgba(124, 58, 237, 0.22)";
+        [
+          [p0, t0],
+          [p1, t1],
+          [p2, t2],
+          [p3, t3],
+        ].forEach(([b, t]) => {
+          ctx.beginPath();
+          ctx.moveTo(b.x, b.y);
+          ctx.lineTo(t.x, t.y);
+          ctx.stroke();
+        });
+
+        // Technical dimension / elevation annotation
+        if (width > 600) {
+          ctx.font = "500 8.5px 'JetBrains Mono', monospace";
+          ctx.fillStyle = "rgba(120, 113, 108, 0.75)";
+          ctx.textAlign = "left";
+          ctx.fillText(`${mod.label} [${mod.elev}]`, t0.x + 4, t0.y - 2);
+        }
+      });
+
+      // 3. Vertical Measurement Rays & Floating Warm Copper Beacon Beads (Reference Image 1 signature)
+      ARCH_BEACONS.forEach((b) => {
+        const base = toIso(b.x, b.y, 0, originX, originY, scale);
+        const top = toIso(b.x, b.y, b.height, originX, originY, scale);
+
+        // Vertical measurement line
+        ctx.save();
+        ctx.strokeStyle = "rgba(217, 119, 6, 0.25)";
+        ctx.lineWidth = 1;
+        ctx.setLineDash([3, 4]);
+        ctx.beginPath();
+        ctx.moveTo(base.x, base.y);
+        ctx.lineTo(top.x, top.y);
+        ctx.stroke();
+        ctx.restore();
+
+        // Pulsing Warm Copper/Champagne Beacon Bead at Top
+        const timeVal = now * 0.002 + b.phase;
+        const breath = prefersReducedMotion ? 1 : 1 + Math.sin(timeVal) * 0.25;
+        const beadRadius = 3.2 * breath;
+
+        // Soft outer lavender aura
+        const aura = ctx.createRadialGradient(top.x, top.y, 0, top.x, top.y, 16);
+        aura.addColorStop(0, "rgba(245, 158, 11, 0.45)"); // Warm amber
+        aura.addColorStop(0.5, "rgba(139, 92, 246, 0.15)"); // Lavender
+        aura.addColorStop(1, "rgba(124, 58, 237, 0)");
+        ctx.fillStyle = aura;
+        ctx.beginPath();
+        ctx.arc(top.x, top.y, 16, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Copper center core
+        ctx.fillStyle = "#d97706";
+        ctx.beginPath();
+        ctx.arc(top.x, top.y, beadRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Pinpoint highlight
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(top.x, top.y, beadRadius * 0.4, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // 4. Moving Blueprint Light Pulses
+      if (!prefersReducedMotion) {
+        ARCH_PULSES.forEach((pulse) => {
+          pulse.progress += pulse.speed;
+          if (pulse.progress >= 1) pulse.progress = 0;
+
+          const pStart = toIso(pulse.from.x, pulse.from.y, pulse.from.z, originX, originY, scale);
+          const pEnd = toIso(pulse.to.x, pulse.to.y, pulse.to.z, originX, originY, scale);
+
+          const px = pStart.x + (pEnd.x - pStart.x) * pulse.progress;
+          const py = pStart.y + (pEnd.y - pStart.y) * pulse.progress;
+
+          // Copper / lavender traveling packet
+          const pGrad = ctx.createRadialGradient(px, py, 0, px, py, 8);
+          pGrad.addColorStop(0, "#d97706");
+          pGrad.addColorStop(0.5, "rgba(124, 58, 237, 0.4)");
+          pGrad.addColorStop(1, "rgba(255, 255, 255, 0)");
+          ctx.fillStyle = pGrad;
+          ctx.beginPath();
+          ctx.arc(px, py, 8, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      }
+
+      ctx.restore();
+    };
+
+    // -------------------------------------------------------------
+    // RENDERER 2: PURPLE TECHNOLOGY NETWORK (DARK MODE)
+    // Inspired by Reference Image 2 (Deep Charcoal, Glowing Purple Circuits, 3D Blocks)
+    // -------------------------------------------------------------
+    const renderPurpleTechNetwork = (now, originX, originY, scale, alpha) => {
+      if (alpha <= 0.001) return;
+
+      ctx.save();
+      ctx.globalAlpha = alpha;
+
+      // 1. Isometric Circuit Board Grid
+      const gridSize = 36;
+      const gridExtent = 10;
+      ctx.strokeStyle = "rgba(148, 163, 184, 0.05)";
+      ctx.lineWidth = 0.8;
+
+      for (let i = -gridExtent; i <= gridExtent; i++) {
+        const pStart = toIso(i * gridSize, -gridExtent * gridSize, 0, originX, originY, scale);
+        const pEnd = toIso(i * gridSize, gridExtent * gridSize, 0, originX, originY, scale);
+        ctx.beginPath();
+        ctx.moveTo(pStart.x, pStart.y);
+        ctx.lineTo(pEnd.x, pEnd.y);
+        ctx.stroke();
+
+        const pStart2 = toIso(-gridExtent * gridSize, i * gridSize, 0, originX, originY, scale);
+        const pEnd2 = toIso(gridExtent * gridSize, i * gridSize, 0, originX, originY, scale);
+        ctx.beginPath();
+        ctx.moveTo(pStart2.x, pStart2.y);
+        ctx.lineTo(pEnd2.x, pEnd2.y);
+        ctx.stroke();
+      }
+
+      // 2. Glowing Purple Circuit Bus Paths (with right-angle bends)
+      TECH_CIRCUITS.forEach((c) => {
+        const p1 = toIso(c.from.x, c.from.y, 0, originX, originY, scale);
+        const p2 = toIso(c.to.x, c.to.y, 0, originX, originY, scale);
+
+        ctx.strokeStyle = "rgba(139, 92, 246, 0.22)";
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        if (c.branch) {
+          const pb = toIso(c.branch.x, c.branch.y, 0, originX, originY, scale);
+          ctx.lineTo(pb.x, pb.y);
+        }
+        ctx.stroke();
+      });
+
+      // 3. 3D Isometric Server & Processing Blocks (Reference Image 2 cubes)
+      TECH_BLOCKS.forEach((blk) => {
+        const p0 = toIso(blk.x, blk.y, blk.z, originX, originY, scale);
+        const p1 = toIso(blk.x + blk.w, blk.y, blk.z, originX, originY, scale);
+        const p2 = toIso(blk.x + blk.w, blk.y + blk.d, blk.z, originX, originY, scale);
+        const p3 = toIso(blk.x, blk.y + blk.d, blk.z, originX, originY, scale);
+
+        const t0 = toIso(blk.x, blk.y, blk.z + blk.h, originX, originY, scale);
+        const t1 = toIso(blk.x + blk.w, blk.y, blk.z + blk.h, originX, originY, scale);
+        const t2 = toIso(blk.x + blk.w, blk.y + blk.d, blk.z + blk.h, originX, originY, scale);
+        const t3 = toIso(blk.x, blk.y + blk.d, blk.z + blk.h, originX, originY, scale);
+
+        // Left Face (Dark Charcoal)
+        ctx.beginPath();
+        ctx.moveTo(p0.x, p0.y);
+        ctx.lineTo(t0.x, t0.y);
+        ctx.lineTo(t3.x, t3.y);
+        ctx.lineTo(p3.x, p3.y);
+        ctx.closePath();
+        ctx.fillStyle = "#0e101b";
+        ctx.fill();
+        ctx.strokeStyle = "rgba(139, 92, 246, 0.18)";
+        ctx.stroke();
+
+        // Right Face (Deep Charcoal)
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(t1.x, t1.y);
+        ctx.lineTo(t2.x, t2.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.closePath();
+        ctx.fillStyle = "#141726";
+        ctx.fill();
+        ctx.strokeStyle = "rgba(139, 92, 246, 0.22)";
+        ctx.stroke();
+
+        // Top Face (Illuminated Technology Plate with Bevel)
+        ctx.beginPath();
+        ctx.moveTo(t0.x, t0.y);
+        ctx.lineTo(t1.x, t1.y);
+        ctx.lineTo(t2.x, t2.y);
+        ctx.lineTo(t3.x, t3.y);
+        ctx.closePath();
+
+        if (blk.active) {
+          ctx.fillStyle = "#1b1933";
+          ctx.fill();
+          ctx.strokeStyle = blk.color;
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+
+          // Glowing Top Accent Plate (Reference Image 2 signature)
+          const inset = 6;
+          const it0 = toIso(blk.x + inset, blk.y + inset, blk.z + blk.h + 2, originX, originY, scale);
+          const it1 = toIso(blk.x + blk.w - inset, blk.y + inset, blk.z + blk.h + 2, originX, originY, scale);
+          const it2 = toIso(blk.x + blk.w - inset, blk.y + blk.d - inset, blk.z + blk.h + 2, originX, originY, scale);
+          const it3 = toIso(blk.x + inset, blk.y + blk.d - inset, blk.z + blk.h + 2, originX, originY, scale);
+
+          ctx.beginPath();
+          ctx.moveTo(it0.x, it0.y);
+          ctx.lineTo(it1.x, it1.y);
+          ctx.lineTo(it2.x, it2.y);
+          ctx.lineTo(it3.x, it3.y);
+          ctx.closePath();
+          ctx.fillStyle = blk.color;
+          ctx.shadowColor = blk.color;
+          ctx.shadowBlur = 12;
+          ctx.fill();
+          ctx.shadowBlur = 0; // reset
+        } else {
+          ctx.fillStyle = "#181a2b";
+          ctx.fill();
+          ctx.strokeStyle = "rgba(139, 92, 246, 0.3)";
+          ctx.stroke();
+        }
+      });
+
+      // 4. Moving Purple / Cyan Data Pulses along Circuits
+      if (!prefersReducedMotion) {
+        TECH_PULSES.forEach((pulse) => {
+          pulse.progress += pulse.speed;
+          if (pulse.progress >= 1) pulse.progress = 0;
+
+          const p1 = toIso(pulse.from.x, pulse.from.y, 0, originX, originY, scale);
+          const p2 = toIso(pulse.to.x, pulse.to.y, 0, originX, originY, scale);
+
+          let px = p1.x + (p2.x - p1.x) * pulse.progress;
+          let py = p1.y + (p2.y - p1.y) * pulse.progress;
+
+          // Glowing data packet with bright cyan/purple trail
+          const pulseGrad = ctx.createRadialGradient(px, py, 0, px, py, 10);
+          pulseGrad.addColorStop(0, "#ffffff");
+          pulseGrad.addColorStop(0.3, pulse.color);
+          pulseGrad.addColorStop(0.7, "rgba(139, 92, 246, 0.4)");
+          pulseGrad.addColorStop(1, "rgba(124, 58, 237, 0)");
+
+          ctx.fillStyle = pulseGrad;
+          ctx.beginPath();
+          ctx.arc(px, py, 10, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      }
+
+      ctx.restore();
+    };
+
+    // -------------------------------------------------------------
+    // MAIN CONTINUOUS ANIMATION LOOP WITH SMOOTH THEME CROSSFADE
+    // -------------------------------------------------------------
     const render = (now) => {
       const dt = Math.min(now - lastTime, 64);
       lastTime = now;
 
       // Parallax smooth interpolation
-      currentParallaxX += (targetParallaxX - currentParallaxX) * 0.04;
-      currentParallaxY += (targetParallaxY - currentParallaxY) * 0.04;
+      currentParallaxX += (targetParallaxX - currentParallaxX) * 0.05;
+      currentParallaxY += (targetParallaxY - currentParallaxY) * 0.05;
+
+      // Smooth crossfade between Light (transitionVal -> 1) and Dark (transitionVal -> 0)
+      const targetTransition = currentMode === "light" ? 1 : 0;
+      transitionVal += (targetTransition - transitionVal) * 0.08;
 
       ctx.clearRect(0, 0, width, heightPx);
 
-      // Determine palette based on theme prop and document element
-      const currentTheme =
-        document.documentElement.getAttribute("data-theme") || theme || "dark";
-      const isLight = currentTheme === "light";
+      // Dynamic isometric camera origin and scale
+      const originX = width * 0.5 + currentParallaxX;
+      const originY = heightPx * 0.45 + currentParallaxY;
+      const baseScale = width < 768 ? 0.72 : width < 1200 ? 0.88 : 1.05;
 
-      // Palette Configuration
-      const gridLineColor = isLight ? "rgba(124, 58, 237, 0.035)" : "rgba(148, 163, 184, 0.03)";
-      const connectionLineColor = isLight
-        ? "rgba(124, 58, 237, 0.14)"
-        : "rgba(148, 163, 184, 0.16)";
-      const connectionLineHighlight = isLight
-        ? "rgba(124, 58, 237, 0.35)"
-        : "rgba(139, 92, 246, 0.45)";
-      const nodeFill = isLight ? "#ffffff" : "#131522";
-      const nodeBorder = isLight ? "rgba(124, 58, 237, 0.45)" : "rgba(139, 92, 246, 0.6)";
-      const nodeGlow = isLight ? "rgba(124, 58, 237, 0.18)" : "rgba(139, 92, 246, 0.35)";
-      const textColor = isLight ? "rgba(87, 83, 78, 0.75)" : "rgba(148, 163, 184, 0.65)";
-      const pulseColor = isLight ? "#7c3aed" : "#a855f7";
-      const pulseGlow = isLight ? "rgba(124, 58, 237, 0.6)" : "rgba(168, 85, 247, 0.8)";
-      const pulseCyan = isLight ? "#0891b2" : "#06b6d4";
-
-      // 1. Subtle Engineering Grid Dots
-      const gridSize = width < 600 ? 40 : 36;
-      ctx.fillStyle = gridLineColor;
-      for (let x = (currentParallaxX * 0.3) % gridSize; x < width; x += gridSize) {
-        for (let y = (currentParallaxY * 0.3) % gridSize; y < heightPx; y += gridSize) {
-          ctx.beginPath();
-          ctx.arc(x, y, 1, 0, Math.PI * 2);
-          ctx.fill();
-        }
+      // Render Architectural Blueprint (Light Mode aesthetic)
+      if (transitionVal > 0.01) {
+        renderArchitecturalBlueprint(now, originX, originY, baseScale, transitionVal);
       }
 
-      // Compute current screen coordinates of nodes
-      const nodeMap = new Map();
-      const isMobile = width < 768;
-      const nodesToRender = isMobile
-        ? BLUEPRINT_NODES.filter((n) => !n.id.startsWith("m"))
-        : BLUEPRINT_NODES;
-
-      nodesToRender.forEach((n) => {
-        const px = n.rx * width + currentParallaxX;
-        const py = n.ry * heightPx + currentParallaxY;
-        nodeMap.set(n.id, { ...n, px, py });
-      });
-
-      // 2. Draw Architectural Connections (Lines & Circuits)
-      CONNECTIONS.forEach(([fromId, toId], idx) => {
-        const from = nodeMap.get(fromId);
-        const to = nodeMap.get(toId);
-        if (!from || !to) return;
-
-        ctx.save();
-        ctx.strokeStyle = idx % 3 === 0 ? connectionLineHighlight : connectionLineColor;
-        ctx.lineWidth = idx % 4 === 0 ? 1.5 : 1;
-        ctx.setLineDash(idx % 2 === 0 ? [] : [4, 4]);
-
-        ctx.beginPath();
-        // Subtle orthogonal bend for blueprint look
-        const midX = (from.px + to.px) / 2;
-        if (idx % 3 === 1) {
-          ctx.moveTo(from.px, from.py);
-          ctx.lineTo(midX, from.py);
-          ctx.lineTo(midX, to.py);
-          ctx.lineTo(to.px, to.py);
-        } else {
-          ctx.moveTo(from.px, from.py);
-          ctx.lineTo(to.px, to.py);
-        }
-        ctx.stroke();
-        ctx.restore();
-      });
-
-      // 3. Update & Draw Moving Light Pulses (Data Packets)
-      if (!prefersReducedMotion) {
-        PULSES.forEach((pulse, pIdx) => {
-          const from = nodeMap.get(pulse.fromId);
-          const to = nodeMap.get(pulse.toId);
-          if (!from || !to) return;
-
-          pulse.progress += pulse.speed * (dt / 16.6);
-          if (pulse.progress >= 1) {
-            pulse.progress = 0;
-          }
-
-          // Compute pulse position
-          let x, y;
-          if (pIdx % 3 === 1) {
-            const midX = (from.px + to.px) / 2;
-            if (pulse.progress < 0.33) {
-              const segP = pulse.progress / 0.33;
-              x = from.px + (midX - from.px) * segP;
-              y = from.py;
-            } else if (pulse.progress < 0.66) {
-              const segP = (pulse.progress - 0.33) / 0.33;
-              x = midX;
-              y = from.py + (to.py - from.py) * segP;
-            } else {
-              const segP = (pulse.progress - 0.66) / 0.34;
-              x = midX + (to.px - midX) * segP;
-              y = to.py;
-            }
-          } else {
-            x = from.px + (to.px - from.px) * pulse.progress;
-            y = from.py + (to.py - from.py) * pulse.progress;
-          }
-
-          // Draw Glowing Pulse with Halo
-          ctx.save();
-          const pulseG = ctx.createRadialGradient(x, y, 0, x, y, pulse.size * 3.5);
-          const activeColor = pIdx % 3 === 2 ? pulseCyan : pulseColor;
-          pulseG.addColorStop(0, activeColor);
-          pulseG.addColorStop(0.4, pIdx % 3 === 2 ? "rgba(6, 182, 212, 0.4)" : pulseGlow);
-          pulseG.addColorStop(1, "rgba(124, 58, 237, 0)");
-
-          ctx.fillStyle = pulseG;
-          ctx.beginPath();
-          ctx.arc(x, y, pulse.size * 3.5, 0, Math.PI * 2);
-          ctx.fill();
-
-          // Intense center core
-          ctx.fillStyle = isLight ? "#4c1d95" : "#ffffff";
-          ctx.beginPath();
-          ctx.arc(x, y, pulse.size * 0.7, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.restore();
-        });
+      // Render Purple Technology Network (Dark Mode aesthetic)
+      if (transitionVal < 0.99) {
+        renderPurpleTechNetwork(now, originX, originY, baseScale, 1 - transitionVal);
       }
-
-      // 4. Draw Architectural Blueprint Nodes
-      nodesToRender.forEach((node) => {
-        const n = nodeMap.get(node.id);
-        if (!n) return;
-
-        // Gentle breathing pulsation
-        const timeVal = now * 0.0018 + node.pulsePhase;
-        const breath = prefersReducedMotion ? 1 : 1 + Math.sin(timeVal) * 0.18;
-        const radius = n.size * breath;
-
-        ctx.save();
-
-        // Node Outer Aura
-        const aura = ctx.createRadialGradient(n.px, n.py, radius * 0.5, n.px, n.py, radius * 3.5);
-        aura.addColorStop(0, nodeGlow);
-        aura.addColorStop(1, "rgba(124, 58, 237, 0)");
-        ctx.fillStyle = aura;
-        ctx.beginPath();
-        ctx.arc(n.px, n.py, radius * 3.5, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Node Main Disc
-        ctx.fillStyle = nodeFill;
-        ctx.strokeStyle = nodeBorder;
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.arc(n.px, n.py, radius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-
-        // Inner Tech Core
-        ctx.fillStyle = isLight ? "#7c3aed" : "#a855f7";
-        ctx.beginPath();
-        ctx.arc(n.px, n.py, radius * 0.45, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Node Label (Editorial Mono)
-        if (width > 500 && n.label) {
-          ctx.font = "600 9px 'JetBrains Mono', monospace";
-          ctx.fillStyle = textColor;
-          ctx.textAlign = "center";
-          ctx.textBaseline = "top";
-          ctx.fillText(n.label, n.px, n.py + radius + 5);
-        }
-
-        ctx.restore();
-      });
 
       if (!prefersReducedMotion) {
         animId = requestAnimationFrame(render);
@@ -315,8 +562,9 @@ export default function LivingBlueprintCanvas({ theme = "dark", density = "norma
       if (animId) cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
+      observer.disconnect();
     };
-  }, [theme, density, height]);
+  }, [theme, height]);
 
   return (
     <canvas
@@ -324,11 +572,11 @@ export default function LivingBlueprintCanvas({ theme = "dark", density = "norma
       className="living-blueprint-canvas"
       aria-hidden="true"
       style={{
-        position: "absolute",
+        position: "fixed",
         top: 0,
         left: 0,
         width: "100%",
-        height: height,
+        height: "100%",
         pointerEvents: "none",
         zIndex: 0,
       }}

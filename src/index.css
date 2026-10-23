@@ -44,21 +44,21 @@
 
 [data-theme="light"] {
   /* Editorial Warm-Light Theme Tokens (Wispr Flow Native Aesthetic) */
-  --bg-canvas: #fcfbf9;
-  --bg-subtle: #f5f2eb;
+  --bg-canvas: #faf8f5;
+  --bg-subtle: #f3efe6;
   --bg-card: #ffffff;
-  --bg-card-hover: #faf8f4;
+  --bg-card-hover: #ffffff;
   --bg-input: #ffffff;
-  --bg-glass: rgba(255, 255, 255, 0.9);
+  --bg-glass: rgba(255, 255, 255, 0.92);
 
-  --border: #e8e4dc;
+  --border: #e5e0d5;
   --border-focus: #7c3aed;
-  --border-subtle: #ede9e1;
-  --border-glow: rgba(124, 58, 237, 0.2);
+  --border-subtle: #ece7dd;
+  --border-glow: rgba(124, 58, 237, 0.18);
 
-  --text-main: #18181b;
-  --text-secondary: #57534e;
-  --text-muted: #78716c;
+  --text-main: #111215;
+  --text-secondary: #494d55;
+  --text-muted: #6f7480;
 
   --primary: #7c3aed;
   --primary-hover: #6d28d9;
@@ -70,10 +70,10 @@
   --accent-rose: #e11d48;
   --accent-purple: #7c3aed;
 
-  --shadow-sm: 0 1px 3px rgba(24, 24, 27, 0.04);
-  --shadow-md: 0 4px 14px rgba(24, 24, 27, 0.06), 0 1px 2px rgba(24, 24, 27, 0.04);
-  --shadow-lg: 0 12px 30px rgba(24, 24, 27, 0.08), 0 2px 4px rgba(24, 24, 27, 0.04);
-  --shadow-glow: 0 0 35px rgba(124, 58, 237, 0.12);
+  --shadow-sm: 0 1px 2px rgba(17, 18, 21, 0.04);
+  --shadow-md: 0 3px 10px rgba(17, 18, 21, 0.05), 0 1px 2px rgba(17, 18, 21, 0.03);
+  --shadow-lg: 0 10px 24px rgba(17, 18, 21, 0.06), 0 2px 4px rgba(17, 18, 21, 0.02);
+  --shadow-glow: 0 0 28px rgba(124, 58, 237, 0.1);
 }
 
 * {
@@ -1240,14 +1240,14 @@ body {
   border: 1px solid var(--border);
   background: var(--bg-card);
   overflow: hidden;
-  margin-bottom: 48px;
-  box-shadow: var(--shadow-md);
+  margin-bottom: 40px;
+  box-shadow: var(--shadow-sm);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .cinematic-hero-wrapper:hover {
   border-color: var(--border-glow);
-  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  box-shadow: var(--shadow-md);
 }
 
 .hero-ambient-vignette {
@@ -1256,17 +1256,17 @@ body {
   pointer-events: none;
   z-index: 1;
   background: radial-gradient(
-    circle at 50% 45%,
-    transparent 20%,
-    var(--bg-card) 85%
+    circle at 50% 40%,
+    rgba(22, 24, 36, 0.45) 0%,
+    var(--bg-card) 75%
   );
 }
 
 [data-theme="light"] .hero-ambient-vignette {
   background: radial-gradient(
-    circle at 50% 45%,
-    rgba(255, 255, 255, 0.2) 20%,
-    rgba(252, 251, 249, 0.95) 85%
+    circle at 50% 40%,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(250, 248, 245, 0.92) 75%
   );
 }
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ArrowRight, Sparkles, CheckCircle2, Shield, Layers, FileCode2, Terminal, ChevronDown, ChevronUp, Zap, Activity } from "lucide-react";
 import LiveDemoSimulator from "./LiveDemoSimulator.jsx";
-import LivingBlueprintCanvas from "./LivingBlueprintCanvas.jsx";
 
 export default function LandingView({ onGetStarted, onDemoProject, sampleProject }) {
   const [openFaq, setOpenFaq] = useState(null);
@@ -31,12 +30,11 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
 
   return (
     <div className="landing-container">
-      {/* Hero Section with Cinematic Living Engineering Blueprint */}
+      {/* Hero Section with Cinematic Living Engineering Blueprint Framing */}
       <div className="cinematic-hero-wrapper">
-        <LivingBlueprintCanvas height="620px" density="high" />
         <div className="hero-ambient-vignette" />
 
-        <section className="landing-hero" style={{ padding: "48px 0 32px", position: "relative", zIndex: 2 }}>
+        <section className="landing-hero" style={{ padding: "48px 24px 36px", position: "relative", zIndex: 2 }}>
           <div className="hero-pill" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
             <Sparkles size={14} style={{ color: "var(--accent-purple)" }} />
             <span>LIVING ENGINEERING BLUEPRINT · WISPR FLOW NATIVE</span>
