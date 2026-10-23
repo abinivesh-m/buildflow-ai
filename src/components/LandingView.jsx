@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ArrowRight, Sparkles, CheckCircle2, Shield, Layers, FileCode2, Terminal, ChevronDown, ChevronUp, Zap, Activity } from "lucide-react";
 import LiveDemoSimulator from "./LiveDemoSimulator.jsx";
+import LivingBlueprintCanvas from "./LivingBlueprintCanvas.jsx";
 
 export default function LandingView({ onGetStarted, onDemoProject, sampleProject }) {
   const [openFaq, setOpenFaq] = useState(null);
@@ -32,6 +33,7 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
     <div className="landing-container">
       {/* Hero Section with Cinematic Living Engineering Blueprint Framing */}
       <div className="cinematic-hero-wrapper">
+        <LivingBlueprintCanvas variant="hero" height="100%" />
         <div className="hero-ambient-vignette" />
 
         <section className="landing-hero" style={{ padding: "48px 24px 36px", position: "relative", zIndex: 2 }}>
