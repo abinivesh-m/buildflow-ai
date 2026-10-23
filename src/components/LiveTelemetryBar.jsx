@@ -27,11 +27,11 @@ export default function LiveTelemetryBar({ activeProject, onNotify }) {
         .filter(Boolean).length
     : 350;
 
-  const minutesSaved = Math.max(1, Math.round((totalWords / 40) - (totalWords / 251)));
+  const minutesSaved = Math.max(1, Math.round((totalWords / 40) - (totalWords / 150)));
 
   const events = [
     activeProject ? `Project: "${activeProject.title.slice(0, 24)}..." · Persisted` : "BuildFlow Engine: Standby · Ready for Voice",
-    `Wispr Flow: 251 WPM · Top 0.1% · ~${minutesSaved}m saved`,
+    `Wispr Flow: ~150 WPM avg · ~${minutesSaved}m saved vs typing`,
     "Traceability: Requirements ↔ Tasks ↔ Tests locked",
     "Storage v3: Dual-tier normalizer active",
     "Mermaid Topology: Architecture compiled",
@@ -109,15 +109,15 @@ export default function LiveTelemetryBar({ activeProject, onNotify }) {
 
       {/* Right: Technical Stats Badges */}
       <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
-        <div className="telemetry-stat" title="Wispr Flow Peak Tested Speed (Top 0.1% Globally)" style={{ borderColor: "rgba(6, 182, 212, 0.4)" }}>
+        <div className="telemetry-stat" title="Wispr Flow Tested Speed (~150 WPM average)" style={{ borderColor: "rgba(6, 182, 212, 0.4)" }}>
           <Zap size={11} style={{ color: "var(--accent-cyan)" }} />
-          <span>251 WPM · TOP 0.1%</span>
+          <span>~150 WPM AVG</span>
         </div>
         <div className="telemetry-stat" title="Words dictated in this workspace" style={{ borderColor: "rgba(139, 92, 246, 0.4)" }}>
           <Sparkles size={11} style={{ color: "var(--accent-purple)" }} />
           <span>{totalWords.toLocaleString()} WORDS</span>
         </div>
-        <div className="telemetry-stat" title="Estimated time saved at 251 WPM voice vs 40 WPM avg typing">
+        <div className="telemetry-stat" title="Estimated time saved at 150 WPM voice vs 40 WPM avg typing">
           <Activity size={11} style={{ color: "var(--accent-emerald)" }} />
           <span>~{minutesSaved}m SAVED</span>
         </div>

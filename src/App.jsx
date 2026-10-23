@@ -19,6 +19,7 @@ import WorkspaceView from "./components/WorkspaceView.jsx";
 import GlobalSettingsView from "./components/GlobalSettingsView.jsx";
 import LiveTelemetryBar from "./components/LiveTelemetryBar.jsx";
 import FloatingVoiceCommander from "./components/FloatingVoiceCommander.jsx";
+import LivingBlueprintCanvas from "./components/LivingBlueprintCanvas.jsx";
 
 const STORAGE_KEY = "buildflow:v3";
 const LEGACY_V2 = "billflow:v2";
@@ -487,8 +488,9 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      {/* Background Mesh */}
+      {/* Background Living Engineering Blueprint */}
       <div className="bg-mesh" />
+      <LivingBlueprintCanvas theme={theme} density="normal" />
 
       {/* Mobile Top Bar */}
       <div className="mobile-topbar">

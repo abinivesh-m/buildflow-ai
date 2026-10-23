@@ -17,7 +17,7 @@ Live Production URL: ${project.productionUrl || "https://buildflow-ai-livid.verc
 "Hi judges! As a developer, the hardest part of building software isn't just writing code — it's the massive friction between having an idea and turning it into an execution plan. I used to spend hours manually typing out functional requirements, user stories, architecture diagrams, and TDR records across 5 different apps. Context switching killed my velocity, and requirements constantly fell out of sync with tasks and tests."
 
 ## [0:30 - 1:00] 2. Meaningful Wispr Flow Integration (30% Weight)
-"With Wispr Flow, I built BuildFlow AI to eliminate typing from project delivery. By holding my hotkey, I dictate at 251 words per minute—placing in the Top 0.1% of all Wispr Flow users, with over 209,000+ words dictated across our engineering documents and AI prompts. BuildFlow takes that speech and immediately parses it into an 18-point execution blueprint. I dictate new requirements, change impact requests, and architecture decisions completely hands-free — over 6x faster than average typing."
+"With Wispr Flow, I built BuildFlow AI to eliminate typing from project delivery. By holding my hotkey, I dictate at an average of 150 words per minute naturally across all engineering documents and inputs. BuildFlow takes that speech and immediately parses it into an 18-point execution blueprint. I dictate new requirements, change impact requests, and architecture decisions completely hands-free — nearly 4x faster than average typing."
 
 ## [1:00 - 1:30] 3. Real Product Walkthrough & Traceability (25% Weight)
 "Let me show you the live product:
@@ -122,7 +122,7 @@ Live Production URL: ${project.productionUrl || "https://buildflow-ai-livid.verc
           </h3>
           <div style={{ display: "flex", gap: "6px" }}>
             <span className="badge badge-purple">Track 1: Builders</span>
-            <span className="badge badge-green">251 WPM · Top 0.1%</span>
+            <span className="badge badge-green">~150 WPM Avg</span>
             <span className="badge badge-blue">₹1,00,000 Contender</span>
           </div>
         </div>
@@ -156,7 +156,7 @@ Live Production URL: ${project.productionUrl || "https://buildflow-ai-livid.verc
               <span className="badge badge-blue" style={{ fontSize: "0.68rem" }}>30% Weight</span>
             </div>
             <p style={{ fontSize: "0.76rem", color: "var(--text-secondary)", marginTop: "4px", lineHeight: "1.4" }}>
-              Voice intake, bottom Floating Voice Commander, speech-to-text on every field, 251 WPM (209,000+ words).
+              Voice intake, bottom Floating Voice Commander, speech-to-text on every field, ~150 WPM average dictation.
             </p>
           </div>
 
@@ -218,13 +218,13 @@ Live Production URL: ${project.productionUrl || "https://buildflow-ai-livid.verc
                 overflowY: "auto",
               }}
             >
-              Problem: Developers lose hours bridging the gap between rough ideas and structured execution plans — manually writing requirements, architecture diagrams, and risk registers across 5 disconnected apps. Audience: Indie developers, student teams, and solo engineers who need structure without overhead. Wispr Flow Usage: I dictated every requirement, architectural decision, and risk record at 251 WPM (Top 0.1% globally, 209,000+ words total) — BuildFlow parses spoken project briefs into 18-point engineering blueprints with full traceability matrix, 5×5 risk heatmap, and Mermaid topology. Voice replaced typing for the entire development workflow.
+              Problem: Developers lose hours bridging the gap between rough ideas and structured execution plans — manually writing requirements, architecture diagrams, and risk registers across 5 disconnected apps. Audience: Indie developers, student teams, and solo engineers who need structure without overhead. Wispr Flow Usage: I dictated every requirement, architectural decision, and risk record at ~150 WPM average — BuildFlow parses spoken project briefs into 18-point engineering blueprints with full traceability matrix, 5×5 risk heatmap, and Mermaid topology. Voice replaced typing for the entire development workflow.
             </div>
             <button
               className="btn btn-secondary btn-sm"
               style={{ marginTop: "8px", width: "100%" }}
               onClick={() => {
-                navigator.clipboard.writeText("Problem: Developers lose hours bridging the gap between rough ideas and structured execution plans — manually writing requirements, architecture diagrams, and risk registers across 5 disconnected apps. Audience: Indie developers, student teams, and solo engineers who need structure without overhead. Wispr Flow Usage: I dictated every requirement, architectural decision, and risk record at 251 WPM (Top 0.1% globally, 209,000+ words total) — BuildFlow parses spoken project briefs into 18-point engineering blueprints with full traceability matrix, 5×5 risk heatmap, and Mermaid topology. Voice replaced typing for the entire development workflow.");
+                navigator.clipboard.writeText("Problem: Developers lose hours bridging the gap between rough ideas and structured execution plans — manually writing requirements, architecture diagrams, and risk registers across 5 disconnected apps. Audience: Indie developers, student teams, and solo engineers who need structure without overhead. Wispr Flow Usage: I dictated every requirement, architectural decision, and risk record at ~150 WPM average — BuildFlow parses spoken project briefs into 18-point engineering blueprints with full traceability matrix, 5×5 risk heatmap, and Mermaid topology. Voice replaced typing for the entire development workflow.");
                 onNotify("Submission blurb copied to clipboard!");
               }}
             >

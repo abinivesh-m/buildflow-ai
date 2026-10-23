@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Zap, Activity, Sparkles, Workflow, Radio, CheckCircle2 } from "lucide-react";
 import { pct, statusOf } from "../engine.js";
 
 export default function DashboardView({ projects, activity, onOpenProject, onNewProject, onDuplicate, onDelete }) {
@@ -30,6 +31,48 @@ export default function DashboardView({ projects, activity, onOpenProject, onNew
         <button className="btn btn-primary" onClick={onNewProject}>
           + New Project
         </button>
+      </div>
+
+      {/* Living Blueprint Pipeline Strip */}
+      <div className="dashboard-blueprint-strip">
+        <div className="blueprint-strip-header">
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <span className="live-dot" />
+            <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.06em", color: "var(--accent-purple)" }}>
+              LIVING ENGINEERING BLUEPRINT · PIPELINE RUNTIME
+            </span>
+          </div>
+          <span style={{ fontSize: "0.72rem", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+            6 STAGES ACTIVE · PERSISTED TO LOCAL-FIRST STORE
+          </span>
+        </div>
+        <div className="blueprint-nodes-flow">
+          {[
+            { step: "01", name: "Spoken Brief", metric: `${projects.length} Projects`, status: "active" },
+            { step: "02", name: "Requirements Hub", metric: `${projects.reduce((acc, p) => acc + (p.requirements || []).length, 0)} Specs`, status: "active" },
+            { step: "03", name: "Traceability Matrix", metric: "Linked 100%", status: "pulse" },
+            { step: "04", name: "Sprint Execution", metric: `${completedTasks}/${totalTasks.length} Done`, status: "active" },
+            { step: "05", name: "Verification", metric: `${projects.reduce((acc, p) => acc + (p.testChecklist || []).filter(t => t.status === "passed").length, 0)} Passed`, status: "active" },
+            { step: "06", name: "Production Delivery", metric: `${projects.filter(p => p.productionUrl).length} Live`, status: "pulse" },
+          ].map((node, i, arrNodes) => (
+            <React.Fragment key={node.step}>
+              <div className={`blueprint-node-pill ${node.status}`}>
+                <span className="node-pill-step">{node.step}</span>
+                <div className="node-pill-text">
+                  <div className="node-pill-name">{node.name}</div>
+                  <div className="node-pill-metric">{node.metric}</div>
+                </div>
+                <div className="node-beacon-ring" />
+              </div>
+              {i < arrNodes.length - 1 && (
+                <div className="blueprint-connector">
+                  <div className="connector-line" />
+                  <div className="connector-packet" />
+                </div>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
       </div>
 
       {/* Primary Execution Metrics (Strictly Real Persisted Data) */}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { ArrowRight, Sparkles, CheckCircle2, Shield, Layers, FileCode2, Terminal, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowRight, Sparkles, CheckCircle2, Shield, Layers, FileCode2, Terminal, ChevronDown, ChevronUp, Zap, Activity } from "lucide-react";
 import LiveDemoSimulator from "./LiveDemoSimulator.jsx";
+import LivingBlueprintCanvas from "./LivingBlueprintCanvas.jsx";
 
 export default function LandingView({ onGetStarted, onDemoProject, sampleProject }) {
   const [openFaq, setOpenFaq] = useState(null);
@@ -30,69 +31,70 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
 
   return (
     <div className="landing-container">
-      {/* Hero Section */}
-      <section className="landing-hero" style={{ padding: "40px 0 32px" }}>
-        <div className="hero-pill" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
-          <Sparkles size={14} style={{ color: "var(--accent-purple)" }} />
-          <span>A WORKSPACE FOR THE DECISIONS YOU SPEAK · WISPR FLOW NATIVE</span>
-        </div>
+      {/* Hero Section with Cinematic Living Engineering Blueprint */}
+      <div className="cinematic-hero-wrapper">
+        <LivingBlueprintCanvas height="620px" density="high" />
+        <div className="hero-ambient-vignette" />
 
-        <h1 className="hero-title">Say the idea.<br />Make the work <em>clear.</em></h1>
-        <p className="hero-desc">
-          Turn your spoken project decisions into traceable engineering blueprints your team can review.
-          Dictate hands-free at 251 WPM with Wispr Flow (Top 0.1% globally)—BuildFlow parses speech into
-          end-to-end traceability matrices, system architecture topologies, dependency-aware sprint tickets, and team delivery broadcasts.
-        </p>
+        <section className="landing-hero" style={{ padding: "48px 0 32px", position: "relative", zIndex: 2 }}>
+          <div className="hero-pill" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+            <Sparkles size={14} style={{ color: "var(--accent-purple)" }} />
+            <span>LIVING ENGINEERING BLUEPRINT · WISPR FLOW NATIVE</span>
+          </div>
 
-        <div className="hero-cta-group">
-          <button
-            className="btn btn-primary"
-            style={{ padding: "14px 28px", fontSize: "1rem" }}
-            onClick={onGetStarted}
-          >
-            <span>Start with Your Voice</span>
-            <ArrowRight size={18} />
-          </button>
-          <button
-            className="btn btn-secondary"
-            style={{ padding: "14px 24px", fontSize: "1rem" }}
-            onClick={onDemoProject}
-          >
-            Preview Sample Project ↗
-          </button>
-        </div>
+          <h1 className="hero-title">Say the idea.<br />Make the work <em>clear.</em></h1>
+          <p className="hero-desc">
+            Turn your spoken project decisions into traceable engineering blueprints your team can review.
+            Dictate hands-free at ~150 WPM with Wispr Flow—BuildFlow parses speech into
+            end-to-end traceability matrices, system architecture topologies, dependency-aware sprint tickets, and team delivery broadcasts.
+          </p>
 
-        <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginBottom: "28px" }}>
-          Built with Wispr Flow · Real browser speech engine · Zero API keys required
-        </div>
+          <div className="hero-cta-group">
+            <button
+              className="btn btn-primary"
+              style={{ padding: "14px 28px", fontSize: "1rem" }}
+              onClick={onGetStarted}
+            >
+              <span>Start with Your Voice</span>
+              <ArrowRight size={18} />
+            </button>
+            <button
+              className="btn btn-secondary"
+              style={{ padding: "14px 24px", fontSize: "1rem" }}
+              onClick={onDemoProject}
+            >
+              Preview Sample Project ↗
+            </button>
+          </div>
 
-        {/* The 6-Stage Execution Stepper */}
-        <div className="workflow-stepper" aria-label="BuildFlow Execution Workflow">
-          <div className="step-node active">
-            <span>01 BRIEF</span>
+          <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginBottom: "28px" }}>
+            Built with Wispr Flow · Real browser speech engine · Zero API keys required
           </div>
-          <span className="step-arrow">→</span>
-          <div className="step-node active">
-            <span>02 REQUIREMENTS</span>
+
+          {/* The 6-Stage Execution Stepper with Illuminated Flow */}
+          <div className="workflow-stepper" aria-label="BuildFlow Execution Workflow">
+            {[
+              { num: "01", label: "BRIEF", active: true },
+              { num: "02", label: "REQUIREMENTS", active: true },
+              { num: "03", label: "ARCHITECTURE", active: true },
+              { num: "04", label: "SPRINT", active: true },
+              { num: "05", label: "VERIFICATION", active: true },
+              { num: "06", label: "DELIVER", active: true },
+            ].map((st, i, arr) => (
+              <React.Fragment key={st.num}>
+                <div className={`step-node ${st.active ? "active stage-illuminating" : ""}`}>
+                  <span className="step-num-pill">{st.num}</span>
+                  <span>{st.label}</span>
+                  <span className="step-check">✓</span>
+                </div>
+                {i < arr.length - 1 && (
+                  <span className="step-arrow-animated">→</span>
+                )}
+              </React.Fragment>
+            ))}
           </div>
-          <span className="step-arrow">→</span>
-          <div className="step-node active">
-            <span>03 ARCHITECTURE</span>
-          </div>
-          <span className="step-arrow">→</span>
-          <div className="step-node active">
-            <span>04 SPRINT</span>
-          </div>
-          <span className="step-arrow">→</span>
-          <div className="step-node active">
-            <span>05 VERIFICATION</span>
-          </div>
-          <span className="step-arrow">→</span>
-          <div className="step-node active">
-            <span>06 DELIVER</span>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* Live Interactive Simulation Widget */}
       <LiveDemoSimulator project={sampleProject} onOpenProject={onDemoProject} />
@@ -147,7 +149,7 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
             </div>
             <h3>Voice-to-Spec (Wispr Flow Native)</h3>
             <p>
-              Speak your ideas at 251 WPM (Top 0.1% globally). Local deterministic NLP extracts project scope,
+              Speak your ideas at ~150 WPM average. Local deterministic NLP extracts project scope,
               tech stack, and timelines without sending private text to external servers.
             </p>
           </div>

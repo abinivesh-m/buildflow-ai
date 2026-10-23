@@ -1227,3 +1227,580 @@ body {
     display: none;
   }
 }
+
+
+/* ==========================================================================
+   LIVING ENGINEERING BLUEPRINT — ANIMATION & THEME SYSTEM
+   ========================================================================== */
+
+/* Cinematic Hero Wrapper with Ambient Blueprint */
+.cinematic-hero-wrapper {
+  position: relative;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  overflow: hidden;
+  margin-bottom: 48px;
+  box-shadow: var(--shadow-md);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cinematic-hero-wrapper:hover {
+  border-color: var(--border-glow);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.hero-ambient-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    circle at 50% 45%,
+    transparent 20%,
+    var(--bg-card) 85%
+  );
+}
+
+[data-theme="light"] .hero-ambient-vignette {
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(252, 251, 249, 0.95) 85%
+  );
+}
+
+/* 6-Stage Delivery Pipeline Stepper */
+.pipeline-stepper-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 10px 4px 14px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.stage-pipeline-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: inherit;
+}
+
+.stage-pipeline-step:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-main);
+  border-color: var(--border-focus);
+  transform: translateY(-1px);
+}
+
+.stage-pipeline-step .step-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.stage-pipeline-step .step-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--accent-emerald);
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+/* Active Stage Slow Illumination (Living Blueprint Signature) */
+.stage-pipeline-step.stage-illuminating {
+  background: linear-gradient(135deg, var(--primary), #8b5cf6);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 20px var(--primary-glow);
+  animation: stageBreatheGlow 3.6s infinite ease-in-out;
+}
+
+.stage-pipeline-step.stage-illuminating .step-num {
+  opacity: 1;
+  color: #ffffff;
+}
+
+.step-glow-halo {
+  position: absolute;
+  inset: -3px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-purple);
+  opacity: 0.5;
+  animation: haloPulse 2.8s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes stageBreatheGlow {
+  0%, 100% {
+    box-shadow: 0 0 14px rgba(124, 58, 237, 0.35), 0 2px 8px rgba(124, 58, 237, 0.2);
+    border-color: rgba(168, 85, 247, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(124, 58, 237, 0.6), 0 4px 16px rgba(168, 85, 247, 0.4);
+    border-color: rgba(216, 180, 254, 0.9);
+  }
+}
+
+@keyframes haloPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.8;
+  }
+}
+
+/* Stepper Connector with Traveling Pulse */
+.stepper-divider {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0 4px;
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.stepper-divider.active-connector {
+  opacity: 1;
+  color: var(--accent-purple);
+}
+
+.divider-arrow {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.step-arrow-animated {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  animation: arrowPulse 2s infinite ease-in-out;
+}
+
+@keyframes arrowPulse {
+  0%, 100% { opacity: 0.3; transform: translateX(0); }
+  50% { opacity: 0.9; transform: translateX(2px); color: var(--accent-purple); }
+}
+
+/* Dashboard Living Blueprint Pipeline Strip */
+.dashboard-blueprint-strip {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.blueprint-strip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.blueprint-nodes-flow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.blueprint-node-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.blueprint-node-pill:hover {
+  border-color: var(--border-focus);
+  background: var(--bg-card-hover);
+}
+
+.blueprint-node-pill.pulse {
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.2);
+}
+
+.node-pill-step {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--accent-purple);
+  padding: 2px 6px;
+  background: rgba(139, 92, 246, 0.12);
+  border-radius: 4px;
+}
+
+.node-pill-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.node-pill-metric {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.blueprint-connector {
+  position: relative;
+  width: 24px;
+  height: 2px;
+  background: var(--border);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.blueprint-connector .connector-line {
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+}
+
+.blueprint-connector .connector-packet {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  background: var(--accent-purple);
+  box-shadow: 0 0 6px var(--accent-purple);
+  animation: packetTravel 2.4s infinite linear;
+}
+
+@keyframes packetTravel {
+  0% { left: -8px; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { left: 24px; opacity: 0; }
+}
+
+/* Animated Topology Visualizer (Architecture Section) */
+.animated-topology-card {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.topology-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.topology-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 720 / 290;
+  min-height: 220px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.topology-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.circuit-path-base {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 1.5;
+  stroke-dasharray: 4, 4;
+  opacity: 0.7;
+}
+
+.circuit-path-pulse {
+  fill: none;
+  stroke: url(#purpleGrad);
+  stroke-width: 2.5;
+  stroke-dasharray: 18, 120;
+  animation: circuitPulseFlow 3.8s infinite linear;
+}
+
+@keyframes circuitPulseFlow {
+  from { stroke-dashoffset: 138; }
+  to { stroke-dashoffset: 0; }
+}
+
+.topology-nodes-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+}
+
+.topology-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  min-width: 140px;
+}
+
+.topology-node:hover,
+.topology-node.selected {
+  transform: translate(-50%, -53%);
+  border-color: var(--accent-purple);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.25);
+  background: var(--bg-card);
+}
+
+.node-icon-wrapper {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.node-beacon {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px currentColor;
+  animation: beaconPulse 2s infinite ease-in-out;
+}
+
+@keyframes beaconPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.4; }
+}
+
+.node-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.node-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.node-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.node-tech {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+}
+
+.topology-inspector {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  animation: slideUp 0.2s ease;
+}
+
+.topology-hint {
+  margin-top: 8px;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Deployment Center Animated Monitor */
+.deploy-monitor-card {
+  position: relative;
+  overflow: hidden;
+  border-left: 3px solid var(--accent-purple);
+}
+
+.deploy-radar-beacon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deploy-radar-beacon .beacon-core {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-purple);
+}
+
+.deploy-radar-beacon.verified .beacon-core {
+  background: var(--accent-emerald);
+}
+
+.deploy-radar-beacon.blocked .beacon-core {
+  background: var(--accent-rose);
+}
+
+.deploy-radar-beacon .beacon-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--accent-purple);
+  animation: radarRingOut 2s infinite ease-out;
+}
+
+.deploy-radar-beacon.verified .beacon-ring {
+  border-color: var(--accent-emerald);
+}
+
+.deploy-radar-beacon.blocked .beacon-ring {
+  border-color: var(--accent-rose);
+}
+
+@keyframes radarRingOut {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+.live-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.live-status-pill.verified {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.live-status-pill.blocked {
+  background: rgba(244, 63, 94, 0.12);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.live-status-pill.checking {
+  background: rgba(139, 92, 246, 0.12);
+  color: #8b5cf6;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.pill-dot.verified {
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.pill-dot.blocked {
+  background: #f43f5e;
+  box-shadow: 0 0 8px #f43f5e;
+}
+
+.pill-dot.checking {
+  background: #8b5cf6;
+  box-shadow: 0 0 8px #8b5cf6;
+  animation: beaconPulse 1.5s infinite ease-in-out;
+}
+
+.deploy-progress-bar {
+  height: 6px;
+  background: var(--bg-subtle);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill.active-pulse {
+  background: linear-gradient(90deg, var(--primary), var(--accent-cyan));
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.progress-fill.complete-pulse {
+  background: linear-gradient(90deg, #10b981, #06b6d4);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+/* Accessibility: Respect Reduced-Motion */
+@media (prefers-reduced-motion: reduce) {
+  .stage-pipeline-step.stage-illuminating,
+  .step-glow-halo,
+  .step-arrow-animated,
+  .connector-packet,
+  .circuit-path-pulse,
+  .node-beacon,
+  .beacon-ring,
+  .live-dot,
+  .radar-ring {
+    animation: none !important;
+    transition: none !important;
+  }
+}

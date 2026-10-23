@@ -105,12 +105,56 @@ export default function DeploymentCenter({ project, onPatch, onNotify }) {
         </button>
       </div>
 
-      {/* Production Endpoint URL Configuration */}
-      <div className="card" style={{ marginBottom: "24px" }}>
-        <h3 className="card-title">Production Live Target</h3>
-        <p className="form-hint" style={{ marginBottom: "12px" }}>
-          Entering a URL records your target endpoint. Verification requires passing the readiness checklist below.
-        </p>
+      {/* Production Endpoint & Real Status-Based Animated Monitor */}
+      <div className="card deploy-monitor-card" style={{ marginBottom: "24px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "16px" }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div className={`deploy-radar-beacon ${verifiedCount === readiness.length && readiness.length > 0 ? "verified" : blockedCount > 0 ? "blocked" : "checking"}`}>
+                <div className="beacon-ring" />
+                <div className="beacon-core" />
+              </div>
+              <h3 className="card-title" style={{ margin: 0 }}>Production Live Target & Pipeline Status</h3>
+            </div>
+            <p className="form-hint" style={{ marginTop: "4px" }}>
+              Real status-based deployment health strictly calculated from verified pre-flight checks.
+            </p>
+          </div>
+
+          {/* Status Badge with Live Pulse */}
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            {verifiedCount === readiness.length && readiness.length > 0 ? (
+              <span className="live-status-pill verified">
+                <span className="pill-dot verified" /> PRODUCTION VERIFIED · READY
+              </span>
+            ) : blockedCount > 0 ? (
+              <span className="live-status-pill blocked">
+                <span className="pill-dot blocked" /> GUARD ACTIVE · {blockedCount} BLOCKED
+              </span>
+            ) : (
+              <span className="live-status-pill checking">
+                <span className="pill-dot checking" /> VALIDATING · {verifiedCount}/{readiness.length} VERIFIED
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Real Progress Bar with Animated Pulse */}
+        <div style={{ marginTop: "16px", marginBottom: "14px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", marginBottom: "6px" }}>
+            <span style={{ fontWeight: 600 }}>Verification Health</span>
+            <span style={{ fontFamily: "var(--font-mono)", fontWeight: 700, color: "var(--accent-emerald)" }}>
+              {readiness.length ? Math.round((verifiedCount / readiness.length) * 100) : 0}% Complete
+            </span>
+          </div>
+          <div className="progress-container deploy-progress-bar">
+            <div
+              className={`progress-fill ${verifiedCount === readiness.length && readiness.length > 0 ? "complete-pulse" : "active-pulse"}`}
+              style={{ width: `${readiness.length ? (verifiedCount / readiness.length) * 100 : 0}%` }}
+            />
+          </div>
+        </div>
+
         <div style={{ display: "flex", gap: "10px" }}>
           <input
             className="input"
@@ -204,7 +248,7 @@ export default function DeploymentCenter({ project, onPatch, onNotify }) {
                 const totalT = (project.tasks || []).length;
                 const doneT = (project.tasks || []).filter((t) => t.status === "done").length;
                 const pctDone = totalT ? Math.round((doneT / totalT) * 100) : 0;
-                const slackMsg = `🚀 *BuildFlow AI Sprint Update: ${project.title}*\n• *Execution Progress:* ${pctDone}% (${doneT}/${totalT} tasks complete)\n• *Live URL:* ${project.productionUrl || "https://buildflow-ai-livid.vercel.app/"}\n• *Traceability:* 100% locked\n• *Wispr Voice Speed:* 251 WPM (Top 0.1%)\n• *Next Deliverable:* ${(project.tasks || []).find((t) => t.status !== "done")?.title || "All tasks delivered"}`;
+                const slackMsg = `🚀 *BuildFlow AI Sprint Update: ${project.title}*\n• *Execution Progress:* ${pctDone}% (${doneT}/${totalT} tasks complete)\n• *Live URL:* ${project.productionUrl || "https://buildflow-ai-livid.vercel.app/"}\n• *Traceability:* 100% locked\n• *Wispr Voice Speed:* ~150 WPM avg\n• *Next Deliverable:* ${(project.tasks || []).find((t) => t.status !== "done")?.title || "All tasks delivered"}`;
                 navigator.clipboard.writeText(slackMsg);
                 onNotify("📋 Copied formatted Slack/Discord announcement payload!");
               }}

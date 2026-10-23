@@ -11,6 +11,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { uid } from "../engine.js";
+import AnimatedTopologyVisualizer from "./AnimatedTopologyVisualizer.jsx";
 
 export default function ArchitectureView({ project, onPatch, onNotify }) {
   const arch = project.architecture || {
@@ -257,45 +258,8 @@ export default function ArchitectureView({ project, onPatch, onNotify }) {
               />
             </div>
 
-            {/* Diagram Structured Visual Representation */}
-            <div
-              style={{
-                background: "var(--bg-subtle)",
-                padding: "16px",
-                borderRadius: "var(--radius-sm)",
-                border: "1px solid var(--border)",
-              }}
-            >
-              <div className="form-hint" style={{ fontWeight: 600, marginBottom: "10px" }}>
-                Interactive Topology Breakdown:
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <div className="badge badge-purple" style={{ width: "90px", textAlign: "center" }}>Client</div>
-                  <span style={{ fontSize: "0.85rem", color: "var(--text-main)" }}>
-                    {stack.find((s) => s.group === "Frontend")?.name || "Single Page React App"}
-                  </span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <div className="badge badge-blue" style={{ width: "90px", textAlign: "center" }}>Gateway</div>
-                  <span style={{ fontSize: "0.85rem", color: "var(--text-main)" }}>
-                    {stack.find((s) => s.group === "Backend")?.name || "REST Serverless Gateway"}
-                  </span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <div className="badge badge-green" style={{ width: "90px", textAlign: "center" }}>Persistence</div>
-                  <span style={{ fontSize: "0.85rem", color: "var(--text-main)" }}>
-                    {stack.find((s) => s.group === "Database")?.name || "Relational Database / Storage Schema v3"}
-                  </span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <div className="badge badge-amber" style={{ width: "90px", textAlign: "center" }}>AI Engine</div>
-                  <span style={{ fontSize: "0.85rem", color: "var(--text-main)" }}>
-                    Gemini 2.5 Flash / Meta AI Inference Layer with Deterministic Fallback
-                  </span>
-                </div>
-              </div>
-            </div>
+            {/* Animated Living Component Topology & Data Flow */}
+            <AnimatedTopologyVisualizer stack={stack} />
           </div>
         </div>
 

@@ -120,25 +120,51 @@ export default function WorkspaceView({
           </div>
         </div>
 
-        {/* 6-Stage Delivery Pipeline Stepper (Inspired by SpecFlow) */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            overflowX: "auto",
-            padding: "8px 0 14px",
-            marginBottom: "14px",
-            borderBottom: "1px solid var(--border-subtle)",
-          }}
-        >
+        {/* 6-Stage Delivery Pipeline Stepper (Living Engineering Blueprint) */}
+        <div className="pipeline-stepper-container" aria-label="6-Stage Engineering Delivery Stepper">
           {[
-            { step: "01", name: "Brief & Idea", targetTab: "plan", matchTabs: ["plan", "overview"] },
-            { step: "02", name: "Requirements", targetTab: "requirements", matchTabs: ["requirements", "traceability"] },
-            { step: "03", name: "Architecture", targetTab: "architecture", matchTabs: ["architecture", "decisions"] },
-            { step: "04", name: "Sprint Tasks", targetTab: "tasks", matchTabs: ["tasks"] },
-            { step: "05", name: "Verification", targetTab: "testing", matchTabs: ["testing", "risks"] },
-            { step: "06", name: "Deliver & Pitch", targetTab: "demo", matchTabs: ["deployment", "demo", "settings"] },
+            {
+              step: "01",
+              name: "Brief & Idea",
+              targetTab: "plan",
+              matchTabs: ["plan", "overview"],
+              isComplete: Boolean(project.idea && project.problem),
+            },
+            {
+              step: "02",
+              name: "Requirements",
+              targetTab: "requirements",
+              matchTabs: ["requirements", "traceability"],
+              isComplete: (project.requirements || []).length > 0,
+            },
+            {
+              step: "03",
+              name: "Architecture",
+              targetTab: "architecture",
+              matchTabs: ["architecture", "decisions"],
+              isComplete: Boolean(project.architecture?.description || project.architecture?.components?.length),
+            },
+            {
+              step: "04",
+              name: "Sprint Tasks",
+              targetTab: "tasks",
+              matchTabs: ["tasks"],
+              isComplete: (project.tasks || []).some((t) => t.status === "done"),
+            },
+            {
+              step: "05",
+              name: "Verification",
+              targetTab: "testing",
+              matchTabs: ["testing", "risks"],
+              isComplete: (project.testChecklist || []).some((tc) => tc.status === "passed"),
+            },
+            {
+              step: "06",
+              name: "Deliver & Pitch",
+              targetTab: "demo",
+              matchTabs: ["deployment", "demo", "settings"],
+              isComplete: (project.deploymentReadiness || []).some((dr) => dr.status === "verified"),
+            },
           ].map((s, idx, arrList) => {
             const isActive = s.matchTabs.includes(tab);
             return (
@@ -146,28 +172,21 @@ export default function WorkspaceView({
                 <button
                   type="button"
                   onClick={() => setTab(s.targetTab)}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    padding: "5px 12px",
-                    borderRadius: "999px",
-                    fontSize: "0.76rem",
-                    fontWeight: 700,
-                    background: isActive ? "linear-gradient(135deg, var(--primary), #8b5cf6)" : "var(--bg-subtle)",
-                    color: isActive ? "#ffffff" : "var(--text-secondary)",
-                    border: `1px solid ${isActive ? "var(--accent-purple)" : "var(--border)"}`,
-                    cursor: "pointer",
-                    whiteSpace: "nowrap",
-                    transition: "all 0.2s ease",
-                    boxShadow: isActive ? "0 2px 8px var(--primary-glow)" : "none",
-                  }}
+                  className={`stage-pipeline-step ${isActive ? "stage-illuminating active" : ""} ${
+                    s.isComplete ? "stage-complete" : ""
+                  }`}
+                  title={`${s.name} - Click to navigate to workspace`}
                 >
-                  <span style={{ opacity: isActive ? 1 : 0.6, fontSize: "0.7rem", fontFamily: "var(--font-mono)" }}>{s.step}</span>
-                  <span>{s.name}</span>
+                  <span className="step-num">{s.step}</span>
+                  <span className="step-title">{s.name}</span>
+                  {s.isComplete && <span className="step-check" title="Stage has completed deliverables">✓</span>}
+                  {isActive && <span className="step-glow-halo" />}
                 </button>
                 {idx < arrList.length - 1 && (
-                  <span style={{ color: "var(--text-muted)", opacity: 0.5, fontSize: "0.8rem" }}>›</span>
+                  <div className={`stepper-divider ${isActive ? "active-connector" : ""}`}>
+                    <span className="divider-arrow">›</span>
+                    <span className="divider-pulse" />
+                  </div>
                 )}
               </React.Fragment>
             );

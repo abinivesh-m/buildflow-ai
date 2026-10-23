@@ -257,7 +257,7 @@ export default function ProjectWizard({ onCreate, onCancel }) {
               </div>
 
               <p className="form-hint" style={{ marginBottom: "12px" }}>
-                Hold your Wispr Flow hotkey and dictate your idea naturally at 251 WPM (Top 0.1% globally).
+                Hold your Wispr Flow hotkey and dictate your idea naturally at ~150 WPM average.
                 Our deterministic parser extracts project title, technology, timeline, and domain category instantly without cloud roundtrips.
               </p>
               <textarea
