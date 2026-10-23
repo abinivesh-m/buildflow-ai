@@ -30,12 +30,11 @@ export default function LiveTelemetryBar({ activeProject, onNotify }) {
   const minutesSaved = Math.max(1, Math.round((totalWords / 40) - (totalWords / 251)));
 
   const events = [
-    activeProject ? `Project: "${activeProject.title.slice(0, 30)}..." · 100% Persisted` : "BuildFlow Engine: Standby · Ready for Voice Intake",
-    `Wispr Flow: 251 WPM · Top 0.1% · 209,822+ words dictated · ~${minutesSaved}m saved`,
-    "Traceability Matrix: Requirements ↔ Tasks ↔ Tests ↔ TDRs ↔ Risks locked",
-    "LocalStorage v3: Dual-tier normalizer active · Zero data loss",
-    "Mermaid Topology: System architecture compiled",
-    "Deterministic Engine: 0ms Latency Fallback Armed",
+    activeProject ? `Project: "${activeProject.title.slice(0, 24)}..." · Persisted` : "BuildFlow Engine: Standby · Ready for Voice",
+    `Wispr Flow: 251 WPM · Top 0.1% · ~${minutesSaved}m saved`,
+    "Traceability: Requirements ↔ Tasks ↔ Tests locked",
+    "Storage v3: Dual-tier normalizer active",
+    "Mermaid Topology: Architecture compiled",
   ];
 
   // Update clock every second

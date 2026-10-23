@@ -692,26 +692,28 @@ export default function App() {
           </div>
         </div>
       )}
-      {/* Floating Wispr Flow Voice Commander Dock */}
-      <FloatingVoiceCommander
-        activeProject={currentProject || projects[0]}
-        onPatch={patchProject}
-        onTabChange={(targetTab) => {
-          if (view !== "workspace") {
-            if (currentProject) {
-              setView("workspace");
+      {/* Floating Wispr Flow Voice Commander Dock (Active in Workspace & Dashboard) */}
+      {view !== "wizard" && (
+        <FloatingVoiceCommander
+          activeProject={currentProject || projects[0]}
+          onPatch={patchProject}
+          onTabChange={(targetTab) => {
+            if (view !== "workspace") {
+              if (currentProject) {
+                setView("workspace");
+                setWorkspaceTab(targetTab);
+              } else if (projects.length > 0) {
+                openProject(projects[0].id, targetTab);
+              }
+            } else {
               setWorkspaceTab(targetTab);
-            } else if (projects.length > 0) {
-              openProject(projects[0].id, targetTab);
             }
-          } else {
-            setWorkspaceTab(targetTab);
-          }
-        }}
-        onToggleTheme={toggleTheme}
-        onNotify={notify}
-        currentTheme={theme}
-      />
+          }}
+          onToggleTheme={toggleTheme}
+          onNotify={notify}
+          currentTheme={theme}
+        />
+      )}
     </div>
   );
 }

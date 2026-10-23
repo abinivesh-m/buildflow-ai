@@ -282,12 +282,58 @@ export default function FloatingVoiceCommander({
     }
   };
 
+  const [isMinimized, setIsMinimized] = useState(false);
+
   // Real Audio Waveform bars calculation
   const bar1 = Math.max(4, Math.min(22, 4 + audioLevel * 0.18));
   const bar2 = Math.max(5, Math.min(26, 5 + audioLevel * 0.22));
   const bar3 = Math.max(6, Math.min(30, 6 + audioLevel * 0.25));
   const bar4 = Math.max(5, Math.min(26, 5 + audioLevel * 0.21));
   const bar5 = Math.max(4, Math.min(22, 4 + audioLevel * 0.17));
+
+  // If user minimized the voice commander
+  if (isMinimized) {
+    return (
+      <div
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          right: "24px",
+          zIndex: 90,
+        }}
+      >
+        <button
+          type="button"
+          className="btn btn-primary"
+          style={{
+            borderRadius: "999px",
+            padding: "8px 16px",
+            fontSize: "0.82rem",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            boxShadow: "0 6px 20px var(--primary-glow)",
+          }}
+          onClick={() => setIsMinimized(false)}
+          title="Open Wispr Voice Commander"
+        >
+          <Mic size={15} />
+          <span>Wispr Voice</span>
+          <span
+            style={{
+              fontSize: "0.7rem",
+              opacity: 0.8,
+              background: "rgba(255, 255, 255, 0.2)",
+              padding: "1px 6px",
+              borderRadius: "4px",
+            }}
+          >
+            Opt+Ctrl
+          </span>
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -355,11 +401,11 @@ export default function FloatingVoiceCommander({
           style={{
             display: "inline-flex",
             alignItems: "center",
-            gap: "6px",
+            gap: "8px",
             background: "var(--bg-card)",
             border: "1px solid var(--border)",
             borderRadius: "999px",
-            padding: "2px 10px",
+            padding: "3px 12px",
             fontSize: "0.68rem",
             fontWeight: 700,
             color: isListening ? "var(--accent-purple)" : "var(--text-muted)",
@@ -377,6 +423,23 @@ export default function FloatingVoiceCommander({
             }}
           />
           <span>{isListening ? "RECORDING SPEECH STREAM" : "VOICE READY · DEFINE & NAVIGATE"}</span>
+          <button
+            type="button"
+            onClick={() => setIsMinimized(true)}
+            style={{
+              background: "transparent",
+              border: "none",
+              color: "var(--text-muted)",
+              cursor: "pointer",
+              marginLeft: "4px",
+              padding: "0 2px",
+              fontSize: "0.75rem",
+              lineHeight: 1,
+            }}
+            title="Minimize Voice Commander"
+          >
+            ✕
+          </button>
         </div>
 
         <div className={`floating-voice-dock ${isListening ? "dock-active" : ""}`}>
@@ -442,11 +505,6 @@ export default function FloatingVoiceCommander({
             <ArrowUp size={15} />
           </button>
         </div>
-
-        {/* Bottom Subtext */}
-        <span style={{ fontSize: "0.68rem", color: "var(--text-muted)", letterSpacing: "0.02em" }}>
-          Hold your Wispr Flow shortcut (<strong>Ctrl+Opt</strong> or <strong>Fn</strong>) to dictate anywhere
-        </span>
       </div>
     </div>
   );
