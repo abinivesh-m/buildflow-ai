@@ -6,29 +6,34 @@ export default function DemoStudio({ project, onPatch, onNotify }) {
   const [copiedWisprPitch, setCopiedWisprPitch] = useState(false);
   const script = project.demoScript || {};
 
-  const wisprPitch = `# 🎙️ 2-Minute Video Pitch: No Hands Wispr Challenge
+  const wisprPitch = `# 🎙️ 2-Minute Official Winning Video Script — No Hands: The Wispr Challenge
 Project: ${project.title}
 Target Track: Track 1 (Builders - Developers)
 Live Production URL: ${project.productionUrl || "https://buildflow-ai-livid.vercel.app/"}
+Evaluation Panel: Kunal Kushwaha, Rohan Kochhar, Aayush Sharma, Sachin Sharma
 
 ---
 
-## [0:00 - 0:30] 1. The Real Problem in My Work (30% Weight)
-"Hi judges! As a developer, the hardest part of building software isn't just writing code — it's the massive friction between having an idea and turning it into an execution plan. I used to spend hours manually typing out functional requirements, user stories, architecture diagrams, and TDR records across 5 different apps. Context switching killed my velocity, and requirements constantly fell out of sync with tasks and tests."
+## ⏱️ [0:00 - 0:15] 1. The Real Engineering Problem (30% Weight)
+"Hi Kunal, Rohan, and the judging team! As an engineering student and solo developer, the hardest part of software isn't just writing code — it's the chaotic disconnect between having an idea and organizing requirements, architecture, tasks, and test verification. Context switching across 5 different apps kills momentum, and requirements constantly fall out of sync with tasks and tests."
 
-## [0:30 - 1:00] 2. Meaningful Wispr Flow Integration (30% Weight)
-"With Wispr Flow, I built BuildFlow AI to eliminate typing from project delivery. By holding my hotkey, I dictate at an average of 150 words per minute naturally across all engineering documents and inputs. BuildFlow takes that speech and immediately parses it into an 18-point execution blueprint. I dictate new requirements, change impact requests, and architecture decisions completely hands-free — nearly 4x faster than average typing."
+## ⏱️ [0:15 - 0:35] 2. Meaningful Wispr Voice Intake (30% Weight)
+"With Wispr Flow, I dictate natural ideas directly into BuildFlow at ~150 WPM average speed. Watch this: I trigger Wispr and dictate: 'Build a clinical vitals monitoring dashboard with alerts and React Vite.' In 40 milliseconds, our deterministic parser extracts the project title, technical boundaries, timeline, and compiles an 18-point engineering blueprint without sending any private data to cloud APIs."
 
-## [1:00 - 1:30] 3. Real Product Walkthrough & Traceability (25% Weight)
-"Let me show you the live product:
-- First, the Requirements Hub with Acceptance Criteria.
-- Next, our core differentiator: the End-to-End Traceability Matrix. Notice every requirement links directly to its implementing tasks, verifying tests, and architectural decisions. If a requirement lacks a test, it's flagged as an untracked gap.
-- We have an interactive Kanban board where tasks advance with dependency guards.
-- A 5x5 Likelihood x Impact Risk Register with automated severity scoring.
-- And automated Mermaid system architecture diagrams."
+## ⏱️ [0:35 - 0:55] 3. Requirements & Architecture (25% Weight)
+"Next, look at the Requirements Hub. Every requirement has acceptance criteria and source tags. Under Architecture, BuildFlow automatically compiles Mermaid system topology and our Living Component Topology Visualizer showing real-time circuit data flow between Client SPA, API Gateway, and Persistence Store."
 
-## [1:30 - 2:00] 4. Proven Execution & Conclusion (15% Weight)
-"Everything runs on our verified Vercel production deployment with complete offline-first schema v3 persistence. Zero mocked cards, zero fake buttons. BuildFlow AI turns spoken thoughts into traceable, working software. Thank you to WeMakeDevs and Wispr Flow for the No Hands Challenge!"
+## ⏱️ [0:55 - 1:15] 4. Tasks & End-to-End Traceability (Core Differentiator)
+"Now our killer feature: the Traceability Matrix. Notice every requirement links directly to its implementing tasks, verifying tests, and architectural decisions. If a requirement lacks a test, it's flagged as an unverified gap. Our interactive Kanban board enforces dependency-guarded completions — you cannot complete a task if its blockers aren't done."
+
+## ⏱️ [1:15 - 1:35] 5. Verification, 5×5 Risk Heatmap & Delivery
+"In the Verification Lab, test checklist items track real passed assertions. In the Risk Register, our 5×5 coordinate heatmap calculates severity from Likelihood × Impact with automated mitigation plans. In Release Readiness, we can one-click export GitHub CLI issues and broadcast sprint progress directly to Slack."
+
+## ⏱️ [1:35 - 1:50] 6. Polished Dual-Theme Workspace
+"Notice our Living Engineering Blueprint visual identity. In Light Mode, it's a warm cream architectural blueprint inspired by technical wireframes. In Dark Mode, one toggle shifts to a futuristic purple technology network with glowing circuit buses — fully responsive with offline-first schema v3 persistence."
+
+## ⏱️ [1:50 - 2:00] 7. Closing & Tagline (15% Weight)
+"BuildFlow AI solves the real friction between spoken thoughts and structured engineering delivery — powered natively by Wispr Flow. Everything you see is live at buildflow-ai-livid.vercel.app with zero mocked cards. Say the idea. Make the work clear. Thank you!"
 `;
 
   const handleCopyWisprPitch = () => {
@@ -124,6 +129,65 @@ Live Production URL: ${project.productionUrl || "https://buildflow-ai-livid.verc
             <span className="badge badge-purple">Track 1: Builders</span>
             <span className="badge badge-green">~150 WPM Avg</span>
             <span className="badge badge-blue">₹1,00,000 Contender</span>
+          </div>
+        </div>
+
+        {/* Wispr Flow Official Challenge Proof Card */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+            gap: "10px",
+            marginBottom: "16px",
+            padding: "12px 14px",
+            background: "rgba(124, 58, 237, 0.08)",
+            border: "1px solid rgba(124, 58, 237, 0.3)",
+            borderRadius: "var(--radius-md)",
+          }}
+        >
+          <div>
+            <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
+              Dictation Speed
+            </div>
+            <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--accent-purple)", marginTop: "2px" }}>
+              ~150 WPM
+            </div>
+            <div style={{ fontSize: "0.68rem", color: "var(--text-secondary)" }}>
+              Nearly 4x faster than 40 WPM typing
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
+              Voice Workflow Coverage
+            </div>
+            <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--accent-emerald)", marginTop: "2px" }}>
+              6 / 6 Stages
+            </div>
+            <div style={{ fontSize: "0.68rem", color: "var(--text-secondary)" }}>
+              Brief, Reqs, Arch, Sprint, Tests, Deliver
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
+              Spoken Command Engine
+            </div>
+            <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--accent-cyan)", marginTop: "2px" }}>
+              10 Actions
+            </div>
+            <div style={{ fontSize: "0.68rem", color: "var(--text-secondary)" }}>
+              Voice navigation, creation & theme
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
+              Privacy & Offline Engine
+            </div>
+            <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--accent-amber)", marginTop: "2px" }}>
+              100% Local
+            </div>
+            <div style={{ fontSize: "0.68rem", color: "var(--text-secondary)" }}>
+              Deterministic NLP, zero leaked tokens
+            </div>
           </div>
         </div>
 
