@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ArrowRight, Sparkles, CheckCircle2, Shield, Layers, FileCode2, Terminal, ChevronDown, ChevronUp, Zap, Activity } from "lucide-react";
+import { ArrowRight, Sparkles, CheckCircle2, Shield, Layers, FileCode2, Terminal, ChevronDown, ChevronUp } from "lucide-react";
 import LiveDemoSimulator from "./LiveDemoSimulator.jsx";
 
 export default function LandingView({ onGetStarted, onDemoProject, sampleProject }) {
@@ -35,9 +35,9 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
         <div className="hero-ambient-vignette" />
 
         <section className="landing-hero" style={{ padding: "48px 24px 36px", position: "relative", zIndex: 2 }}>
-          <div className="hero-pill" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
-            <span className="live-dot" style={{ backgroundColor: "var(--primary)", boxShadow: "0 0 10px var(--primary-glow)" }} />
-            <span>NO HANDS: THE WISPR CHALLENGE · TRACK 1 BUILDERS</span>
+          <div className="hero-pill">
+            <span className="live-dot" />
+            <span>NO HANDS: THE WISPR CHALLENGE · WEMAKEDEVS × WISPR FLOW · TRACK: BUILDERS</span>
           </div>
 
           <h1 className="hero-title">Say the idea.<br />Make the work <em>clear.</em></h1>
