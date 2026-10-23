@@ -34,14 +34,14 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
       <section className="landing-hero" style={{ padding: "40px 0 32px" }}>
         <div className="hero-pill" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
           <Sparkles size={14} style={{ color: "var(--accent-purple)" }} />
-          <span>Voice-First Engineering Workspace · Designed for Wispr Flow</span>
+          <span>A WORKSPACE FOR THE DECISIONS YOU SPEAK · WISPR FLOW NATIVE</span>
         </div>
 
-        <h1 className="hero-title">Turn your ideas into things that actually work.</h1>
+        <h1 className="hero-title">Say the idea.<br />Make the work <em>clear.</em></h1>
         <p className="hero-desc">
-          Stop getting stuck between having a concept and shipping working software.
-          Dictate your project vision hands-free at 251 WPM with Wispr Flow (Top 0.1%)—BuildFlow instantly transforms spoken ideas into
-          traceable requirements, architecture topologies, dependency-guarded tasks, and release verification checklists.
+          Turn your spoken project decisions into traceable engineering blueprints your team can review.
+          Dictate hands-free at 251 WPM with Wispr Flow (Top 0.1% globally)—BuildFlow parses speech into
+          end-to-end traceability matrices, system architecture topologies, dependency-aware sprint tickets, and team delivery broadcasts.
         </p>
 
         <div className="hero-cta-group">
@@ -50,7 +50,7 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
             style={{ padding: "14px 28px", fontSize: "1rem" }}
             onClick={onGetStarted}
           >
-            <span>Start Planning a Project</span>
+            <span>Start with Your Voice</span>
             <ArrowRight size={18} />
           </button>
           <button
@@ -58,34 +58,38 @@ export default function LandingView({ onGetStarted, onDemoProject, sampleProject
             style={{ padding: "14px 24px", fontSize: "1rem" }}
             onClick={onDemoProject}
           >
-            Preview Sample Project
+            Preview Sample Project ↗
           </button>
+        </div>
+
+        <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginBottom: "28px" }}>
+          Built with Wispr Flow · Real browser speech engine · Zero API keys required
         </div>
 
         {/* The 6-Stage Execution Stepper */}
         <div className="workflow-stepper" aria-label="BuildFlow Execution Workflow">
           <div className="step-node active">
-            <span>1. IDEA</span>
+            <span>01 BRIEF</span>
           </div>
           <span className="step-arrow">→</span>
           <div className="step-node active">
-            <span>2. PLAN</span>
+            <span>02 REQUIREMENTS</span>
           </div>
           <span className="step-arrow">→</span>
           <div className="step-node active">
-            <span>3. BUILD</span>
+            <span>03 ARCHITECTURE</span>
           </div>
           <span className="step-arrow">→</span>
           <div className="step-node active">
-            <span>4. TEST</span>
+            <span>04 SPRINT</span>
           </div>
           <span className="step-arrow">→</span>
           <div className="step-node active">
-            <span>5. DEPLOY</span>
+            <span>05 VERIFICATION</span>
           </div>
           <span className="step-arrow">→</span>
           <div className="step-node active">
-            <span>6. PRESENT</span>
+            <span>06 DELIVER</span>
           </div>
         </div>
       </section>

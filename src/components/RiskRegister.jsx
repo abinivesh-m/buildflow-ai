@@ -8,6 +8,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { uid } from "../engine.js";
+import VoiceDictateButton from "./VoiceDictateButton.jsx";
 
 const CATEGORIES = ["technical", "schedule", "resource", "scope", "external"];
 const STATUSES = ["open", "mitigating", "mitigated", "accepted"];
@@ -324,7 +325,16 @@ export default function RiskRegister({ project, onPatch, onAskConfirm, onNotify 
             <h3 style={{ fontSize: "1.1rem", marginBottom: "12px" }}>Register Project Risk</h3>
 
             <div className="form-group" style={{ marginBottom: "10px" }}>
-              <label className="form-label" style={{ fontSize: "0.78rem" }}>Risk Title</label>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                <label className="form-label" style={{ fontSize: "0.78rem", margin: 0 }}>Risk Title</label>
+                <VoiceDictateButton
+                  currentValue={newTitle}
+                  onReplace={(t) => setNewTitle(t)}
+                  label="Dictate Risk"
+                  sampleFallbackText="Third-party API rate throttling during live evaluation"
+                  onNotify={onNotify}
+                />
+              </div>
               <input
                 className="input"
                 placeholder="e.g., API Rate Throttling on Production Key"

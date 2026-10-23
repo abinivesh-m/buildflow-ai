@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { uid } from "../engine.js";
+import VoiceDictateButton from "./VoiceDictateButton.jsx";
 
 export default function DecisionsManager({ project, onPatch, onAskConfirm, onNotify }) {
   const [showAdd, setShowAdd] = useState(false);
@@ -90,22 +91,31 @@ export default function DecisionsManager({ project, onPatch, onAskConfirm, onNot
         <form className="card" onSubmit={handleAddDecision} style={{ marginBottom: "24px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "8px" }}>
             <h3 style={{ fontSize: "1.05rem", margin: 0 }}>New Technical Decision</h3>
-            <button
-              type="button"
-              className="btn btn-secondary btn-sm"
-              style={{ fontSize: "0.76rem" }}
-              onClick={() => {
-                setNewTitle("Adopt React 19 Client SPA Architecture");
-                setNewContext("We need an interactive workspace with instant local state responsiveness and zero page reloads.");
-                setNewOptions("React 19 SPA, Next.js App Router, SvelteKit");
-                setNewChosen("React 19 Single Page Application");
-                setNewReasoning("Enables instant local persistence with 0ms network latency for state updates and rich component lifecycle control.");
-                setNewConsequences("Client bundle must remain lean to load quickly on low-bandwidth mobile connections.");
-                onNotify("🎙️ Populated architectural decision from speech template.");
-              }}
-            >
-              🎙️ Dictate Decision (Sample Speech)
-            </button>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              <VoiceDictateButton
+                currentValue={newTitle}
+                onReplace={(t) => setNewTitle(t)}
+                label="Dictate Title"
+                sampleFallbackText="Adopt React 19 Client SPA Architecture"
+                onNotify={onNotify}
+              />
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm"
+                style={{ fontSize: "0.76rem" }}
+                onClick={() => {
+                  setNewTitle("Adopt React 19 Client SPA Architecture");
+                  setNewContext("We need an interactive workspace with instant local state responsiveness and zero page reloads.");
+                  setNewOptions("React 19 SPA, Next.js App Router, SvelteKit");
+                  setNewChosen("React 19 Single Page Application");
+                  setNewReasoning("Enables instant local persistence with 0ms network latency for state updates and rich component lifecycle control.");
+                  setNewConsequences("Client bundle must remain lean to load quickly on low-bandwidth mobile connections.");
+                  onNotify("🎙️ Populated architectural decision from speech template.");
+                }}
+              >
+                🎙️ Sample Speech
+              </button>
+            </div>
           </div>
           <div className="form-group">
             <label className="form-label">Decision Title *</label>

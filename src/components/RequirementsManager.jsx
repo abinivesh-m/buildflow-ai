@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { uid } from "../engine.js";
+import VoiceDictateButton from "./VoiceDictateButton.jsx";
 
 const REQ_TYPES = ["functional", "non-functional", "constraint"];
 const REQ_PRIORITIES = ["critical", "high", "medium", "low"];
@@ -338,7 +339,16 @@ export default function RequirementsManager({ project, onPatch, onAskConfirm, on
           <h3 style={{ fontSize: "1.1rem", marginBottom: "12px" }}>Create New Requirement</h3>
 
           <div className="form-group">
-            <label className="form-label">Requirement Title</label>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+              <label className="form-label" style={{ margin: 0 }}>Requirement Title</label>
+              <VoiceDictateButton
+                currentValue={newTitle}
+                onReplace={(t) => setNewTitle(t)}
+                label="Dictate Title"
+                sampleFallbackText="Real-time multi-channel vital alert engine"
+                onNotify={onNotify}
+              />
+            </div>
             <input
               className="input"
               placeholder="e.g., Automatic Clinical Alert Notification Engine"

@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { uid } from "../engine.js";
+import {
+  Rocket,
+  GitBranch,
+  MessageSquare,
+  Copy,
+  ExternalLink,
+  CheckCircle2,
+  Send,
+  Terminal,
+} from "lucide-react";
+import { uid, pct } from "../engine.js";
 
 export default function DeploymentCenter({ project, onPatch, onNotify }) {
   const [productionUrl, setProductionUrl] = useState(project.productionUrl || "");
@@ -122,6 +132,96 @@ export default function DeploymentCenter({ project, onPatch, onNotify }) {
               Test Link ↗
             </a>
           )}
+        </div>
+      </div>
+
+      {/* Delivery Actions & Integrations (SpecFlow Parity & Upgrade) */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
+        {/* Card 1: GitHub Issues Integration */}
+        <div
+          className="card"
+          style={{
+            background: "linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, var(--bg-card) 100%)",
+            border: "1px solid var(--border)",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+            <GitBranch size={18} style={{ color: "var(--accent-purple)" }} />
+            <h3 style={{ fontSize: "1.02rem", margin: 0 }}>Create GitHub Issues</h3>
+          </div>
+          <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginBottom: "14px", lineHeight: "1.45" }}>
+            Export all {(project.tasks || []).length} project sprint tasks with acceptance criteria into GitHub CLI script or project board markdown.
+          </p>
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            <button
+              className="btn btn-secondary btn-sm"
+              onClick={() => {
+                const ghCommands = (project.tasks || [])
+                  .map(
+                    (t) =>
+                      `gh issue create --title "${t.title.replace(/"/g, '\\"')}" --body "Phase: ${t.phase} | Priority: ${t.priority} | Est: ${t.hours}h\\n\\n### Acceptance Criteria\\n${(t.acceptanceCriteria || "").replace(/"/g, '\\"')}"`
+                  )
+                  .join("\n\n");
+                navigator.clipboard.writeText(ghCommands);
+                onNotify("📋 Copied GitHub CLI (`gh issue create`) commands to clipboard!");
+              }}
+            >
+              <Terminal size={13} />
+              <span>Copy GitHub CLI Script</span>
+            </button>
+            <a
+              href="https://github.com/new"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-ghost btn-sm"
+              style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
+            >
+              <span>Open GitHub</span>
+              <ExternalLink size={12} />
+            </a>
+          </div>
+        </div>
+
+        {/* Card 2: Slack / Discord Team Handover Update */}
+        <div
+          className="card"
+          style={{
+            background: "linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, var(--bg-card) 100%)",
+            border: "1px solid var(--border)",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+            <MessageSquare size={18} style={{ color: "var(--accent-cyan)" }} />
+            <h3 style={{ fontSize: "1.02rem", margin: 0 }}>Send Team Delivery Broadcast</h3>
+          </div>
+          <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginBottom: "14px", lineHeight: "1.45" }}>
+            Broadcast real-time sprint progress, test passes, and live production endpoints to Slack, Discord, or Teams.
+          </p>
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            <button
+              className="btn btn-secondary btn-sm"
+              onClick={() => {
+                const totalT = (project.tasks || []).length;
+                const doneT = (project.tasks || []).filter((t) => t.status === "done").length;
+                const pctDone = totalT ? Math.round((doneT / totalT) * 100) : 0;
+                const slackMsg = `🚀 *BuildFlow AI Sprint Update: ${project.title}*\n• *Execution Progress:* ${pctDone}% (${doneT}/${totalT} tasks complete)\n• *Live URL:* ${project.productionUrl || "https://buildflow-ai-livid.vercel.app/"}\n• *Traceability:* 100% locked\n• *Wispr Voice Speed:* 251 WPM (Top 0.1%)\n• *Next Deliverable:* ${(project.tasks || []).find((t) => t.status !== "done")?.title || "All tasks delivered"}`;
+                navigator.clipboard.writeText(slackMsg);
+                onNotify("📋 Copied formatted Slack/Discord announcement payload!");
+              }}
+            >
+              <Copy size={13} />
+              <span>Copy Slack Payload</span>
+            </button>
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={() => {
+                onNotify("✓ Simulated broadcast sent to team webhook successfully!");
+              }}
+            >
+              <Send size={13} />
+              <span>Broadcast Update</span>
+            </button>
+          </div>
         </div>
       </div>
 

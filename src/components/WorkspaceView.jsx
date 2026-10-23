@@ -120,6 +120,60 @@ export default function WorkspaceView({
           </div>
         </div>
 
+        {/* 6-Stage Delivery Pipeline Stepper (Inspired by SpecFlow) */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            overflowX: "auto",
+            padding: "8px 0 14px",
+            marginBottom: "14px",
+            borderBottom: "1px solid var(--border-subtle)",
+          }}
+        >
+          {[
+            { step: "01", name: "Brief & Idea", targetTab: "plan", matchTabs: ["plan", "overview"] },
+            { step: "02", name: "Requirements", targetTab: "requirements", matchTabs: ["requirements", "traceability"] },
+            { step: "03", name: "Architecture", targetTab: "architecture", matchTabs: ["architecture", "decisions"] },
+            { step: "04", name: "Sprint Tasks", targetTab: "tasks", matchTabs: ["tasks"] },
+            { step: "05", name: "Verification", targetTab: "testing", matchTabs: ["testing", "risks"] },
+            { step: "06", name: "Deliver & Pitch", targetTab: "demo", matchTabs: ["deployment", "demo", "settings"] },
+          ].map((s, idx, arrList) => {
+            const isActive = s.matchTabs.includes(tab);
+            return (
+              <React.Fragment key={s.step}>
+                <button
+                  type="button"
+                  onClick={() => setTab(s.targetTab)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    padding: "5px 12px",
+                    borderRadius: "999px",
+                    fontSize: "0.76rem",
+                    fontWeight: 700,
+                    background: isActive ? "linear-gradient(135deg, var(--primary), #8b5cf6)" : "var(--bg-subtle)",
+                    color: isActive ? "#ffffff" : "var(--text-secondary)",
+                    border: `1px solid ${isActive ? "var(--accent-purple)" : "var(--border)"}`,
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                    transition: "all 0.2s ease",
+                    boxShadow: isActive ? "0 2px 8px var(--primary-glow)" : "none",
+                  }}
+                >
+                  <span style={{ opacity: isActive ? 1 : 0.6, fontSize: "0.7rem", fontFamily: "var(--font-mono)" }}>{s.step}</span>
+                  <span>{s.name}</span>
+                </button>
+                {idx < arrList.length - 1 && (
+                  <span style={{ color: "var(--text-muted)", opacity: 0.5, fontSize: "0.8rem" }}>›</span>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </div>
+
         {/* Progress meter */}
         <div>
           <div

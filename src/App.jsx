@@ -18,10 +18,18 @@ import ProjectWizard from "./components/ProjectWizard.jsx";
 import WorkspaceView from "./components/WorkspaceView.jsx";
 import GlobalSettingsView from "./components/GlobalSettingsView.jsx";
 import LiveTelemetryBar from "./components/LiveTelemetryBar.jsx";
+import FloatingVoiceCommander from "./components/FloatingVoiceCommander.jsx";
 
 const STORAGE_KEY = "buildflow:v3";
 const LEGACY_V2 = "billflow:v2";
 const LEGACY_V1 = "billflow:projects";
+
+const getPreferredTheme = () => {
+  if (typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+    return "light";
+  }
+  return "dark";
+};
 
 const readStorage = (k) => {
   try {
@@ -189,7 +197,7 @@ function initStore() {
     return {
       projects: v3.projects.map(sanitizeProject).filter(Boolean),
       activity: arr(v3.activity),
-      theme: v3.theme || "dark",
+      theme: v3.theme || getPreferredTheme(),
     };
   }
 
@@ -205,7 +213,7 @@ function initStore() {
         });
       }),
       activity: arr(v2.activity),
-      theme: "dark",
+      theme: v2.theme || getPreferredTheme(),
     };
   }
 
@@ -225,7 +233,7 @@ function initStore() {
         return sanitizeProject({ ...inp, id: old.id || uid(), ...gen });
       }),
       activity: [],
-      theme: "dark",
+      theme: getPreferredTheme(),
     };
   }
 
@@ -273,7 +281,7 @@ function initStore() {
   return {
     projects: [initialProject],
     activity: [{ id: uid(), text: 'Loaded sample project "HealthTrack AI"', at: Date.now() }],
-    theme: "dark",
+    theme: getPreferredTheme(),
   };
 }
 
@@ -684,6 +692,26 @@ export default function App() {
           </div>
         </div>
       )}
+      {/* Floating Wispr Flow Voice Commander Dock */}
+      <FloatingVoiceCommander
+        activeProject={currentProject || projects[0]}
+        onPatch={patchProject}
+        onTabChange={(targetTab) => {
+          if (view !== "workspace") {
+            if (currentProject) {
+              setView("workspace");
+              setWorkspaceTab(targetTab);
+            } else if (projects.length > 0) {
+              openProject(projects[0].id, targetTab);
+            }
+          } else {
+            setWorkspaceTab(targetTab);
+          }
+        }}
+        onToggleTheme={toggleTheme}
+        onNotify={notify}
+        currentTheme={theme}
+      />
     </div>
   );
 }

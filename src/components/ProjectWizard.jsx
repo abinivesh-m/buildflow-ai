@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CATEGORIES, LEVELS } from "../engine.js";
 import { parseIntake } from "../intake.js";
+import VoiceDictateButton from "./VoiceDictateButton.jsx";
 
 const STEPS = ["Describe Idea", "Technical Constraints", "Review & Generate"];
 
@@ -191,7 +192,17 @@ export default function ProjectWizard({ onCreate, onCancel }) {
                   <span className="badge badge-purple">Speech-to-Spec</span>
                   <span className="badge badge-blue">Deterministic NLP</span>
                 </div>
-                <div style={{ display: "flex", gap: "6px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  <VoiceDictateButton
+                    currentValue={naturalText}
+                    onAppend={(newText) => {
+                      setNaturalText(newText);
+                      const res = parseIntake(newText);
+                      if (!res.error) setIntakeResult(res);
+                    }}
+                    label="Dictate Speech"
+                    sampleFallbackText="I want to build HealthTrack AI for resident doctors and medical students using TypeScript, React, and FastAPI over 7 days."
+                  />
                   <button
                     type="button"
                     className="btn btn-ghost btn-sm"
